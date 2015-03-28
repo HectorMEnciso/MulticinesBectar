@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/mainMenu"
+        android:icon="@android:drawable/ic_menu_sort_by_size"
+        android:showAsAction="always">
+
+        <menu>
+            <item
+                android:id="@+id/LogIn"
+                android:icon="@drawable/ic_action_action_exit_to_app"
+                android:showAsAction="never"
+                android:title="Log in">
+             </item>
+            <item
+                android:id="@+id/SignIn"
+                android:icon="@drawable/ic_action_action_exit_to_app"
+                android:title="Sign in">
+             </item>
+        </menu>
+    </item>
+</menu>
