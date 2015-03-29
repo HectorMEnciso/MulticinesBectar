@@ -2,7 +2,6 @@ package com.example.hector.multicinesbectar;
 
 import android.app.Activity;
 import android.content.res.Resources;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -11,13 +10,42 @@ import android.widget.TabHost;
 
 
 public class MainActivity extends Activity {
+    TabHost tabs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Resources res = getResources();
 
+        tabs=(TabHost)findViewById(R.id.tabhost);
+        tabs.setup();
+
+        TabHost.TabSpec spec=tabs.newTabSpec("mitab1");
+        spec.setContent(R.id.tab1);
+        spec.setIndicator("TAB1",res.getDrawable(android.R.drawable.ic_menu_mylocation));
+        tabs.addTab(spec);
+
+        spec=tabs.newTabSpec("mitab2");
+        spec.setContent(R.id.tab2);
+        spec.setIndicator("TAB2",res.getDrawable(android.R.drawable.ic_dialog_map));
+        tabs.addTab(spec);
+
+        spec=tabs.newTabSpec("mitab3");
+        spec.setContent(R.id.tab3);
+        spec.setIndicator("TAB3",res.getDrawable(android.R.drawable.ic_dialog_map));
+        tabs.addTab(spec);
+
+        tabs.setCurrentTab(0);
+
+
+        tabs.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String tabId) {
+                Log.i("AndroidTabsDemo", "Pulsada pestaña: " + tabId);
+            }
+        });
 
     }
 
