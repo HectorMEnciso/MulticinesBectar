@@ -1,6 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#08ECF0">
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/textViewBectar"
+        android:text="BECTAR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="22dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="68dp" />
+
+    <EditText
+        android:id="@+id/txtUserLogin"
+        android:hint="UserName..."
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="#FF0000"
+        android:background="@drawable/estilo"
+        android:inputType="text"
+        android:layout_below="@+id/textViewBectar"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="190dp" />
+
+    <EditText
+        android:id="@+id/txtUserPassword"
+        android:hint="Password..."
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="#FF0000"
+        android:background="@drawable/estilo"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/txtUserLogin"
+        android:layout_alignParentLeft="true" />
+
+    <Button
+        android:id="@+id/BtnAcept"
+        android:text="Log in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/estilos_botones"
+        android:layout_marginTop="38dp"
+        android:layout_below="@+id/txtUserPassword"
+        android:layout_alignEnd="@+id/textViewBectar"
+        android:layout_marginEnd="43dp" />
+    <Button
+        android:id="@+id/BtnCancel"
+        android:text="Cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/estilos_botones"
+        android:layout_alignTop="@+id/BtnAcept"
+        android:layout_alignStart="@+id/textViewBectar"
+        android:layout_marginStart="53dp" />
+
+</RelativeLayout >

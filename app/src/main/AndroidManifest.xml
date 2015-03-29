@@ -24,12 +24,12 @@
 
         <activity
             android:name=".LogInActivity"
-            android:label="AÑADA COCHE" >
+            android:label="Log in">
          </activity>
 
         <activity
             android:name=".SignInActivity"
-            android:label="AÑADA COCHE" >
+            android:label="Sign in">
         </activity>
     </application>
 

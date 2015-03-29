@@ -1,6 +1,7 @@
 package com.example.hector.multicinesbectar;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,17 +25,17 @@ public class MainActivity extends Activity {
 
         TabHost.TabSpec spec=tabs.newTabSpec("mitab1");
         spec.setContent(R.id.tab1);
-        spec.setIndicator("TAB1",res.getDrawable(android.R.drawable.ic_menu_mylocation));
+        spec.setIndicator("CINES", res.getDrawable(android.R.drawable.ic_menu_mylocation));
         tabs.addTab(spec);
 
         spec=tabs.newTabSpec("mitab2");
         spec.setContent(R.id.tab2);
-        spec.setIndicator("TAB2",res.getDrawable(android.R.drawable.ic_dialog_map));
+        spec.setIndicator("PELICULAS",res.getDrawable(android.R.drawable.ic_dialog_map));
         tabs.addTab(spec);
 
         spec=tabs.newTabSpec("mitab3");
         spec.setContent(R.id.tab3);
-        spec.setIndicator("TAB3",res.getDrawable(android.R.drawable.ic_dialog_map));
+        spec.setIndicator("IR YA!",res.getDrawable(android.R.drawable.ic_dialog_map));
         tabs.addTab(spec);
 
         tabs.setCurrentTab(0);
@@ -48,7 +49,6 @@ public class MainActivity extends Activity {
         });
 
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -66,6 +66,14 @@ public class MainActivity extends Activity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.LogIn) {
+            Intent LogIn = new Intent(this,LogInActivity.class);
+            startActivity(LogIn);
+            return true;
+        }
+
+        if (id == R.id.SignIn) {
+            Intent SignIn = new Intent(this,SignInActivity.class);
+            startActivity(SignIn);
             return true;
         }
 
