@@ -21,6 +21,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".login_activity"
+            android:label="AÑADA COCHE" >
+         </activity>
+
+        <activity
+            android:name=".signin_activity"
+            android:label="AÑADA COCHE" >
+        </activity>
     </application>
 
 </manifest>
