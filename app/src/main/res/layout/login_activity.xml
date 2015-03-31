@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/logo"
-        android:layout_marginTop="61dp"
+        android:layout_marginTop="30dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -21,7 +21,7 @@
         android:textColorHint="#FF0000"
         android:background="@drawable/estilo"
         android:inputType="text"
-        android:layout_marginTop="79dp"
+        android:layout_marginTop="30dp"
         android:layout_below="@+id/ImgViewLogoBectar"
         android:layout_alignParentStart="true" />
 
@@ -44,18 +44,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/estilos_botones"
-        android:layout_marginTop="37dp"
+        android:layout_marginTop="47dp"
         android:layout_below="@+id/txtUserPassword"
         android:layout_alignEnd="@+id/ImgViewLogoBectar"
-        android:layout_marginEnd="68dp" />
+        android:layout_marginEnd="61dp" />
     <Button
         android:id="@+id/BtnCancel"
         android:text="Cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/estilos_botones"
-        android:layout_alignTop="@+id/BtnAcept"
-        android:layout_alignStart="@+id/ImgViewLogoBectar"
-        android:layout_marginStart="67dp" />
+        android:layout_marginStart="65dp"
+        android:layout_above="@+id/BtnReset"
+        android:layout_alignStart="@+id/ImgViewLogoBectar" />
+
+    <Button
+        android:id="@+id/BtnReset"
+        android:text="Reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/estilos_botones"
+        android:layout_marginTop="24dp"
+        android:layout_below="@+id/BtnAcept"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout >

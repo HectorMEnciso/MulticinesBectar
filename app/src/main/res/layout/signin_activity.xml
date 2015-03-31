@@ -1,6 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/accent_material_dark"
     android:layout_height="match_parent">
 
-</LinearLayout>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#08ECF0">
+
+        <ImageView
+            android:id="@+id/ImgViewLogoBectar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo"
+            android:layout_marginTop="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <EditText
+            android:id="@+id/txtUserNameSigngin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nombre..."
+            android:textColorHint="#FF0000"
+            android:background="@drawable/estilo"
+            android:inputType="text"
+            android:layout_marginTop="30dp"
+            android:layout_below="@+id/ImgViewLogoBectar"
+            android:layout_alignParentStart="true" />
+
+        <EditText
+            android:id="@+id/txtUserSurNameSigngin"
+            android:hint="Apellidos..."
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:textColorHint="#FF0000"
+            android:background="@drawable/estilo"
+            android:inputType="text"
+            android:layout_marginTop="30dp"
+            android:layout_below="@+id/txtUserNameSigngin"
+            android:layout_alignParentStart="true" />
+
+        <EditText
+            android:id="@+id/txtUserNIFSigngin"
+            android:hint="DNI..."
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="#FF0000"
+            android:background="@drawable/estilo"
+            android:inputType="text"
+            android:layout_marginTop="30dp"
+            android:layout_below="@+id/txtUserSurNameSigngin"
+            android:layout_alignParentStart="true" />
+
+        <EditText
+            android:id="@+id/txtUserEmailSigngin"
+            android:layout_width="match_parent"
+            android:hint="Email..."
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/estilo"
+            android:textColorHint="#FF0000"
+            android:ems="10"
+            android:layout_below="@+id/txtUserNIFSigngin"
+            android:layout_alignParentStart="true" />
+
+        <EditText
+            android:id="@+id/txtUserNickNameSigngin"
+            android:hint="NickName..."
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="#FF0000"
+            android:background="@drawable/estilo"
+            android:inputType="text"
+            android:layout_marginTop="30dp"
+            android:layout_below="@+id/txtUserEmailSigngin"
+            android:layout_alignParentStart="true" />
+
+        <EditText
+            android:id="@+id/txtUserCreditCardSigngin"
+            android:hint="Credit Card..."
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="#FF0000"
+            android:background="@drawable/estilo"
+            android:inputType="text"
+            android:layout_marginTop="30dp"
+            android:layout_below="@+id/txtUserNickNameSigngin"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:id="@+id/BtnAcept"
+            android:text="Sign in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/estilos_botones"
+            android:layout_marginTop="26dp"
+            android:layout_marginEnd="42dp"
+            android:layout_below="@+id/txtUserCreditCardSigngin"
+            android:layout_alignEnd="@+id/BtnReset" />
+        <Button
+            android:id="@+id/BtnCancel"
+            android:text="Cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/estilos_botones"
+            android:layout_alignTop="@+id/BtnAcept"
+            android:layout_alignStart="@+id/ImgViewLogoBectar"
+            android:layout_marginStart="67dp" />
+
+        <Button
+            android:id="@+id/BtnReset"
+            android:text="Reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/estilos_botones"
+            android:layout_below="@+id/BtnAcept"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+</ScrollView>
