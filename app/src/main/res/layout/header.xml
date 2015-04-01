@@ -6,9 +6,9 @@
     
     <ImageView
         android:id="@+id/backgrd"
-        android:layout_width="fill_parent"
-        android:layout_height="150dp"
-        android:src="@drawable/back"
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:src="@drawable/logo"
         android:scaleType="centerCrop"
 	 />       
 </FrameLayout>
