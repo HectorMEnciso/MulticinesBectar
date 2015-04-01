@@ -94,6 +94,8 @@ public class MainActivity extends Activity {
         NavItms.add(new Item_objct(titulos[3], NavIcons.getResourceId(3, -1)));
         //Etiquetas
         NavItms.add(new Item_objct(titulos[4], NavIcons.getResourceId(4, -1)));
+
+
         //Configuracion
 //        NavItms.add(new Item_objct(titulos[5], NavIcons.getResourceId(5, -1)));
         //Share
