@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 /*  Fragment para seccion perfil */ 
 public class HomeFragment extends Fragment {
-     
+
     public HomeFragment(){}
      
     @Override
@@ -16,7 +16,8 @@ public class HomeFragment extends Fragment {
             Bundle savedInstanceState) {
   
         View rootView = inflater.inflate(R.layout.home, container, false);
-          
+
         return rootView;
     }
+
 }
