@@ -8,10 +8,7 @@
     <string-array name="nav_options">
         <item>Home</item>
         <item>Perfil</item>
-        <item>Favoritos</item>
-        <item>Eventos</item>
         <item>Lugares</item>
-        <item>Etiquetas</item>
         <item>Configuración</item>
         <item>Compartir</item>
     </string-array>
@@ -19,10 +16,7 @@
     <array name="navigation_iconos">
         <item>@drawable/ic_action_home</item>
         <item>@drawable/ic_action_user</item>
-        <item>@drawable/ic_action_star</item>
-        <item>@drawable/ic_action_event</item>
         <item>@drawable/ic_action_place</item>
-        <item>@drawable/ic_action_labels</item>
         <item>@drawable/ic_action_settings</item>
         <item>@drawable/ic_action_share</item>
     </array>

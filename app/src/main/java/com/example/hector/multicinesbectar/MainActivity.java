@@ -95,9 +95,9 @@ public class MainActivity extends Activity {
         //Etiquetas
         NavItms.add(new Item_objct(titulos[4], NavIcons.getResourceId(4, -1)));
         //Configuracion
-        NavItms.add(new Item_objct(titulos[5], NavIcons.getResourceId(5, -1)));
+//        NavItms.add(new Item_objct(titulos[5], NavIcons.getResourceId(5, -1)));
         //Share
-        NavItms.add(new Item_objct(titulos[6], NavIcons.getResourceId(6, -1)));
+       // NavItms.add(new Item_objct(titulos[6], NavIcons.getResourceId(6, -1)));
 
         //Declaramos y seteamos nuestro adaptador al cual le pasamos el array con los titulos
         NavAdapter= new NavigationAdapter(this,NavItms);
