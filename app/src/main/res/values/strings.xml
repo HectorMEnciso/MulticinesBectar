@@ -4,9 +4,12 @@
     <string name="app_name">Bectar</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="search_title">Buscar</string>
+    <string name="search_hint">Busque aqui...</string>
+    search_title
     <!-- Lista de titulos de navegacion-->
     <string-array name="nav_options">
-        <item>Home</item>
+        <item>Cines/Peliculas</item>
         <item>Perfil</item>
         <item>Lugares</item>
         <item>Configuración</item>

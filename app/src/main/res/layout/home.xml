@@ -42,7 +42,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <ListView
-                        android:id="@+id/LstOpciones"
+                        android:id="@+id/LstCines"
                         android:layout_width="wrap_content"
                         android:divider="#0F1E81"
                         android:scrollbarStyle="outsideOverlay"
@@ -74,7 +74,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <ListView
-                        android:id="@+id/LstOpciones2"
+                        android:id="@+id/LstPeliculas"
                         android:layout_width="wrap_content"
                         android:divider="#0F1E81"
                         android:scrollbarStyle="outsideOverlay"
@@ -105,7 +105,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <ListView
-                        android:id="@+id/LstOpciones3"
+                        android:id="@+id/LstIrYa"
                         android:layout_width="wrap_content"
                         android:divider="#0F1E81"
                         android:scrollbarStyle="outsideOverlay"

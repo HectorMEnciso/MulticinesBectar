@@ -3,9 +3,10 @@ package com.example.hector.multicinesbectar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -16,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TabHost;
 import android.widget.Toast;
 
@@ -23,7 +25,6 @@ import java.util.ArrayList;
 
 
 public class MainActivity extends Activity {
-    private TabHost tabs;
     private String[] titulos;
     private DrawerLayout NavDrawerLayout;
     private ListView NavList;
@@ -32,7 +33,7 @@ public class MainActivity extends Activity {
     private ActionBarDrawerToggle mDrawerToggle;
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
-    NavigationAdapter NavAdapter;
+    private NavigationAdapter NavAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +42,7 @@ public class MainActivity extends Activity {
         //Drawer Layout
         NavDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         //Lista
-        NavList = (ListView) findViewById(R.id.lista);
+        NavList = (ListView) findViewById(R.id.listaDrawer);
         //Declaramos el header el cual sera el layout de header.xml
         View header = getLayoutInflater().inflate(R.layout.header, null);
         //Establecemos header
@@ -63,12 +64,6 @@ public class MainActivity extends Activity {
         NavItms.add(new Item_objct(titulos[3], NavIcons.getResourceId(3, -1)));
         //Etiquetas
         NavItms.add(new Item_objct(titulos[4], NavIcons.getResourceId(4, -1)));
-
-
-        //Configuracion
-//        NavItms.add(new Item_objct(titulos[5], NavIcons.getResourceId(5, -1)));
-        //Share
-       // NavItms.add(new Item_objct(titulos[6], NavIcons.getResourceId(6, -1)));
 
         //Declaramos y seteamos nuestro adaptador al cual le pasamos el array con los titulos
         NavAdapter= new NavigationAdapter(this,NavItms);
@@ -173,10 +168,8 @@ public class MainActivity extends Activity {
             Log.e("mDrawerToggle pushed", "x");
             return true;
         }
-        // Handle your other action bar items...
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.LogIn) {
             Intent LogIn = new Intent(this,LogInActivity.class);
             startActivity(LogIn);
@@ -195,29 +188,13 @@ public class MainActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        // Associate searchable configuration with the SearchView
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));
         return true;
     }
-
-   /* @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.LogIn) {
-            Intent LogIn = new Intent(this,LogInActivity.class);
-            startActivity(LogIn);
-            return true;
-        }
-
-        if (id == R.id.SignIn) {
-            Intent SignIn = new Intent(this,SignInActivity.class);
-            startActivity(SignIn);
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }*/
 }
