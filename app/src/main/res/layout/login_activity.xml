@@ -1,71 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#08ECF0">
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true">
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" android:background="@drawable/gradient_bg">
 
-    <ImageView
-        android:id="@+id/ImgViewLogoBectar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/logo"
-        android:layout_marginTop="30dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        <!--  Header  Starts-->
+        <LinearLayout android:id="@+id/header"
+            android:layout_width="fill_parent"
+            android:orientation="vertical"
+            android:background="@drawable/carrete2"
+            android:layout_height="90dip"
+            android:paddingBottom="5dip">
+            <!-- Logo Start-->
+            <!-- Logo Ends -->
+        </LinearLayout>
+        <!--  Header Ends -->
+        <!-- Footer Start -->
+        <LinearLayout android:id="@+id/footer"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="90dip"
+            android:background="@drawable/carrete2"
+            android:layout_alignParentBottom="true">
+        </LinearLayout>
+        <!-- Footer Ends -->
 
-    <EditText
-        android:id="@+id/txtUserLogin"
-        android:hint="UserName..."
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColorHint="#FF0000"
-        android:background="@drawable/estilo"
-        android:inputType="text"
-        android:layout_marginTop="30dp"
-        android:layout_below="@+id/ImgViewLogoBectar"
-        android:layout_alignParentStart="true" />
+        <!-- Login Form -->
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dip"
+            android:layout_below="@id/header"
+            android:weightSum="1">
 
-    <EditText
-        android:id="@+id/txtUserPassword"
-        android:hint="Password..."
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColorHint="#FF0000"
-        android:background="@drawable/estilo"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/txtUserLogin"
-        android:layout_alignParentLeft="true" />
 
-    <Button
-        android:id="@+id/BtnAcept"
-        android:text="Log in"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/estilos_botones"
-        android:layout_marginTop="47dp"
-        android:layout_below="@+id/txtUserPassword"
-        android:layout_alignEnd="@+id/ImgViewLogoBectar"
-        android:layout_marginEnd="61dp" />
-    <Button
-        android:id="@+id/BtnCancel"
-        android:text="Cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/estilos_botones"
-        android:layout_marginStart="65dp"
-        android:layout_above="@+id/BtnReset"
-        android:layout_alignStart="@+id/ImgViewLogoBectar" />
+            <TextView android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#372c24"
+                android:text="Email"/>
+            <EditText android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:layout_marginBottom="20dip"
+                android:singleLine="true"/>
+            <!--  Password Label -->
+            <TextView android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#372c24"
+                android:text="Password"/>
+            <EditText android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:singleLine="true"
+                android:password="true"/>
+            <!-- Login button -->
+            <Button android:id="@+id/btnLogin"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:text="Login"/>
+            <Button android:id="@+id/btnLoginCancel"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:text="Cancel"/>
 
-    <Button
-        android:id="@+id/BtnReset"
-        android:text="Reset"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/estilos_botones"
-        android:layout_marginTop="24dp"
-        android:layout_below="@+id/BtnAcept"
-        android:layout_centerHorizontal="true" />
-
-</RelativeLayout >
+            <!-- Link to Registration Screen -->
+            <TextView android:id="@+id/link_to_register"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dip"
+                android:layout_marginBottom="40dip"
+                android:text="New to Bectar? Register here"
+                android:gravity="center"
+                android:textSize="20dip"
+                android:textColor="#0b84aa"/>
+            <ImageView android:src="@drawable/images"
+                android:layout_width="250dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+        <!-- Login Form Ends -->
+    </RelativeLayout>
+</ScrollView>
