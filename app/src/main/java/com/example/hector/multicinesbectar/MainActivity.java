@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 
 public class MainActivity extends Activity {
-    TabHost tabs;
+    private TabHost tabs;
     private String[] titulos;
     private DrawerLayout NavDrawerLayout;
     private ListView NavList;
@@ -36,38 +36,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        Resources res = getResources();
-
-        tabs=(TabHost)findViewById(R.id.tabhost);
-        tabs.setup();
-
-        TabHost.TabSpec spec=tabs.newTabSpec("mitab1");
-        spec.setContent(R.id.tab1);
-        spec.setIndicator("CINES", res.getDrawable(android.R.drawable.ic_menu_mylocation));
-        tabs.addTab(spec);
-
-        spec=tabs.newTabSpec("mitab2");
-        spec.setContent(R.id.tab2);
-        spec.setIndicator("PELICULAS",res.getDrawable(android.R.drawable.ic_dialog_map));
-        tabs.addTab(spec);
-
-        spec=tabs.newTabSpec("mitab3");
-        spec.setContent(R.id.tab3);
-        spec.setIndicator("IR YA!",res.getDrawable(android.R.drawable.ic_dialog_map));
-        tabs.addTab(spec);
-
-        tabs.setCurrentTab(0);
-
-
-        tabs.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
-            @Override
-            public void onTabChanged(String tabId) {
-                Log.i("AndroidTabsDemo", "Pulsada pestaña: " + tabId);
-            }
-        });
-
+        setContentView(R.layout.main);
 
         //Drawer Layout
         NavDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -162,7 +131,7 @@ public class MainActivity extends Activity {
 
             default:
                 //si no esta la opcion mostrara un toast y nos mandara a Home
-                Toast.makeText(getApplicationContext(), "Opcion " + titulos[position - 1] + "no disponible!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Opcion " + titulos[position - 1] + " no disponible!", Toast.LENGTH_SHORT).show();
                 fragment = new HomeFragment();
                 position=1;
                 break;
@@ -205,6 +174,20 @@ public class MainActivity extends Activity {
             return true;
         }
         // Handle your other action bar items...
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.LogIn) {
+            Intent LogIn = new Intent(this,LogInActivity.class);
+            startActivity(LogIn);
+            return true;
+        }
+
+        if (id == R.id.SignIn) {
+            Intent SignIn = new Intent(this,SignInActivity.class);
+            startActivity(SignIn);
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
