@@ -1,125 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:background="@color/accent_material_dark"
-    android:layout_height="match_parent">
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true">
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" android:background="@drawable/gradient_bg">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#7FE1F2">
+        <LinearLayout android:id="@+id/header"
+            android:layout_width="fill_parent"
+            android:orientation="vertical"
+            android:background="@drawable/carrete2"
+            android:layout_height="90dip"
+            android:paddingBottom="5dip">
 
-        <ImageView
-            android:id="@+id/ImgViewLogoBectar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/logo"
-            android:layout_marginTop="30dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+        </LinearLayout>
 
-        <EditText
-            android:id="@+id/txtUserNameSigngin"
+        <LinearLayout android:id="@+id/footer"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="90dip"
+            android:background="@drawable/carrete2"
+            android:layout_alignParentBottom="true">
+        </LinearLayout>
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nombre..."
-            android:textColorHint="#FF0000"
-            android:background="@drawable/estilo"
-            android:inputType="text"
-            android:layout_marginTop="30dp"
-            android:layout_below="@+id/ImgViewLogoBectar"
-            android:layout_alignParentStart="true" />
+            android:padding="10dip"
+            android:layout_below="@id/header"
+            android:weightSum="1">
 
-        <EditText
-            android:id="@+id/txtUserSurNameSigngin"
-            android:hint="Apellidos..."
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:textColorHint="#FF0000"
-            android:background="@drawable/estilo"
-            android:inputType="text"
-            android:layout_marginTop="30dp"
-            android:layout_below="@+id/txtUserNameSigngin"
-            android:layout_alignParentStart="true" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#372c24"
+                android:text="Nombre"/>
 
-        <EditText
-            android:id="@+id/txtUserNIFSigngin"
-            android:hint="DNI..."
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColorHint="#FF0000"
-            android:background="@drawable/estilo"
-            android:inputType="text"
-            android:layout_marginTop="30dp"
-            android:layout_below="@+id/txtUserSurNameSigngin"
-            android:layout_alignParentStart="true" />
+            <EditText android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:singleLine="true"
+                android:password="true"/>
 
-        <EditText
-            android:id="@+id/txtUserEmailSigngin"
-            android:layout_width="match_parent"
-            android:hint="Email..."
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/estilo"
-            android:textColorHint="#FF0000"
-            android:ems="10"
-            android:layout_below="@+id/txtUserNIFSigngin"
-            android:layout_alignParentStart="true" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#372c24"
+                android:text="Apellidos"/>
 
-        <EditText
-            android:id="@+id/txtUserNickNameSigngin"
-            android:hint="NickName..."
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColorHint="#FF0000"
-            android:background="@drawable/estilo"
-            android:inputType="text"
-            android:layout_marginTop="30dp"
-            android:layout_below="@+id/txtUserEmailSigngin"
-            android:layout_alignParentStart="true" />
+            <EditText android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:singleLine="true"
+                android:password="true"/>
 
-        <EditText
-            android:id="@+id/txtUserCreditCardSigngin"
-            android:hint="Credit Card..."
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColorHint="#FF0000"
-            android:background="@drawable/estilo"
-            android:inputType="text"
-            android:layout_marginTop="30dp"
-            android:layout_below="@+id/txtUserNickNameSigngin"
-            android:layout_alignParentStart="true" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#372c24"
+                android:text="DNI"/>
 
-        <Button
-            android:id="@+id/BtnAcept"
-            android:text="Sign in"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/estilos_botones"
-            android:layout_marginTop="26dp"
-            android:layout_marginEnd="42dp"
-            android:layout_below="@+id/txtUserCreditCardSigngin"
-            android:layout_alignEnd="@+id/BtnReset" />
-        <Button
-            android:id="@+id/BtnCancel"
-            android:text="Cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/estilos_botones"
-            android:layout_alignTop="@+id/BtnAcept"
-            android:layout_alignStart="@+id/ImgViewLogoBectar"
-            android:layout_marginStart="67dp" />
+            <EditText android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:singleLine="true"
+                android:password="true"/>
 
-        <Button
-            android:id="@+id/BtnReset"
-            android:text="Reset"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/estilos_botones"
-            android:layout_below="@+id/BtnAcept"
-            android:layout_centerHorizontal="true" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#372c24"
+                android:text="Email"/>
 
+            <EditText android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:inputType="textEmailAddress"
+                android:singleLine="true"
+                android:password="true"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#372c24"
+                android:text="NickName"/>
+
+            <EditText android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:inputType="textEmailAddress"
+                android:singleLine="true"
+                android:password="true"/>
+
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#372c24"
+                android:text="PassWord"/>
+
+            <EditText android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:inputType="textPassword"
+                android:singleLine="true"
+                android:password="true"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#372c24"
+                android:text="Credit Card"/>
+
+            <EditText android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:inputType="number"
+                android:singleLine="true"
+                android:password="true"/>
+
+            <Button android:id="@+id/btnSignIn"
+                android:layout_width="fill_parent"
+                android:background="@drawable/estilos_botones"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:text="Signin"/>
+
+            <ImageView android:src="@drawable/images"
+                android:layout_margin="10dp"
+                android:layout_width="250dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center_horizontal" />
+
+        </LinearLayout>
     </RelativeLayout>
 </ScrollView>
