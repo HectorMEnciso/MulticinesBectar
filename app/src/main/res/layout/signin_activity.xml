@@ -12,7 +12,7 @@
             android:layout_width="fill_parent"
             android:orientation="vertical"
             android:background="@drawable/carrete2"
-            android:layout_height="90dip"
+            android:layout_height="55dip"
             android:paddingBottom="5dip">
 
         </LinearLayout>
@@ -20,7 +20,7 @@
         <LinearLayout android:id="@+id/footer"
             android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="90dip"
+            android:layout_height="50dip"
             android:background="@drawable/carrete2"
             android:layout_alignParentBottom="true">
         </LinearLayout>
@@ -32,7 +32,8 @@
             android:layout_height="wrap_content"
             android:padding="10dip"
             android:layout_below="@id/header"
-            android:weightSum="1">
+            android:weightSum="1"
+           >
 
             <TextView
                 android:layout_width="fill_parent"
@@ -114,28 +115,40 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#372c24"
-                android:text="Credit Card"/>
+                android:text="Repeat PassWord"/>
 
             <EditText android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:inputType="textPassword"
+                android:singleLine="true"
+                android:password="true"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#372c24"
+                android:text="Credit Card"/>
+
+            <EditText
+                android:id="@+id/txtCreditCard"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dip"
                 android:inputType="number"
                 android:singleLine="true"
                 android:password="true"/>
-
-            <Button android:id="@+id/btnSignIn"
+            <Button
+                android:id="@+id/btnSignIn"
                 android:layout_width="fill_parent"
+                android:layout_below="@+id/txtCreditCard"
                 android:background="@drawable/estilos_botones"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dip"
-                android:text="Signin"/>
-
-            <ImageView android:src="@drawable/images"
-                android:layout_margin="10dp"
-                android:layout_width="250dp"
-                android:layout_height="150dp"
-                android:layout_gravity="center_horizontal" />
+                android:text="Sign in"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp" />
 
         </LinearLayout>
+
     </RelativeLayout>
 </ScrollView>
