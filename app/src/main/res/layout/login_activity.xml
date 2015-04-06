@@ -6,7 +6,7 @@
     android:fillViewport="true">
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" android:background="@drawable/gradient_bg">
+        android:layout_height="wrap_content" android:background="#B7CCF2">
 
         <LinearLayout android:id="@+id/header"
             android:layout_width="fill_parent"
@@ -40,9 +40,11 @@
                 android:layout_height="wrap_content"
                 android:textColor="#372c24"
                 android:text="Email"/>
+
             <EditText android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dip"
+                android:drawableLeft="@android:drawable/ic_dialog_email"
                 android:layout_marginBottom="20dip"
                 android:singleLine="true"/>
 
@@ -50,11 +52,17 @@
                 android:layout_height="wrap_content"
                 android:textColor="#372c24"
                 android:text="Password"/>
-            <EditText android:layout_width="fill_parent"
+
+            <EditText
+                android:id="@+id/txtPassword"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dip"
+                android:drawableLeft="@android:drawable/ic_secure"
                 android:singleLine="true"
                 android:password="true"/>
+
+
 
             <Button android:id="@+id/btnLogin"
                 android:layout_width="fill_parent"
@@ -67,13 +75,22 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dip"
+                android:background="@drawable/rounded_corner"
                 android:layout_marginBottom="40dip"
                 android:text="New to Bectar? Register here"
                 android:gravity="center"
                 android:textSize="20dip"
                 android:textColor="#0b84aa"/>
-
+            <Button
+                android:id="@+id/button_clear"
+                android:layout_width="25dip"
+                android:layout_height="20dip"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/show_pass"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dip" />
         </LinearLayout>
 
     </RelativeLayout>
+
 </ScrollView>
