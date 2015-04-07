@@ -101,7 +101,12 @@ public class MainActivity extends Activity {
         NavList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
-                MostrarFragment(position);
+                if(position==0){
+                    MostrarFragment(position+2);
+                }
+                else{
+                    MostrarFragment(position);
+                }
             }
         });
 

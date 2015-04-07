@@ -15,7 +15,6 @@ import android.widget.TextView;
  * Created by Hector on 29/03/2015.
  */
 public class LogInActivity extends Activity {
-    private boolean estaMostrada=false;
     private EditText EditPassword;
     private TextView link_to_register;
     private Button ShowPassword;
@@ -39,19 +38,15 @@ public class LogInActivity extends Activity {
         ShowPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(estaMostrada){
                     EditPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                }
-                estaMostrada=false;
             }
         });
 
         ShowPassword.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                estaMostrada=true;
                 EditPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                return estaMostrada;
+                return true;
             }
         });
     }
