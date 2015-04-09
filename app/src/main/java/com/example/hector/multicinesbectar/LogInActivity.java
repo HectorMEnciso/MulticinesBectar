@@ -39,6 +39,7 @@ public class LogInActivity extends Activity {
             @Override
             public void onClick(View v) {
                     EditPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                EditPassword.setSelection(EditPassword.getText().length());
             }
         });
 
@@ -46,6 +47,7 @@ public class LogInActivity extends Activity {
             @Override
             public boolean onLongClick(View v) {
                 EditPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                EditPassword.setSelection(EditPassword.getText().length());
                 return true;
             }
         });

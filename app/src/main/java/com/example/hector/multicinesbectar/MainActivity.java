@@ -120,7 +120,7 @@ public class MainActivity extends Activity {
     private void MostrarFragment(int position) {
         // update the main content by replacing fragments
         Fragment fragment = null;
-       // MapsActivity maps = null;
+
         switch (position) {
             case 1:
                 fragment = new HomeFragment();
@@ -129,7 +129,7 @@ public class MainActivity extends Activity {
                 fragment = new ProfileFragment();
                 break;
             case 3:
-
+                fragment= new MapsCinesActivity();
                 break;
 
             default:
