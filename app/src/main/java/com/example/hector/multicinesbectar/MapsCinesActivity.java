@@ -52,7 +52,7 @@ public class MapsCinesActivity extends Fragment {
         mapHelper.setCompassEnabled(true);
 
         //Set to have a my location button which on clicked moves to your current location
-        mapHelper.setMyLocationButtonEnabled(false);
+        mapHelper.setMyLocationButtonEnabled(true);
 
         //To enable rotation in your map
         mapHelper.setRotateGesturesEnabled(true);
