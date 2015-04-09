@@ -23,6 +23,7 @@ public class MapsCinesActivity extends Fragment {
     private MapView mMapView;
     private GoogleMap mMap;
     private Bundle mBundle;
+    MapHelper mapHelper;
     static final LatLng Palafox = new LatLng(41.651, -0.88267717);
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,6 +35,29 @@ public class MapsCinesActivity extends Fragment {
         mMapView = (MapView) inflatedView.findViewById(R.id.map);
         mMapView.onCreate(mBundle);
         setUpMapIfNeeded(inflatedView);
+        mapHelper = new MapHelper(mMap);
+        //Set the map type
+        mapHelper.setMapType(MapTypes.NORMAL);
+
+        //Set if you want your current location to be highlighted
+        mapHelper.setCurrentLocation(true);
+
+        //To enable the zoom controls (+/- buttons)
+        mapHelper.setZoomControlsEnabled(true);
+
+        //To enable gestures
+        mapHelper.setZoomGesturesEnabled(true);
+
+        //To enable compass
+        mapHelper.setCompassEnabled(true);
+
+        //Set to have a my location button which on clicked moves to your current location
+        mapHelper.setMyLocationButtonEnabled(false);
+
+        //To enable rotation in your map
+        mapHelper.setRotateGesturesEnabled(true);
+
+
 
         return inflatedView;
     }
@@ -65,7 +89,9 @@ public class MapsCinesActivity extends Fragment {
                 .target(new LatLng(41.651, -0.88267717)).zoom(12)
                 .build();
         mMap.animateCamera(CameraUpdateFactory
-                .newCameraPosition(cameraPosition));    }
+                .newCameraPosition(cameraPosition));
+        //k.setCurrentLocation(true);
+    }
 
     @Override
     public void onResume() {
