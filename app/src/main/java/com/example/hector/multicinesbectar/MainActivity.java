@@ -120,6 +120,7 @@ public class MainActivity extends Activity {
     private void MostrarFragment(int position) {
         // update the main content by replacing fragments
         Fragment fragment = null;
+       // MapsActivity maps = null;
         switch (position) {
             case 1:
                 fragment = new HomeFragment();
@@ -127,7 +128,9 @@ public class MainActivity extends Activity {
             case 2:
                 fragment = new ProfileFragment();
                 break;
+            case 3:
 
+                break;
 
             default:
                 //si no esta la opcion mostrara un toast y nos mandara a Home

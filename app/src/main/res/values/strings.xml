@@ -6,8 +6,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="search_title">Buscar</string>
     <string name="search_hint">Busque aqui...</string>
-    search_title
-    <!-- Lista de titulos de navegacion-->
+    search_title    <!-- Lista de titulos de navegacion -->
     <string-array name="nav_options">
         <item>Cines/Peliculas</item>
         <item>Perfil</item>
@@ -15,7 +14,7 @@
         <item>Configuración</item>
         <item>Compartir</item>
     </string-array>
-    <!-- Lista de iconos de navegacion-->
+    <!-- Lista de iconos de navegacion -->
     <array name="navigation_iconos">
         <item>@drawable/ic_action_home</item>
         <item>@drawable/ic_action_user</item>
@@ -23,4 +22,7 @@
         <item>@drawable/ic_action_settings</item>
         <item>@drawable/ic_action_share</item>
     </array>
+
+    <string name="title_activity_maps">Map</string>
+
 </resources>
