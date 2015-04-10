@@ -24,7 +24,7 @@ public class MapsCinesActivity extends Fragment {
     private GoogleMap mMap;
     private Bundle mBundle;
     MapHelper mapHelper;
-    static final LatLng Palafox = new LatLng(41.651, -0.88267717);
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -78,12 +78,14 @@ public class MapsCinesActivity extends Fragment {
     }
 
     private void setUpMap() {
-       // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(15));
-        // Zoom in, animating the camera.
 
-
-        mMap.addMarker(new MarkerOptions().position(new LatLng(41.651, -0.88267717)).title("Cines Palafox").snippet("Multicine cn estrenos y cine clásico"));
-        mMap.addMarker(new MarkerOptions().position(new LatLng(41.6220213, -0.8803059)).title("Cines Cinesa\nPuerto Venecia").snippet("Cinesa"));
+        mMap.addMarker(new MarkerOptions().position(new LatLng(41.651, -0.88267717)).title("CINE PALAFOX").snippet("Multicine con estrenos y cine clásico"));
+        mMap.addMarker(new MarkerOptions().position(new LatLng(41.6220213, -0.8803059)).title("CINESA \nPUERTO VENCECIA 3D"));
+        mMap.addMarker(new MarkerOptions().position(new LatLng(41.640309, -0.909454)).title("CINES ARAGONIA").snippet("Aragonia"));
+        mMap.addMarker(new MarkerOptions().position(new LatLng(41.650331, -0.88522)).title("CINES CERVANTES").snippet("Órpera y proyecciones cinematográficas"));
+        mMap.addMarker(new MarkerOptions().position(new LatLng(41.6708, -0.890254)).title("CINESA GRANCASA").snippet("Cadena de cines multisala de estreno"));
+        mMap.addMarker(new MarkerOptions().position(new LatLng(41.646483, -0.885755)).title("CINES ELISEOS").snippet("Estrenos de una clásica de 1944"));
+        mMap.addMarker(new MarkerOptions().position(new LatLng(41.634345, -0.985562)).title("YELMO CINES PLAZA IMPERIAL").snippet("Cines multisala de estreno con eventos"));
 
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(new LatLng(41.651, -0.88267717)).zoom(12)

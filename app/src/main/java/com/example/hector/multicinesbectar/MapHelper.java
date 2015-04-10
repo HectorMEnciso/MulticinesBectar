@@ -61,7 +61,7 @@ public class MapHelper {
 	public MapHelper(GoogleMap googleMap) {
 		this.googleMap = googleMap;
 
-		MarkerColor = NONE;
+		MarkerColor = CYAN;
 	}
 
 	/**
