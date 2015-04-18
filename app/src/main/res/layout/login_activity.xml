@@ -4,25 +4,26 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:fillViewport="true">
+
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" android:background="#B7CCF2">
+        android:layout_height="wrap_content"
+        android:background="#B7CCF2">
 
         <LinearLayout android:id="@+id/header"
             android:layout_width="fill_parent"
+            android:layout_height="70dip"
             android:orientation="vertical"
             android:background="@drawable/carrete2"
-            android:layout_height="70dip"
             android:paddingBottom="5dip">
-
         </LinearLayout>
 
         <LinearLayout android:id="@+id/footer"
-            android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="70dip"
-            android:paddingTop="5dip"
+            android:orientation="vertical"
             android:background="@drawable/carrete2"
+            android:paddingTop="5dip"
             android:layout_alignParentBottom="true">
         </LinearLayout>
 
@@ -35,13 +36,15 @@
             android:layout_below="@id/header"
             android:weightSum="1">
 
-
-            <TextView android:layout_width="fill_parent"
+            <TextView
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#372c24"
                 android:text="Email/UserName"/>
 
-            <EditText android:layout_width="fill_parent"
+            <EditText
+                android:id="@+id/txtEmailUserName"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dip"
                 android:drawableLeft="@drawable/ic_action_account_box"
@@ -58,7 +61,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dip"
-
                 android:drawableLeft="@drawable/ic_action_lock"
                 android:singleLine="true"
                 android:password="true"/>
@@ -86,14 +88,12 @@
                     android:layout_gravity="center"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dip"
-                    android:text="Mostrar contraseña"
-                    />
+                    android:text="Mostrar contraseña"/>
 
                 </LinearLayout>
 
-
-
-            <Button android:id="@+id/btnLogin"
+            <Button
+                android:id="@+id/btnLogin"
                 android:layout_width="fill_parent"
                 android:background="@drawable/estilos_botones"
                 android:layout_height="wrap_content"
@@ -109,7 +109,7 @@
                 android:text="New to Bectar? Register here"
                 android:gravity="center"
                 android:textSize="20dip"
-                android:textColor="#0b84aa"/>
+                android:textColor="#B91414"/>
 
         </LinearLayout>
 

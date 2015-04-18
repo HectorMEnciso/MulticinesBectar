@@ -6,7 +6,8 @@
     android:fillViewport="true">
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="#B7CCF2">
 
         <LinearLayout android:id="@+id/header"
             android:layout_width="fill_parent"
@@ -40,10 +41,11 @@
                 android:textColor="#372c24"
                 android:text="Nombre"/>
 
-            <EditText android:layout_width="fill_parent"
+            <EditText
+                android:id="@+id/txtName"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dip"
-
                 android:singleLine="true"
                 android:password="true"/>
 
@@ -53,7 +55,9 @@
                 android:textColor="#372c24"
                 android:text="Apellidos"/>
 
-            <EditText android:layout_width="fill_parent"
+            <EditText
+                android:id="@+id/txtSurname"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dip"
                 android:singleLine="true"
@@ -65,7 +69,9 @@
                 android:textColor="#372c24"
                 android:text="DNI"/>
 
-            <EditText android:layout_width="fill_parent"
+            <EditText
+                android:id="@+id/txtDNI"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dip"
                 android:singleLine="true"
@@ -77,8 +83,11 @@
                 android:textColor="#372c24"
                 android:text="Email"/>
 
-            <EditText android:layout_width="fill_parent"
+            <EditText
+                android:id="@+id/txtEmail"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_maps_local_post_office"
                 android:layout_marginTop="5dip"
                 android:inputType="textEmailAddress"
                 android:singleLine="true"
@@ -90,8 +99,11 @@
                 android:textColor="#372c24"
                 android:text="NickName"/>
 
-            <EditText android:layout_width="fill_parent"
+            <EditText
+                android:id="@+id/txtNickName"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_action_account_box"
                 android:layout_marginTop="5dip"
                 android:inputType="textEmailAddress"
                 android:singleLine="true"
@@ -101,10 +113,13 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#372c24"
-                android:text="PassWord"/>
+                android:text="Password"/>
 
-            <EditText android:layout_width="fill_parent"
+            <EditText
+                android:id="@+id/txtPasswordSign"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_action_lock"
                 android:layout_marginTop="5dip"
                 android:inputType="textPassword"
                 android:singleLine="true"
@@ -114,10 +129,13 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#372c24"
-                android:text="Repeat PassWord"/>
+                android:text="Repeat Password"/>
 
-            <EditText android:layout_width="fill_parent"
+            <EditText
+                android:id="@+id/txtRepeatPassword"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_action_lock"
                 android:layout_marginTop="5dip"
                 android:inputType="textPassword"
                 android:singleLine="true"
@@ -133,6 +151,7 @@
                 android:id="@+id/txtCreditCard"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_action_payment"
                 android:layout_marginTop="5dip"
                 android:inputType="number"
                 android:singleLine="true"
