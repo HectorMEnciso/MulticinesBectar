@@ -73,9 +73,9 @@
 
                 <Button
                     android:id="@+id/ShowPassword"
-                    android:layout_width="25dip"
+                    android:layout_width="30dip"
                     android:layout_marginTop="15dip"
-                    android:layout_height="20dip"
+                    android:layout_height="30dip"
                     android:layout_marginBottom="15dip"
                     android:layout_alignParentRight="true"
                     android:background="@drawable/show_pass"
