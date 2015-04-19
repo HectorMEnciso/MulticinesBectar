@@ -18,7 +18,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.TabHost;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -37,7 +36,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.navigationdrawer_activity);
 
         //Drawer Layout
         NavDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -118,7 +117,7 @@ public class MainActivity extends Activity {
 
 
     private void MostrarFragment(int position) {
-        // update the main content by replacing fragments
+        // update the navigationdrawer_activity content by replacing fragments
         Fragment fragment = null;
 
         switch (position) {
