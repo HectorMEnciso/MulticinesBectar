@@ -103,8 +103,7 @@
                 android:drawableLeft="@drawable/ic_action_account_box"
                 android:layout_marginTop="5dip"
                 android:inputType="textEmailAddress"
-                android:singleLine="true"
-                android:password="true"/>
+                android:singleLine="true"/>
 
             <TextView
                 android:layout_width="fill_parent"
