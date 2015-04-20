@@ -8,6 +8,6 @@
         android:id="@+id/backgrd"
         android:layout_width="180dp"
         android:layout_height="90dp"
-        android:src="@drawable/logo"
-	 />       
+        android:background="#ff04adcc"
+        android:src="@drawable/carrete"/>
 </FrameLayout>

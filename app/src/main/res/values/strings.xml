@@ -6,7 +6,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="search_title">Buscar</string>
     <string name="search_hint">Busque aqui...</string>
-    search_title    <!-- Lista de titulos de navegacion -->
+   <!-- Lista de titulos de navegacion -->
     <string-array name="nav_options">
         <item>Cines/Peliculas</item>
         <item>Perfil</item>

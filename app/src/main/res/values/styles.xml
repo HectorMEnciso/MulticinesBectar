@@ -1,8 +1,17 @@
+<!--<resources>-->
+
+    <!--<style name="You.EditText.Style" parent="@android:style/Widget.EditText">-->
+
+        <!--<item name="android:gravity">center</item>-->
+    <!--</style>-->
+
+<!--</resources>-->
 <resources>
-
-    <style name="You.EditText.Style" parent="@android:style/Widget.EditText">
-
-        <item name="android:gravity">center</item>
+    <style name="MyCustomTheme" parent="@android:style/Theme.Holo.Light">
+        <item name="android:actionBarStyle">@style/MyActionBarTheme</item>
     </style>
 
+    <style name="MyActionBarTheme" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">#0b84aa</item>
+    </style>
 </resources>
