@@ -21,6 +21,7 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class MainActivity extends Activity {
@@ -33,10 +34,14 @@ public class MainActivity extends Activity {
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     private NavigationAdapter NavAdapter;
+    private DBController controller = new DBController(this);
+    ArrayList<HashMap<String, String>> CinesList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigationdrawer_activity);
+
+        CinesList=controller.getAllCines();
 
         //Drawer Layout
         NavDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);

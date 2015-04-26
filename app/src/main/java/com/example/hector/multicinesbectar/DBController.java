@@ -36,13 +36,50 @@ public class DBController extends SQLiteOpenHelper {
     }
     @Override
     public void onCreate(SQLiteDatabase database) {
-        String queryCines = "CREATE TABLE Cines (IdCine integer PRIMARY KEY AUTOINCREMENT,Direccion TEXT, NombreCine TEXT)";
+
+        String queryProyecciones = "CREATE TABLE Proyecciones (IdProyeccion integer PRIMARY KEY,IdCine integer," +
+        "IdPelicula integer,IdButaca integer,IdSala integer,Hora time,Dia date,ButacasDisponibles integer," +
+        "IdCompra integer)";
+        database.execSQL(queryProyecciones);
+        Log.d(LOGCAT,"Proyecciones Created");
+
+        String queryPeliculas = "CREATE TABLE Peliculas (IdPelicula integer PRIMARY KEY AUTOINCREMENT," +
+        "ImgPelicula TEXT, Titulo TEXT, Director TEXT,Interpretes TEXT, Genero Text, Duracion TEXT, Anyo TEXT," +
+        "FOREIGN KEY (IdPelicula) references Proyecciones(IdProyeccion))";
+        database.execSQL(queryPeliculas);
+        Log.d(LOGCAT,"Peliculas Created");
+
+        String queryCines = "CREATE TABLE Cines (IdCine integer PRIMARY KEY,ImgCine TEXT, Direccion TEXT, NombreCine TEXT," +
+        "FOREIGN KEY (IdCine) references Proyecciones (IdProyeccion))";
         database.execSQL(queryCines);
         Log.d(LOGCAT,"Cines Created");
 
-        String queryPeliculas = "CREATE TABLE Peliculas (IdPelicula integer PRIMARY KEY AUTOINCREMENT,Titulo TEXT, Director TEXT,Interpretes TEXT, Genero Text, Duracion TEXT, Anyo TEXT)";
-        database.execSQL(queryPeliculas);
-        Log.d(LOGCAT,"Peliculas Created");
+        String querySalas = "CREATE TABLE Salas (IdSala integer PRIMARY KEY,NumeroSala integer,NumeroFilas integer,NumeroButacas integer," +
+        "FOREIGN KEY (IdSala) references Proyecciones (IdProyeccion))";
+        database.execSQL(querySalas);
+        Log.d(LOGCAT,"Salas Created");
+
+        String queryButacas= "CREATE TABLE Butacas (IdButaca integer primary key AUTOINCREMENT,NumeroButaca integer," +
+        "NumeroFila integer, Estado TEXT, Tipo TEXT," +
+        "FOREIGN KEY (IdButaca) references Proyecciones (IdProyeccion))";
+        database.execSQL(queryButacas);
+        Log.d(LOGCAT,"Butacas Created");
+
+        String queryCompras= "CREATE TABLE Compras (IdCompra integer primary key AUTOINCREMENT,NumeroEntradas integer,PrecioTotal REAl," +
+        "IdUsuario integer,IdEntrada integer,FOREIGN KEY (IdCompra) references Proyecciones (IdProyeccion))";
+        database.execSQL(queryCompras);
+        Log.d(LOGCAT,"Compras Created");
+
+        String queryEntradas = "CREATE TABLE Entradas (IdEntrada integer primary key AUTOINCREMENT,IdCompra integer,NombrePelicula TEXT," +
+        "Fecha TEXT,PrecioEntrada REAL, NumeroSala integer,NumeroButaca integer,FOREIGN KEY (IdCompra) references Compras (IdCompra))";
+        database.execSQL(queryEntradas);
+        Log.d(LOGCAT,"Entradas Created");
+
+        String queryUsuarios = "CREATE TABLE Usuarios (IdUsuario integer primary key AUTOINCREMENT,DNI TEXT,ImgUsuario TEXT," +
+        "Nombre TEXT, Apellidos TEXT, Email TEXT, UserName TEXT, Pass TEXT, T_Credito integer,FOREIGN KEY (IdUsuario) references Compras (IdCompra))";
+        database.execSQL(queryUsuarios);
+        Log.d(LOGCAT,"Usuarios Created");
+
     }
     @Override
     public void onUpgrade(SQLiteDatabase database, int version_old, int current_version) {
@@ -94,23 +131,19 @@ public class DBController extends SQLiteOpenHelper {
         database.execSQL(deleteQuery);
     }
 
-    public ArrayList<HashMap<String, String>> getAllCoches() {
+    public ArrayList<HashMap<String, String>> getAllCines() {
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM Coches";
+        String selectQuery = "SELECT  * FROM Cines";
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
                 HashMap<String, String> map = new HashMap<String, String>();
-                map.put("id", cursor.getString(0));
-                map.put("idfoto", cursor.getString(1));
-                map.put("matricula", cursor.getString(2));
-                map.put("marca", cursor.getString(3));
-                map.put("modelo", cursor.getString(4));
-                map.put("motorizacion", cursor.getString(5));
-                map.put("cilindrada", cursor.getString(6));
-                map.put("fechaCompra", cursor.getString(7));
+                map.put("IdCine", cursor.getString(0));
+                map.put("ImgCine", cursor.getString(1));
+                map.put("Direccion", cursor.getString(2));
+                map.put("NombreCine", cursor.getString(3));
                 wordList.add(map);
             } while (cursor.moveToNext());
         }
