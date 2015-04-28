@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -34,14 +35,24 @@ public class MainActivity extends Activity {
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     private NavigationAdapter NavAdapter;
-    private DBController controller = new DBController(this);
+
+    /*private DBController controller = new DBController(this);
     ArrayList<HashMap<String, String>> CinesList;
+    private ListView lstCines; //Declaracion GLobal del listView lstCoches.
+    SimpleAdapter adaptadorCines;*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigationdrawer_activity);
 
+        /*lstCines = (ListView) findViewById(R.id.LstCines);
+
         CinesList=controller.getAllCines();
+
+        lstCines.setAdapter(adaptadorCines);
+
+        adaptadorCines = new SimpleAdapter(MainActivity.this,CinesList, R.layout.cines_layout, new String[] { "IdCine" ,"ImgCine","NombreCine"}, new int[] {R.id.IDCine,R.id.ivContactImage, R.id.lblNombreCine});
+        lstCines.setAdapter(adaptadorCines);*/
 
         //Drawer Layout
         NavDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);

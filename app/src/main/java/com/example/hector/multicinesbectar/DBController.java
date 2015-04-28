@@ -89,17 +89,13 @@ public class DBController extends SQLiteOpenHelper {
         onCreate(database);
     }
 
-    public void insertCoche(HashMap<String, String> queryValues ) {
+    public void insertCine(HashMap<String, String> queryValues ) {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("idfoto", queryValues.get("idfoto"));
-        values.put("matricula", queryValues.get("matricula"));
-        values.put("marca", queryValues.get("marca"));
-        values.put("modelo", queryValues.get("modelo"));
-        values.put("motorizacion", queryValues.get("motorizacion"));
-        values.put("cilindrada", queryValues.get("cilindrada"));
-        values.put("fechaCompra", queryValues.get("fechaCompra"));
-        database.insert("Coches", null, values);
+        values.put("IdCine", queryValues.get("IdCine"));
+        values.put("ImgCine", queryValues.get("ImgCine"));
+        values.put("NombreCine", queryValues.get("NombreCine"));
+        database.insert("Cines", null, values);
         database.close();
     }
     public int updateCoche(HashMap<String, String> queryValues) {
