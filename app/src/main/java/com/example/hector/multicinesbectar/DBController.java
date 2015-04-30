@@ -94,6 +94,7 @@ public class DBController extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put("IdCine", queryValues.get("IdCine"));
         values.put("ImgCine", queryValues.get("ImgCine"));
+        values.put("Direccion", queryValues.get("Direccion"));
         values.put("NombreCine", queryValues.get("NombreCine"));
         database.insert("Cines", null, values);
         database.close();
@@ -130,7 +131,7 @@ public class DBController extends SQLiteOpenHelper {
     public ArrayList<HashMap<String, String>> getAllCines() {
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT  * FROM Cines";
+        String selectQuery = "SELECT * FROM Cines";
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {

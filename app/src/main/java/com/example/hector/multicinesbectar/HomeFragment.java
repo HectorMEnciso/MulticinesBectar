@@ -33,15 +33,29 @@ public class HomeFragment extends Fragment {
     private ListView lstCines; //Declaracion GLobal del listView lstCoches.
     SimpleAdapter adaptadorCines;
     Context context;
-    private DBController controller = new DBController(context);
+    private DBController controller;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-  
+
         View rootView = inflater.inflate(R.layout.home, container, false);
+
+
+        return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        lstCines = (ListView)getActivity().findViewById(R.id.LstCines);
+
+        controller = new DBController(getActivity());
+
+
         Resources res = getResources();
 
-        tabs=(TabHost) rootView.findViewById(R.id.tabhost);
+        tabs=(TabHost) getActivity().findViewById(R.id.tabhost);
         tabs.setup();
 
         TabHost.TabSpec spec=tabs.newTabSpec("mitab1");
@@ -61,8 +75,6 @@ public class HomeFragment extends Fragment {
 
         tabs.setCurrentTab(0);
 
-        TareaWSListarCines tarea = new TareaWSListarCines();
-        tarea.execute();
 
         tabs.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @Override
@@ -71,24 +83,20 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        lstCines = (ListView)rootView.findViewById(R.id.LstCines);
+        TareaWSListarCines tarea = new TareaWSListarCines();
+        tarea.execute();
 
         CinesList=controller.getAllCines();
 
-        //lstCines.setAdapter(adaptadorCines);
-
-        adaptadorCines = new SimpleAdapter(context,CinesList, R.layout.cines_layout, new String[] { "IdCine" ,"ImgCine","NombreCine"}, new int[] {R.id.IDCine,R.id.ivContactImage, R.id.lblNombreCine});
+        adaptadorCines = new SimpleAdapter(getActivity(),CinesList, R.layout.cines_layout, new String[] { "IdCine" ,"ImgCine","NombreCine"}, new int[] {R.id.IDCine,R.id.ivContactImage, R.id.lblNombreCine});
         lstCines.setAdapter(adaptadorCines);
 
-
-        return rootView;
     }
 
     private class TareaWSListarCines extends AsyncTask<String,Integer,Boolean> {
 
         ArrayList<Cines> cines = new ArrayList<Cines>();
 
-        Cines cine = new Cines();
 
         protected Boolean doInBackground(String... params) {
 
@@ -96,7 +104,7 @@ public class HomeFragment extends Fragment {
 
             HttpClient httpClient = new DefaultHttpClient();
 
-            HttpGet del = new HttpGet("http://localhost:49461/Api/Cines/Cine");
+            HttpGet del = new HttpGet("http://10.0.2.2:49461/Api/Cines/Cine");
 
             del.setHeader("content-type", "application/json");
 
@@ -107,17 +115,15 @@ public class HomeFragment extends Fragment {
 
                 JSONArray respJSON = new JSONArray(respStr);
 
-              //  cines = new ArrayList<Cines>[respJSON.length()];
-
                 for(int i=0; i<respJSON.length(); i++)
                 {
                     JSONObject obj = respJSON.getJSONObject(i);
 
-                   /* int idCli = obj.getInt("Id");
-                    String nombCli = obj.getString("Nombre");
-                    int telefCli = obj.getInt("Telefono");*/
+                    Cines cine = new Cines();
+
                     cine.setIdCine(obj.getInt("IdCine"));
                     cine.setImgCine(obj.getString("ImgCine"));
+                    cine.setDireccion(obj.getString("Direccion"));
                     cine.setNombreCine(obj.getString("NombreCine"));
 
                     cines.add(cine);
@@ -136,22 +142,14 @@ public class HomeFragment extends Fragment {
 
             if (result)
             {
-                //Rellenamos la lista con los nombres de los clientes
-                //Rellenamos la lista con los resultados
-                /*ArrayAdapter<String> adaptador =
-                        new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1, cines);
-
-                lstCines.setAdapter(adaptador);*/
-
                 for(int i=0; i<cines.size(); i++){
                     HashMap<String, String> queryValues = new HashMap<String, String>();
                     queryValues.put("IdCine",String.valueOf(cines.get(i).getIdCine()));
                     queryValues.put("ImgCine",String.valueOf(cines.get(i).getImgCine()));
+                    queryValues.put("Direccion",String.valueOf(cines.get(i).getDireccion()));
                     queryValues.put("NombreCine",String.valueOf(cines.get(i).getNombreCine()));
                     controller.insertCine(queryValues);
                 }
-               // adaptadorCines = new SimpleAdapter(context,CinesList, R.layout.cines_layout, new String[] { "IdCine" ,"ImgCine","NombreCine"}, new int[] {R.id.IDCine,R.id.ivContactImage, R.id.lblNombreCine});
-               // lstCines.setAdapter(adaptadorCines);
             }
         }
     }
