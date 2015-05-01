@@ -11,8 +11,8 @@
 
     <ImageView
         android:id="@+id/ivContactImage"
-        android:layout_width="130dp"
-        android:layout_height="170dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginTop="3dp"
         android:layout_alignParentLeft="true"/>
 
@@ -20,8 +20,10 @@
         android:id="@+id/lblNombreCine"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textSize="30dp"
+        android:textSize="20dp"
         android:layout_toRightOf="@+id/ivContactImage"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:typeface="sans"/>
 
 </RelativeLayout>

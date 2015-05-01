@@ -99,6 +99,21 @@ public class DBController extends SQLiteOpenHelper {
         database.insert("Cines", null, values);
         database.close();
     }
+
+    public boolean existeCine (String nombre){
+        boolean existe=false;
+        String selectQuery = "SELECT * FROM Cines where NombreCine='" + nombre+"'";
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()){
+            existe=true;
+        }
+        else {
+            existe = false;
+        }
+        return existe;
+    }
+
     public int updateCoche(HashMap<String, String> queryValues) {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -163,19 +178,6 @@ public class DBController extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         return wordList;
-    }
-    public boolean existeCoche (String matricula){
-        boolean existe=false;
-        String selectQuery = "SELECT * FROM Coches where matricula='" + matricula+"'";
-        SQLiteDatabase database = this.getWritableDatabase();
-        Cursor cursor = database.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst()){
-            existe=true;
-        }
-        else {
-            existe = false;
-        }
-        return existe;
     }
 
     public void GenerarXMl(ArrayList<HashMap<String, String>> map){
