@@ -40,16 +40,16 @@
                     <ListView
                         android:id="@+id/LstCines"
                         android:layout_width="wrap_content"
-                        android:divider="#0F1E81"
+                        android:divider="#0b84aa"
                         android:scrollbarStyle="outsideOverlay"
                         android:layout_height="wrap_content"
-                        android:dividerHeight="4dp"
+                        android:dividerHeight="2dp"
                         android:paddingBottom="7dp"
                         android:paddingLeft="9dp"
                         android:paddingRight="9dp"
                         android:paddingTop="10dp"
-                        android:listSelector="@drawable/list_selector"
-                        android:background="@drawable/border_ui"></ListView>
+                        android:listSelector="@drawable/list_selector_tabs"
+                        android:background="@drawable/border_ui_tabs"></ListView>
 
                 </LinearLayout>
 

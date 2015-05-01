@@ -21,6 +21,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="20dp"
+        android:paddingTop="40dp"
+        android:gravity="center_horizontal"
         android:layout_toRightOf="@+id/ivContactImage"
         android:textStyle="bold"
         android:textAllCaps="true"
