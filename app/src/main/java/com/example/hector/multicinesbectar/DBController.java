@@ -136,7 +136,7 @@ public class DBController extends SQLiteOpenHelper {
     public ArrayList<HashMap<String, String>> getAllPeliculas() {
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT * FROM Peliculas";
+        String selectQuery = "select Peliculas.IdPelicula,ImgPelicula,Titulo,Director,Interpretes,Genero,Duracion,Anyo,NombreCine from Peliculas,Proyecciones,Cines where Proyecciones.IdCine = Cines.IdCine and Proyecciones.IdPelicula=Peliculas.IdPelicula;";
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -150,6 +150,7 @@ public class DBController extends SQLiteOpenHelper {
                 map.put("Genero", cursor.getString(5));
                 map.put("Duracion", cursor.getString(6));
                 map.put("Anyo", cursor.getString(7));
+                map.put("NombreCine", cursor.getString(8));
                 wordList.add(map);
             } while (cursor.moveToNext());
         }
@@ -174,6 +175,36 @@ public class DBController extends SQLiteOpenHelper {
     public boolean existePelicula(String Titulo){
         boolean existe=false;
         String selectQuery = "SELECT * FROM Peliculas where Titulo='" + Titulo+"'";
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()){
+            existe=true;
+        }
+        else {
+            existe = false;
+        }
+        return existe;
+    }
+
+    public void insertProyeccion(HashMap<String, String> queryValues ) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("IdProyeccion", queryValues.get("IdProyeccion"));
+        values.put("IdCine", queryValues.get("IdCine"));
+        values.put("IdPelicula", queryValues.get("IdPelicula"));
+        values.put("IdButaca", queryValues.get("IdButaca"));
+        values.put("IdSala", queryValues.get("IdSala"));
+        values.put("Hora", queryValues.get("Hora"));
+        values.put("Dia", queryValues.get("Dia"));
+        values.put("ButacasDisponibles", queryValues.get("ButacasDisponibles"));
+        values.put("IdCompra", queryValues.get("IdCompra"));
+        database.insert("Proyecciones", null, values);
+        database.close();
+    }
+
+    public boolean existeProyeccion(int IdProyeccion){
+        boolean existe=false;
+        String selectQuery = "SELECT * FROM Proyecciones where IdProyeccion='" + IdProyeccion+"'";
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()){

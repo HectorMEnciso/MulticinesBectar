@@ -26,4 +26,15 @@
         android:textAllCaps="true"
         android:typeface="sans"/>
 
+    <TextView
+        android:id="@+id/lblCinePelicula"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:layout_below="@+id/lblTituloPelicula"
+        android:layout_toRightOf="@+id/ivContactImagePelicula"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:typeface="sans"/>
+
 </RelativeLayout>

@@ -99,6 +99,9 @@ public class HomeFragment extends Fragment {
         TareaWSListarPeliculas tareaListasPeliculas = new TareaWSListarPeliculas();
         tareaListasPeliculas.execute();
 
+        TareaWSListarProyeciones tareaListasProyeciones = new TareaWSListarProyeciones();
+        tareaListasProyeciones.execute();
+
         mSearchView.setQuery("",false);
         mSearchView.clearFocus();
 
@@ -109,7 +112,7 @@ public class HomeFragment extends Fragment {
 
         PeliculasList=controller.getAllPeliculas();
 
-        adaptadorPeliculas = new SimpleAdapter(getActivity(),PeliculasList, R.layout.peliculas_layout, new String[] { "IdPelicula" ,"ImgPelicula","Titulo"}, new int[] {R.id.IDPelicula,R.id.ivContactImagePelicula, R.id.lblTituloPelicula});
+        adaptadorPeliculas = new SimpleAdapter(getActivity(),PeliculasList, R.layout.peliculas_layout, new String[] { "IdPelicula" ,"ImgPelicula","Titulo","NombreCine"}, new int[] {R.id.IDPelicula,R.id.ivContactImagePelicula,R.id.lblTituloPelicula, R.id.lblCinePelicula});
         lstPeliculas.setAdapter(adaptadorPeliculas);
 
     }
@@ -264,6 +267,82 @@ public class HomeFragment extends Fragment {
         }
     }
 
+
+    private class TareaWSListarProyeciones extends AsyncTask<String,Integer,Boolean> {
+
+        ArrayList<Proyecciones> proyeciones = new ArrayList<Proyecciones>();
+
+
+        protected Boolean doInBackground(String... params) {
+
+            boolean resul = true;
+
+            HttpClient httpClient = new DefaultHttpClient();
+
+            HttpGet del = new HttpGet("http://10.0.2.2:49461/Api/Proyecciones/Proyeccion");
+            // HttpGet del = new HttpGet("http://localhost:49461/Api/Cines/Cine");
+
+            del.setHeader("content-type", "application/json");
+
+            try
+            {
+                HttpResponse resp = httpClient.execute(del);
+                String respStr = EntityUtils.toString(resp.getEntity());
+
+                JSONArray respJSON = new JSONArray(respStr);
+
+                for(int i=0; i<respJSON.length(); i++)
+                {
+                    JSONObject obj = respJSON.getJSONObject(i);
+
+                    Proyecciones proyeccion = new Proyecciones();
+
+                    proyeccion.setIdProyeccion(obj.getInt("IdProyeccion"));
+                    proyeccion.setIdCine(obj.getInt("IdCine"));
+                    proyeccion.setIdPelicula(obj.getInt("IdPelicula"));
+                    proyeccion.setIdButaca(obj.getInt("IdButaca"));
+                    proyeccion.setIdSala(obj.getInt("IdSala"));
+                    proyeccion.setHora(obj.getString("Hora"));
+                    proyeccion.setDia(obj.getString("Dia"));
+                    proyeccion.setButacasDisponibles(obj.getString("ButacasDisponibles"));
+                    proyeccion.setIdCompra(obj.getString("IdCompra"));
+                    proyeciones.add(proyeccion);
+                }
+            }
+            catch(Exception ex)
+            {
+                Log.e("ServicioRest","Error!", ex);
+                resul = false;
+            }
+
+            return resul;
+        }
+
+        protected void onPostExecute(Boolean result) {
+
+            if (result)
+            {
+                for(int i=0; i<proyeciones.size(); i++){
+                    if(!controller.existeProyeccion(proyeciones.get(i).getIdProyeccion())){
+                        HashMap<String, String> queryValues = new HashMap<String, String>();
+                        queryValues.put("IdProyeccion",String.valueOf(proyeciones.get(i).getIdProyeccion()));
+                        queryValues.put("IdCine",String.valueOf(proyeciones.get(i).getIdCine()));
+                        queryValues.put("IdPelicula",String.valueOf(proyeciones.get(i).getIdPelicula()));
+                        queryValues.put("IdButaca",String.valueOf(proyeciones.get(i).getIdButaca()));
+                        queryValues.put("IdSala",String.valueOf(proyeciones.get(i).getIdSala()));
+                        queryValues.put("Hora",String.valueOf(proyeciones.get(i).getHora()));
+                        queryValues.put("Dia",String.valueOf(proyeciones.get(i).getDia()));
+                        queryValues.put("ButacasDisponibles",String.valueOf(proyeciones.get(i).getButacasDisponibles()));
+                        queryValues.put("IdCompra",String.valueOf(proyeciones.get(i).getIdCompra()));
+                        controller.insertProyeccion(queryValues);
+                        Intent objIntent = new Intent(getActivity(), MainActivity.class);
+                        startActivity(objIntent);
+                    }
+                }
+                //DialogActualizar("Peliculas");
+            }
+        }
+    }
 
 
     public void DialogActualizar(String tab) {
