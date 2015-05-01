@@ -34,6 +34,7 @@ public class HomeFragment extends Fragment {
     private SearchView mSearchView; //Declaracion global del SearchView sSearchView
     private TabHost tabs;
     public HomeFragment(){}
+
     ArrayList<HashMap<String, String>> CinesList;
     private ListView lstCines; //Declaracion GLobal del listView lstCoches.
     SimpleAdapter adaptadorCines;
@@ -41,6 +42,10 @@ public class HomeFragment extends Fragment {
     ArrayList<HashMap<String, String>> PeliculasList;
     private ListView lstPeliculas; //Declaracion GLobal del listView lstCoches.
     SimpleAdapter adaptadorPeliculas;
+
+    ArrayList<HashMap<String, String>> IrYaList;
+    private ListView lstIrYa; //Declaracion GLobal del listView lstCoches.
+    SimpleAdapter adaptadorIrYa;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,6 +65,7 @@ public class HomeFragment extends Fragment {
         //setupSearchView();
         lstCines = (ListView)getActivity().findViewById(R.id.LstCines);
         lstPeliculas = (ListView)getActivity().findViewById(R.id.LstPeliculas);
+        lstIrYa=(ListView)getActivity().findViewById(R.id.LstIrYa);
 
         controller = new DBController(getActivity());
 
@@ -112,8 +118,13 @@ public class HomeFragment extends Fragment {
 
         PeliculasList=controller.getAllPeliculas();
 
-        adaptadorPeliculas = new SimpleAdapter(getActivity(),PeliculasList, R.layout.peliculas_layout, new String[] { "IdPelicula" ,"ImgPelicula","Titulo","NombreCine"}, new int[] {R.id.IDPelicula,R.id.ivContactImagePelicula,R.id.lblTituloPelicula, R.id.lblCinePelicula});
+        adaptadorPeliculas = new SimpleAdapter(getActivity(),PeliculasList, R.layout.peliculas_layout, new String[] { "IdPelicula" ,"ImgPelicula","Titulo","NombreCine","Hora"}, new int[] {R.id.IDPelicula,R.id.ivContactImagePelicula,R.id.lblTituloPelicula, R.id.lblCinePelicula,R.id.lblHoraPelicula});
         lstPeliculas.setAdapter(adaptadorPeliculas);
+
+        IrYaList=controller.getIrYa();
+
+        adaptadorIrYa = new SimpleAdapter(getActivity(),IrYaList, R.layout.irya_layout, new String[] { "IdPelicula" ,"ImgPelicula","Titulo","NombreCine","Hora"}, new int[] {R.id.IDPeliculaIrYa,R.id.ivContactImagePeliculaIrYa,R.id.lblTituloPeliculaIrYa, R.id.lblCinePeliculaIrYa,R.id.lblHoraPeliculaIrYa});
+        lstIrYa.setAdapter(adaptadorIrYa);
 
     }
 
@@ -303,7 +314,9 @@ public class HomeFragment extends Fragment {
                     proyeccion.setIdButaca(obj.getInt("IdButaca"));
                     proyeccion.setIdSala(obj.getInt("IdSala"));
                     proyeccion.setHora(obj.getString("Hora"));
-                    proyeccion.setDia(obj.getString("Dia"));
+                    String without=obj.getString("Dia");
+                    String diaReplace=obj.getString("Dia").replace("0:00:00","");
+                    proyeccion.setDia(diaReplace);
                     proyeccion.setButacasDisponibles(obj.getString("ButacasDisponibles"));
                     proyeccion.setIdCompra(obj.getString("IdCompra"));
                     proyeciones.add(proyeccion);

@@ -4,20 +4,20 @@
     android:layout_height="fill_parent">
 
     <TextView
-        android:id="@+id/IDPelicula"
+        android:id="@+id/IDPeliculaIrYa"
         android:visibility="invisible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <ImageView
-        android:id="@+id/ivContactImagePelicula"
+        android:id="@+id/ivContactImagePeliculaIrYa"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginTop="3dp"
         android:layout_alignParentLeft="true"/>
 
     <TextView
-        android:id="@+id/lblTituloPelicula"
+        android:id="@+id/lblTituloPeliculaIrYa"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="20dp"
@@ -27,7 +27,7 @@
         android:typeface="sans"/>
 
     <TextView
-        android:id="@+id/lblCinePelicula"
+        android:id="@+id/lblCinePeliculaIrYa"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="20dp"
@@ -38,7 +38,7 @@
         android:typeface="sans"/>
 
     <TextView
-        android:id="@+id/lblHoraPelicula"
+        android:id="@+id/lblHoraPeliculaIrYa"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="20dp"
