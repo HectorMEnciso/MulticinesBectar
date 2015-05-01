@@ -29,14 +29,19 @@ import java.util.HashMap;
 
 /*  Fragment para seccion perfil */ 
 public class HomeFragment extends Fragment {
+    private DBController controller;
+
     private SearchView mSearchView; //Declaracion global del SearchView sSearchView
     private TabHost tabs;
     public HomeFragment(){}
     ArrayList<HashMap<String, String>> CinesList;
     private ListView lstCines; //Declaracion GLobal del listView lstCoches.
     SimpleAdapter adaptadorCines;
-    Context context;
-    private DBController controller;
+
+    ArrayList<HashMap<String, String>> PeliculasList;
+    private ListView lstPeliculas; //Declaracion GLobal del listView lstCoches.
+    SimpleAdapter adaptadorPeliculas;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -54,9 +59,9 @@ public class HomeFragment extends Fragment {
         mSearchView = (SearchView) getActivity().findViewById(R.id.searchView1);//Obtenemos la referencia al SearchView mSearchView
         //setupSearchView();
         lstCines = (ListView)getActivity().findViewById(R.id.LstCines);
+        lstPeliculas = (ListView)getActivity().findViewById(R.id.LstPeliculas);
 
         controller = new DBController(getActivity());
-
 
         Resources res = getResources();
 
@@ -88,8 +93,11 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        TareaWSListarCines tarea = new TareaWSListarCines();
-        tarea.execute();
+        TareaWSListarCines tareaListarCines = new TareaWSListarCines();
+        tareaListarCines.execute();
+
+        TareaWSListarPeliculas tareaListasPeliculas = new TareaWSListarPeliculas();
+        tareaListasPeliculas.execute();
 
         mSearchView.setQuery("",false);
         mSearchView.clearFocus();
@@ -98,6 +106,11 @@ public class HomeFragment extends Fragment {
 
         adaptadorCines = new SimpleAdapter(getActivity(),CinesList, R.layout.cines_layout, new String[] { "IdCine" ,"ImgCine","NombreCine"}, new int[] {R.id.IDCine,R.id.ivContactImage, R.id.lblNombreCine});
         lstCines.setAdapter(adaptadorCines);
+
+        PeliculasList=controller.getAllPeliculas();
+
+        adaptadorPeliculas = new SimpleAdapter(getActivity(),PeliculasList, R.layout.peliculas_layout, new String[] { "IdPelicula" ,"ImgPelicula","Titulo"}, new int[] {R.id.IDPelicula,R.id.ivContactImagePelicula, R.id.lblTituloPelicula});
+        lstPeliculas.setAdapter(adaptadorPeliculas);
 
     }
 
@@ -167,18 +180,105 @@ public class HomeFragment extends Fragment {
                         queryValues.put("Direccion",String.valueOf(cines.get(i).getDireccion()));
                         queryValues.put("NombreCine",String.valueOf(cines.get(i).getNombreCine()));
                         controller.insertCine(queryValues);
-                        Intent objIntent = new Intent(getActivity(), MainActivity.class);
+                        Intent objIntent = new Intent(getActivity(), HomeFragment.class);
                         startActivity(objIntent);
                     }
                 }
-                DialogActualizarCines();
+                DialogActualizar("Cines");
             }
         }
     }
 
-    public void DialogActualizarCines() {
-        final ProgressDialog ringProgressDialog = ProgressDialog.show(getActivity(), "Por favor espere....","Actualizando lista de cines ...", true);
+
+    private class TareaWSListarPeliculas extends AsyncTask<String,Integer,Boolean> {
+
+        ArrayList<Peliculas> peliculas = new ArrayList<Peliculas>();
+
+
+        protected Boolean doInBackground(String... params) {
+
+            boolean resul = true;
+
+            HttpClient httpClient = new DefaultHttpClient();
+
+            HttpGet del = new HttpGet("http://10.0.2.2:49461/Api/Peliculas/Pelicula");
+            // HttpGet del = new HttpGet("http://localhost:49461/Api/Cines/Cine");
+
+            del.setHeader("content-type", "application/json");
+
+            try
+            {
+                HttpResponse resp = httpClient.execute(del);
+                String respStr = EntityUtils.toString(resp.getEntity());
+
+                JSONArray respJSON = new JSONArray(respStr);
+
+                for(int i=0; i<respJSON.length(); i++)
+                {
+                    JSONObject obj = respJSON.getJSONObject(i);
+
+                    Peliculas pelicula = new Peliculas();
+
+                    pelicula.setIdPelicula(obj.getInt("IdPelicula"));
+                    pelicula.setImgPelicula(obj.getString("ImgPelicula"));
+                    pelicula.setTitulo(obj.getString("Titulo"));
+                    pelicula.setDirector(obj.getString("Director"));
+                    pelicula.setInterpretes(obj.getString("Interpretes"));
+                    pelicula.setGenero(obj.getString("Genero"));
+                    pelicula.setDuracion(obj.getString("Duracion"));
+                    pelicula.setAnyo(obj.getString("Anyo"));
+                    peliculas.add(pelicula);
+                }
+            }
+            catch(Exception ex)
+            {
+                Log.e("ServicioRest","Error!", ex);
+                resul = false;
+            }
+
+            return resul;
+        }
+
+        protected void onPostExecute(Boolean result) {
+
+            if (result)
+            {
+                for(int i=0; i<peliculas.size(); i++){
+                    if(!controller.existePelicula(peliculas.get(i).getTitulo())){
+                        HashMap<String, String> queryValues = new HashMap<String, String>();
+                        queryValues.put("IdCine",String.valueOf(peliculas.get(i).getIdPelicula()));
+                        queryValues.put("ImgPelicula",String.valueOf(peliculas.get(i).getImgPelicula()));
+                        queryValues.put("Titulo",String.valueOf(peliculas.get(i).getTitulo()));
+                        queryValues.put("Director",String.valueOf(peliculas.get(i).getDirector()));
+                        queryValues.put("Interpretes",String.valueOf(peliculas.get(i).getInterpretes()));
+                        queryValues.put("Genero",String.valueOf(peliculas.get(i).getDuracion()));
+                        queryValues.put("Duracion",String.valueOf(peliculas.get(i).getDuracion()));
+                        queryValues.put("Anyo",String.valueOf(peliculas.get(i).getAnyo()));
+                        controller.insertPelicula(queryValues);
+                        //Intent objIntent = new Intent(getActivity(), HomeFragment.class);
+                       // startActivity(objIntent);
+                    }
+                }
+                DialogActualizar("Peliculas");
+            }
+        }
+    }
+
+
+
+    public void DialogActualizar(String tab) {
+
+         ProgressDialog ringProgressDialog=null;
+
+        if(tab.equals("Cines")){
+            ringProgressDialog = ProgressDialog.show(getActivity(), "Por favor espere....","Actualizando lista de cines ...", true);
+        }
+        else if(tab.equals("Peliculas")){
+            ringProgressDialog = ProgressDialog.show(getActivity(), "Por favor espere....","Actualizando lista de peliculas ...", true);
+        }
+
         ringProgressDialog.setCancelable(true);
+        final ProgressDialog finalRingProgressDialog = ringProgressDialog;
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -189,7 +289,7 @@ public class HomeFragment extends Fragment {
                 } catch (Exception e) {
 
                 }
-                ringProgressDialog.dismiss();
+                finalRingProgressDialog.dismiss();
             }
         }).start();
     }

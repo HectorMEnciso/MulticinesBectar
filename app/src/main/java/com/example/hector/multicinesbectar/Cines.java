@@ -9,6 +9,8 @@ public class Cines {
     private String Direccion;
     private String NombreCine;
 
+    public Cines() {
+    }
 
     public void setIdCine(int idCine) {
         IdCine = idCine;

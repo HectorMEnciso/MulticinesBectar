@@ -89,6 +89,25 @@ public class DBController extends SQLiteOpenHelper {
         onCreate(database);
     }
 
+    public ArrayList<HashMap<String, String>> getAllCines() {
+        ArrayList<HashMap<String, String>> wordList;
+        wordList = new ArrayList<HashMap<String, String>>();
+        String selectQuery = "SELECT * FROM Cines";
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put("IdCine", cursor.getString(0));
+                map.put("ImgCine", cursor.getString(1));
+                map.put("Direccion", cursor.getString(2));
+                map.put("NombreCine", cursor.getString(3));
+                wordList.add(map);
+            } while (cursor.moveToNext());
+        }
+        return wordList;
+    }
+
     public void insertCine(HashMap<String, String> queryValues ) {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -103,6 +122,58 @@ public class DBController extends SQLiteOpenHelper {
     public boolean existeCine (String nombre){
         boolean existe=false;
         String selectQuery = "SELECT * FROM Cines where NombreCine='" + nombre+"'";
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()){
+            existe=true;
+        }
+        else {
+            existe = false;
+        }
+        return existe;
+    }
+
+    public ArrayList<HashMap<String, String>> getAllPeliculas() {
+        ArrayList<HashMap<String, String>> wordList;
+        wordList = new ArrayList<HashMap<String, String>>();
+        String selectQuery = "SELECT * FROM Peliculas";
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put("IdPelicula", cursor.getString(0));
+                map.put("ImgPelicula", cursor.getString(1));
+                map.put("Titulo", cursor.getString(2));
+                map.put("Director", cursor.getString(3));
+                map.put("Interpretes", cursor.getString(4));
+                map.put("Genero", cursor.getString(5));
+                map.put("Duracion", cursor.getString(6));
+                map.put("Anyo", cursor.getString(7));
+                wordList.add(map);
+            } while (cursor.moveToNext());
+        }
+        return wordList;
+    }
+
+    public void insertPelicula(HashMap<String, String> queryValues ) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("IdPelicula", queryValues.get("IdPelicula"));
+        values.put("ImgPelicula", queryValues.get("ImgPelicula"));
+        values.put("Titulo", queryValues.get("Titulo"));
+        values.put("Director", queryValues.get("Director"));
+        values.put("Interpretes", queryValues.get("Interpretes"));
+        values.put("Genero", queryValues.get("Genero"));
+        values.put("Duracion", queryValues.get("Duracion"));
+        values.put("Anyo", queryValues.get("Anyo"));
+        database.insert("Peliculas", null, values);
+        database.close();
+    }
+
+    public boolean existePelicula(String Titulo){
+        boolean existe=false;
+        String selectQuery = "SELECT * FROM Peliculas where Titulo='" + Titulo+"'";
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()){
@@ -143,24 +214,7 @@ public class DBController extends SQLiteOpenHelper {
         database.execSQL(deleteQuery);
     }
 
-    public ArrayList<HashMap<String, String>> getAllCines() {
-        ArrayList<HashMap<String, String>> wordList;
-        wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "SELECT * FROM Cines";
-        SQLiteDatabase database = this.getWritableDatabase();
-        Cursor cursor = database.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst()) {
-            do {
-                HashMap<String, String> map = new HashMap<String, String>();
-                map.put("IdCine", cursor.getString(0));
-                map.put("ImgCine", cursor.getString(1));
-                map.put("Direccion", cursor.getString(2));
-                map.put("NombreCine", cursor.getString(3));
-                wordList.add(map);
-            } while (cursor.moveToNext());
-        }
-        return wordList;
-    }
+
     public HashMap<String, String> getCocheInfo(String id) {
         HashMap<String, String> wordList = new HashMap<String, String>();
         SQLiteDatabase database = this.getReadableDatabase();
