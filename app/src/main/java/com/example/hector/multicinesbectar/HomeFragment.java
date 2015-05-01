@@ -24,6 +24,7 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -314,9 +315,21 @@ public class HomeFragment extends Fragment {
                     proyeccion.setIdButaca(obj.getInt("IdButaca"));
                     proyeccion.setIdSala(obj.getInt("IdSala"));
                     proyeccion.setHora(obj.getString("Hora"));
-                    String without=obj.getString("Dia");
-                    String diaReplace=obj.getString("Dia").replace("0:00:00","");
-                    proyeccion.setDia(diaReplace);
+
+                    String diaReplace="";
+
+                    diaReplace=obj.getString("Dia").replace("0:00:00","");
+
+
+                    String str[] = diaReplace.split("/");//Vector con caracter delimitador
+                    String day = str[0];
+                    String month = str[1];
+                    String year = str[2];
+
+                    String fechaBuena=year+"-"+month+"-"+day;
+                    String fechaBuena2=fechaBuena.replace(" ","");
+                    proyeccion.setDia(fechaBuena2);
+
                     proyeccion.setButacasDisponibles(obj.getString("ButacasDisponibles"));
                     proyeccion.setIdCompra(obj.getString("IdCompra"));
                     proyeciones.add(proyeccion);
@@ -344,12 +357,12 @@ public class HomeFragment extends Fragment {
                         queryValues.put("IdButaca",String.valueOf(proyeciones.get(i).getIdButaca()));
                         queryValues.put("IdSala",String.valueOf(proyeciones.get(i).getIdSala()));
                         queryValues.put("Hora",String.valueOf(proyeciones.get(i).getHora()));
-                        queryValues.put("Dia",String.valueOf(proyeciones.get(i).getDia()));
+                        queryValues.put("Dia", String.valueOf(proyeciones.get(i).getDia()));
                         queryValues.put("ButacasDisponibles",String.valueOf(proyeciones.get(i).getButacasDisponibles()));
                         queryValues.put("IdCompra",String.valueOf(proyeciones.get(i).getIdCompra()));
                         controller.insertProyeccion(queryValues);
-                        Intent objIntent = new Intent(getActivity(), MainActivity.class);
-                        startActivity(objIntent);
+                       // Intent objIntent = new Intent(getActivity(), MainActivity.class);
+                        //startActivity(objIntent);
                     }
                 }
                 //DialogActualizar("Peliculas");
