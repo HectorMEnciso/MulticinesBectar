@@ -180,7 +180,7 @@ public class HomeFragment extends Fragment {
                         queryValues.put("Direccion",String.valueOf(cines.get(i).getDireccion()));
                         queryValues.put("NombreCine",String.valueOf(cines.get(i).getNombreCine()));
                         controller.insertCine(queryValues);
-                        Intent objIntent = new Intent(getActivity(), HomeFragment.class);
+                        Intent objIntent = new Intent(getActivity(), MainActivity.class);
                         startActivity(objIntent);
                     }
                 }
@@ -255,8 +255,8 @@ public class HomeFragment extends Fragment {
                         queryValues.put("Duracion",String.valueOf(peliculas.get(i).getDuracion()));
                         queryValues.put("Anyo",String.valueOf(peliculas.get(i).getAnyo()));
                         controller.insertPelicula(queryValues);
-                        //Intent objIntent = new Intent(getActivity(), HomeFragment.class);
-                       // startActivity(objIntent);
+                        Intent objIntent = new Intent(getActivity(), MainActivity.class);
+                       startActivity(objIntent);
                     }
                 }
                 DialogActualizar("Peliculas");
