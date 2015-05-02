@@ -42,7 +42,7 @@ public class SignInActivity extends Activity {
     private static int NO_OPTIONS=0;
     private String SHAHash;
     private ArrayList<Usuarios> usuarios= new ArrayList<Usuarios>();
-    private boolean insertar=false;
+    private boolean SePuedeinsertar=true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,10 +63,8 @@ public class SignInActivity extends Activity {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("hola", NickName.getText().toString());
-                TareaWSObtenerUsuarios obtenerUser = new TareaWSObtenerUsuarios();
+                /*TareaWSObtenerUsuarios obtenerUser = new TareaWSObtenerUsuarios();
                 obtenerUser.execute();
-
 
                 if(!usuarios.isEmpty()){
                         Toast.makeText(getApplicationContext(),"Ya existe un usuario con ese NickName\n Por favor, escoja otro.",Toast.LENGTH_SHORT).show();
@@ -76,8 +74,8 @@ public class SignInActivity extends Activity {
                 else{
                         insertar=true;
                     }
-
-                if(insertar) {
+*/
+              //  if(insertar) {
                     TareaWSInsertar tarea = new TareaWSInsertar();
                     tarea.execute(
                             dni.getText().toString(),
@@ -87,7 +85,7 @@ public class SignInActivity extends Activity {
                             NickName.getText().toString(),
                             computeSHAHash(NickName.getText().toString(), Pass.getText().toString()),
                             creditCard.getText().toString());
-                }
+              //  }
             }
         });
     }
@@ -125,59 +123,98 @@ public class SignInActivity extends Activity {
     }
     //Tarea Asincrona para llamar al WS de insercion en segundo plano
     private class TareaWSInsertar extends AsyncTask<String,Integer,Boolean> {
-
+        ArrayList<Usuarios> usuarios = new ArrayList<Usuarios>();
         protected Boolean doInBackground(String... params) {
 
             boolean resul = true;
 
             HttpClient httpClient = new DefaultHttpClient();
 
-            HttpPost post = new HttpPost("http://10.0.2.2:49461/Api/Usuarios/Usuario");
-            post.setHeader("content-type", "application/json");
+            HttpGet del = new HttpGet("http://10.0.2.2:49461/Api/Usuarios/Usuario");
+
 
             try
             {
-                //Construimos el objeto cliente en formato JSON
-                JSONObject dato = new JSONObject();
-
-                //dato.put("Id", Integer.parseInt(txtId.getText().toString()));
-                dato.put("DNI", params[0]);
-                //dato.put("ImgUsuario", params[1]);
-                dato.put("Nombre", params[1]);
-                dato.put("Apellidos", params[2]);
-                dato.put("Email", params[3]);
-                dato.put("UserName", params[4]);
-                dato.put("Pass", params[5]);
-                dato.put("T_Credito", params[6]);
-
-                StringEntity entity = new StringEntity(dato.toString());
-                post.setEntity(entity);
-
-                HttpResponse resp = httpClient.execute(post);
+                HttpResponse resp = httpClient.execute(del);
                 String respStr = EntityUtils.toString(resp.getEntity());
 
-                if(!respStr.equals("true"))
-                    resul = false;
+                JSONArray respJSON = new JSONArray(respStr);
+
+                for(int i=0; i<respJSON.length(); i++)
+                {
+                    JSONObject obj = respJSON.getJSONObject(i);
+
+                    Usuarios usuario = new Usuarios();
+
+                    usuario.setUserName(obj.getString("UserName"));
+                    usuarios.add(usuario);
+                }
+
+                for(int x =0;x<usuarios.size();x++){
+                    if(usuarios.get(x).getUserName().equals(NickName.getText().toString())){
+                        //Toast.makeText(getApplicationContext(),"El user ya existe..",Toast.LENGTH_SHORT).show();
+                        SePuedeinsertar=false;
+                        break;
+                    }
+                    else{
+                        SePuedeinsertar=true;
+                    }
+                }
             }
             catch(Exception ex)
             {
-                Log.e("ServicioRest", "Error!", ex);
+                Log.e("ServicioRest","Error!", ex);
                 resul = false;
             }
+        if(SePuedeinsertar){
 
+               HttpPost post = new HttpPost("http://10.0.2.2:49461/Api/Usuarios/Usuario");
+               post.setHeader("content-type", "application/json");
+
+                try
+                {
+                    //Construimos el objeto cliente en formato JSON
+                    JSONObject dato = new JSONObject();
+
+                    //dato.put("Id", Integer.parseInt(txtId.getText().toString()));
+                    dato.put("DNI", params[0]);
+                    //dato.put("ImgUsuario", params[1]);
+                    dato.put("Nombre", params[1]);
+                    dato.put("Apellidos", params[2]);
+                    dato.put("Email", params[3]);
+                    dato.put("UserName", params[4]);
+                    dato.put("Pass", params[5]);
+                    dato.put("T_Credito", params[6]);
+
+                    StringEntity entity = new StringEntity(dato.toString());
+                    post.setEntity(entity);
+
+                    HttpResponse resp = httpClient.execute(post);
+                    String respStr = EntityUtils.toString(resp.getEntity());
+
+                    if(!respStr.equals("true"))
+                        resul = false;
+                }
+                catch(Exception ex)
+                {
+                    Log.e("ServicioRest", "Error!", ex);
+                    resul = false;
+                }
+        }
             return resul;
         }
 
         protected void onPostExecute(Boolean result) {
-
-            if (result)
-            {
+            if(SePuedeinsertar){
                 Toast.makeText(getApplicationContext(),"Usuario registrado",Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Toast.makeText(getApplicationContext(),"Usuario ya existe",Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    private class TareaWSObtenerUsuarios extends AsyncTask<String,Integer,Boolean> {
+   /* private class TareaWSObtenerUsuarios extends AsyncTask<String,Integer,Boolean> {
 
 
         protected Boolean doInBackground(String... params) {
@@ -194,20 +231,22 @@ public class SignInActivity extends Activity {
                 HttpResponse resp = httpClient.execute(del);
                 String respStr = EntityUtils.toString(resp.getEntity());
 
-                JSONObject  respJSON = new JSONObject (respStr);
+                JSONObject  respJSON = new JSONObject (respStr);//si el usuario no existe salta la excepcion
 
 
                     Usuarios usuario = new Usuarios();
-                    if(respJSON.isNull("UserName")){
+                    if(respJSON.length()==0){
                         insertar=true;
                     }
                 else{
                         usuario.setUserName(respJSON.getString(("UserName")));
                         usuarios.add(usuario);
+                        insertar=false;
                     }
 
 
             } catch (Exception ex) {
+                insertar=true;
                 Log.e("ServicioRest", "Error!", ex);
                 resul = false;
             }
@@ -221,5 +260,5 @@ public class SignInActivity extends Activity {
                 //Toast.makeText(getApplicationContext(),"Listado de usuarios obtenido",Toast.LENGTH_SHORT).show();
             }
         }
-    }
+    }*/
 }
