@@ -65,8 +65,13 @@ public class DBController extends SQLiteOpenHelper {
         database.execSQL(queryButacas);
         Log.d(LOGCAT,"Butacas Created");
 
+        String queryUsuarios = "CREATE TABLE Usuarios (IdUsuario integer primary key AUTOINCREMENT,DNI TEXT,ImgUsuario TEXT," +
+                "Nombre TEXT, Apellidos TEXT, Email TEXT, UserName TEXT, Pass TEXT, T_Credito integer)";
+        database.execSQL(queryUsuarios);
+        Log.d(LOGCAT,"Usuarios Created");
+
         String queryCompras= "CREATE TABLE Compras (IdCompra integer primary key AUTOINCREMENT,NumeroEntradas integer,PrecioTotal REAl," +
-        "IdUsuario integer,IdEntrada integer,FOREIGN KEY (IdCompra) references Proyecciones (IdProyeccion))";
+        "IdUsuario integer,IdEntrada integer,FOREIGN KEY (IdCompra) references Proyecciones (IdProyeccion),FOREIGN KEY (IdUsuario) references Usuarios (IdUsuario))";
         database.execSQL(queryCompras);
         Log.d(LOGCAT,"Compras Created");
 
@@ -74,12 +79,6 @@ public class DBController extends SQLiteOpenHelper {
         "Fecha TEXT,PrecioEntrada REAL, NumeroSala integer,NumeroButaca integer,FOREIGN KEY (IdCompra) references Compras (IdCompra))";
         database.execSQL(queryEntradas);
         Log.d(LOGCAT,"Entradas Created");
-
-        String queryUsuarios = "CREATE TABLE Usuarios (IdUsuario integer primary key AUTOINCREMENT,DNI TEXT,ImgUsuario TEXT," +
-        "Nombre TEXT, Apellidos TEXT, Email TEXT, UserName TEXT, Pass TEXT, T_Credito integer,FOREIGN KEY (IdUsuario) references Compras (IdCompra))";
-        database.execSQL(queryUsuarios);
-        Log.d(LOGCAT,"Usuarios Created");
-
     }
     @Override
     public void onUpgrade(SQLiteDatabase database, int version_old, int current_version) {
