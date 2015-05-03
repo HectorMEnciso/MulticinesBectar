@@ -1,6 +1,7 @@
 package com.example.hector.multicinesbectar;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Base64;
@@ -179,6 +180,9 @@ public class SignInActivity extends Activity {
         protected void onPostExecute(Boolean result) {
             if(SePuedeinsertar){
                 Toast.makeText(getApplicationContext(),"Usuario registrado",Toast.LENGTH_SHORT).show();
+                Intent d = new Intent(getApplicationContext(),LogInActivity.class);
+                d.putExtra("username",NickName.getText().toString());
+                startActivity(d);
             }
             else{
                 Toast.makeText(getApplicationContext(),"Usuario ya existe",Toast.LENGTH_SHORT).show();

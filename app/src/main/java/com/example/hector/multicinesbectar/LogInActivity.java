@@ -49,6 +49,19 @@ public class LogInActivity extends Activity {
         txtEmailUserName=(EditText)findViewById(R.id.txtEmailUserName);
         txtPassword=(EditText)findViewById(R.id.txtPassword);
 
+        Bundle b;
+        b = getIntent().getExtras();
+
+        if(b != null) {
+            String username = b.getString("username");
+            if (username.equals("")) {
+                txtEmailUserName.setText("");
+            } else {
+                txtEmailUserName.setText(username);
+            }
+        }
+
+
         EditPassword=(EditText)findViewById(R.id.txtPassword);
         ShowPassword=(Button)findViewById(R.id.ShowPassword);
         link_to_register=(TextView)findViewById(R.id.link_to_register);
