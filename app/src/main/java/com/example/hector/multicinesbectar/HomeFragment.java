@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +32,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /*  Fragment para seccion perfil */ 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements SearchView.OnQueryTextListener {
     private DBController controller;
 
     private SearchView mSearchView; //Declaracion global del SearchView sSearchView
@@ -71,7 +72,7 @@ public class HomeFragment extends Fragment {
         lstIrYa=(ListView)getActivity().findViewById(R.id.LstIrYa);
 
         controller = new DBController(getActivity());
-
+       // setupSearchView();
         Resources res = getResources();
 
         tabs=(TabHost) getActivity().findViewById(R.id.tabhost);
@@ -136,6 +137,21 @@ public class HomeFragment extends Fragment {
         mSearchView.setOnQueryTextListener((SearchView.OnQueryTextListener) getActivity());//Define un escuchador para para las acciones dentro del searchView
         mSearchView.setSubmitButtonEnabled(true);//Habilita el boton Submit cuando no esta vacia.
         mSearchView.setQueryHint("Introduzca matricula....");//Texto a mostrar.
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        if (TextUtils.isEmpty(newText)) {
+            lstCines.clearTextFilter();
+        } else {
+            lstCines.setFilterText(newText);
+        }
+        return true;
     }
 
 

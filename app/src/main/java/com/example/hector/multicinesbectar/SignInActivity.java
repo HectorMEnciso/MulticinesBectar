@@ -43,10 +43,13 @@ public class SignInActivity extends Activity {
     private String SHAHash;
     private ArrayList<Usuarios> usuarios= new ArrayList<Usuarios>();
     private boolean SePuedeinsertar=true;
+    private Hash h;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signin_activity);
+
+        h = new Hash();
 
         nombre = (TextView) findViewById(R.id.txtName);
         apellidos = (TextView) findViewById(R.id.txtSurname);
@@ -75,52 +78,21 @@ public class SignInActivity extends Activity {
                         insertar=true;
                     }
 */
-              //  if(insertar) {
-                    TareaWSInsertar tarea = new TareaWSInsertar();
-                    tarea.execute(
-                            dni.getText().toString(),
-                            nombre.getText().toString(),
-                            apellidos.getText().toString(),
-                            email.getText().toString(),
-                            NickName.getText().toString(),
-                            computeSHAHash(NickName.getText().toString(), Pass.getText().toString()),
-                            creditCard.getText().toString());
-              //  }
+                //  if(insertar) {
+                TareaWSInsertar tarea = new TareaWSInsertar();
+                tarea.execute(
+                        dni.getText().toString(),
+                        nombre.getText().toString(),
+                        apellidos.getText().toString(),
+                        email.getText().toString(),
+                        NickName.getText().toString(),
+                        h.computeSHAHash(NickName.getText().toString(), Pass.getText().toString()),
+                        creditCard.getText().toString());
+                //  }
             }
         });
     }
-    public String computeSHAHash(String userName,String password) {
-        MessageDigest mdShaPass = null;
-        String HashUserPass=userName+password;
-        try {
-            mdShaPass = MessageDigest.getInstance("SHA-1");//define tipo de hasheo
-        } catch (NoSuchAlgorithmException e1) {
-        }
-        try {
-            mdShaPass.update(HashUserPass.getBytes("ASCII"));
-        } catch (UnsupportedEncodingException e) {
-        }
-        byte[] dataPass = mdShaPass.digest();
-        try {
-            SHAHash = convertToHex(dataPass);
-        } catch (IOException e) {
-        }
-            return SHAHash;
-    }
 
-    private static String convertToHex(byte[] data) throws java.io.IOException
-    {
-
-
-        StringBuffer sb = new StringBuffer();
-        String hex=null;
-
-        hex= Base64.encodeToString(data, 0, data.length, NO_OPTIONS);
-
-        sb.append(hex);
-
-        return sb.toString();
-    }
     //Tarea Asincrona para llamar al WS de insercion en segundo plano
     private class TareaWSInsertar extends AsyncTask<String,Integer,Boolean> {
         ArrayList<Usuarios> usuarios = new ArrayList<Usuarios>();
