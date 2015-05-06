@@ -103,7 +103,7 @@ public class SignInActivity extends Activity {
 
             HttpClient httpClient = new DefaultHttpClient();
 
-            HttpGet del = new HttpGet("http://10.0.2.2:49461/Api/Usuarios/Usuario");
+            HttpGet del = new HttpGet("http://bectar.ddns.net/Api/Usuarios/Usuario");
 
 
             try
@@ -141,7 +141,7 @@ public class SignInActivity extends Activity {
             }
         if(SePuedeinsertar){
 
-               HttpPost post = new HttpPost("http://10.0.2.2:49461/Api/Usuarios/Usuario");
+               HttpPost post = new HttpPost("http://bectar.ddns.net/Api/Usuarios/Usuario");
                post.setHeader("content-type", "application/json");
 
                 try

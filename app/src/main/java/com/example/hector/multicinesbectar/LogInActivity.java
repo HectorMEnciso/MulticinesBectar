@@ -108,7 +108,7 @@ public class LogInActivity extends Activity {
 
             HttpClient httpClient = new DefaultHttpClient();
 
-            HttpGet del = new HttpGet("http://10.0.2.2:49461/Api/Usuarios/Usuario");
+            HttpGet del = new HttpGet("http://bectar.ddns.net/Api/Usuarios/Usuario");
 
 
             try

@@ -155,6 +155,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
     }
 
 
+
     private class TareaWSListarCines extends AsyncTask<String,Integer,Boolean> {
 
         ArrayList<Cines> cines = new ArrayList<Cines>();
@@ -166,8 +167,10 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
             HttpClient httpClient = new DefaultHttpClient();
 
-            HttpGet del = new HttpGet("http://10.0.2.2:49461/Api/Cines/Cine");
+            //HttpGet del = new HttpGet("http://10.0.2.2:49461/Api/Cines/Cine");
            // HttpGet del = new HttpGet("http://localhost:49461/Api/Cines/Cine");
+
+            HttpGet del = new HttpGet("http://bectar.ddns.net/Api/Cines/Cine");
 
             del.setHeader("content-type", "application/json");
 
@@ -217,7 +220,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
                         startActivity(objIntent);
                     }
                 }
-                DialogActualizar("Cines");
+                //DialogActualizar("Cines");
             }
         }
     }
@@ -234,9 +237,9 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
             HttpClient httpClient = new DefaultHttpClient();
 
-            HttpGet del = new HttpGet("http://10.0.2.2:49461/Api/Peliculas/Pelicula");
+           // HttpGet del = new HttpGet("http://10.0.2.2:49461/Api/Peliculas/Pelicula");
             // HttpGet del = new HttpGet("http://localhost:49461/Api/Cines/Cine");
-
+            HttpGet del = new HttpGet("http://bectar.ddns.net/Api/Peliculas/Pelicula");
             del.setHeader("content-type", "application/json");
 
             try
@@ -292,7 +295,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
                        startActivity(objIntent);
                     }
                 }
-                DialogActualizar("Peliculas");
+//                DialogActualizar("Peliculas");
             }
         }
     }
@@ -309,7 +312,8 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
             HttpClient httpClient = new DefaultHttpClient();
 
-            HttpGet del = new HttpGet("http://10.0.2.2:49461/Api/Proyecciones/Proyeccion");
+           // HttpGet del = new HttpGet("http://10.0.2.2:49461/Api/Proyecciones/Proyeccion");
+            HttpGet del = new HttpGet("http://bectar.ddns.net/Api/Proyecciones/Proyeccion");
             // HttpGet del = new HttpGet("http://localhost:49461/Api/Cines/Cine");
 
             del.setHeader("content-type", "application/json");
