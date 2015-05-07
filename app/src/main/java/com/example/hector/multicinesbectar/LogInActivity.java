@@ -25,9 +25,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-/**
- * Created by Hector on 29/03/2015.
- */
 public class LogInActivity extends Activity {
     private EditText EditPassword;
     private EditText txtEmailUserName;
@@ -35,7 +32,7 @@ public class LogInActivity extends Activity {
     private Button btnLogin;
     private TextView link_to_register;
     private Button ShowPassword;
-    private ArrayList<Usuarios> usuarios= new ArrayList<Usuarios>();
+    //private ArrayList<Usuarios> usuarios= new ArrayList<Usuarios>();
     private boolean sePuedeLogear = false;
     private Hash h;
     @Override
@@ -60,7 +57,6 @@ public class LogInActivity extends Activity {
                 txtEmailUserName.setText(username);
             }
         }
-
 
         EditPassword=(EditText)findViewById(R.id.txtPassword);
         ShowPassword=(Button)findViewById(R.id.ShowPassword);
@@ -95,48 +91,44 @@ public class LogInActivity extends Activity {
             @Override
             public void onClick(View v) {
                 TareaWSLogIn tarea = new TareaWSLogIn();
-                tarea.execute();
+                tarea.execute(txtEmailUserName.getText().toString(),txtPassword.getText().toString());
             }
         });
     }
 
     private class TareaWSLogIn extends AsyncTask<String,Integer,Boolean> {
-        ArrayList<Usuarios> usuarios = new ArrayList<Usuarios>();
+        //ArrayList<Usuarios> usuarios = new ArrayList<Usuarios>();
+        Usuarios usu= new Usuarios();
         protected Boolean doInBackground(String... params) {
 
             boolean resul = true;
 
             HttpClient httpClient = new DefaultHttpClient();
-
-            HttpGet del = new HttpGet("http://bectar.ddns.net/Api/Usuarios/Usuario");
-
+            HttpGet del = new HttpGet("http://10.0.2.2:49461/Api/Usuarios/Usuario/"+params[0].toString());
+            del.setHeader("content-type", "application/json");
 
             try
             {
                 HttpResponse resp = httpClient.execute(del);
                 String respStr = EntityUtils.toString(resp.getEntity());
 
-                JSONArray respJSON = new JSONArray(respStr);
-
-                for(int i=0; i<respJSON.length(); i++)
-                {
-                    JSONObject obj = respJSON.getJSONObject(i);
-
-                    Usuarios usuario = new Usuarios();
-
-                    usuario.setPass(obj.getString("Pass"));
-                    usuarios.add(usuario);
+                if(respStr.equals("")){
+                    sePuedeLogear=false;
                 }
+                else
+                {
+                    JSONObject respJSON = new JSONObject(respStr);
+                    String username = respJSON.get("UserName").toString();
+                    String pass = respJSON.get("Pass").toString();
+                    usu.setUserName(username);
+                    usu.setPass(pass);
 
-                String UserPassHasheado;
+                    String UserPassHasheado;
 
-                UserPassHasheado=h.computeSHAHash(txtEmailUserName.getText().toString(),txtPassword.getText().toString());
+                    UserPassHasheado=h.computeSHAHash(params[0].toString(),params[1].toString());
 
-                for(int x =0;x<usuarios.size();x++){
-                    if(UserPassHasheado.equals(usuarios.get(x).getPass())){
-                        //Toast.makeText(getApplicationContext(),"El user ya existe..",Toast.LENGTH_SHORT).show();
+                    if(UserPassHasheado.equals(usu.getPass())){
                         sePuedeLogear=true;
-                        break;
                     }
                     else{
                         sePuedeLogear=false;
@@ -148,41 +140,6 @@ public class LogInActivity extends Activity {
                 Log.e("ServicioRest","Error!", ex);
                 resul = false;
             }
-/*            if(sePuedeLogear){
-
-                HttpPost post = new HttpPost("http://10.0.2.2:49461/Api/Usuarios/Usuario");
-                post.setHeader("content-type", "application/json");
-
-                try
-                {
-                    //Construimos el objeto cliente en formato JSON
-                    JSONObject dato = new JSONObject();
-
-                    //dato.put("Id", Integer.parseInt(txtId.getText().toString()));
-                    dato.put("DNI", params[0]);
-                    //dato.put("ImgUsuario", params[1]);
-                    dato.put("Nombre", params[1]);
-                    dato.put("Apellidos", params[2]);
-                    dato.put("Email", params[3]);
-                    dato.put("UserName", params[4]);
-                    dato.put("Pass", params[5]);
-                    dato.put("T_Credito", params[6]);
-
-                    StringEntity entity = new StringEntity(dato.toString());
-                    post.setEntity(entity);
-
-                    HttpResponse resp = httpClient.execute(post);
-                    String respStr = EntityUtils.toString(resp.getEntity());
-
-                    if(!respStr.equals("true"))
-                        resul = false;
-                }
-                catch(Exception ex)
-                {
-                    Log.e("ServicioRest", "Error!", ex);
-                    resul = false;
-                }
-            }*/
             return resul;
         }
 

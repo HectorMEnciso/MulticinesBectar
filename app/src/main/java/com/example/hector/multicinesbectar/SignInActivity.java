@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,18 +17,9 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
-/**
- * Created by Hector on 29/03/2015.
- */
 public class SignInActivity extends Activity {
     private TextView nombre;
     private TextView apellidos;
@@ -42,7 +32,6 @@ public class SignInActivity extends Activity {
     private Button signIn;
     private static int NO_OPTIONS=0;
     private String SHAHash;
-    private ArrayList<Usuarios> usuarios= new ArrayList<Usuarios>();
     private boolean SePuedeinsertar=true;
     private Hash h;
     @Override
@@ -62,25 +51,10 @@ public class SignInActivity extends Activity {
         creditCard = (TextView) findViewById(R.id.txtCreditCard);
         signIn = (Button) findViewById(R.id.btnSignIn);
 
-
-
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*TareaWSObtenerUsuarios obtenerUser = new TareaWSObtenerUsuarios();
-                obtenerUser.execute();
-
-                if(!usuarios.isEmpty()){
-                        Toast.makeText(getApplicationContext(),"Ya existe un usuario con ese NickName\n Por favor, escoja otro.",Toast.LENGTH_SHORT).show();
-                        insertar=false;
-                    }
-
-                else{
-                        insertar=true;
-                    }
-*/
-                //  if(insertar) {
-                TareaWSInsertar tarea = new TareaWSInsertar();
+                TareaWSRegistrarUser tarea = new TareaWSRegistrarUser();
                 tarea.execute(
                         dni.getText().toString(),
                         nombre.getText().toString(),
@@ -89,140 +63,70 @@ public class SignInActivity extends Activity {
                         NickName.getText().toString(),
                         h.computeSHAHash(NickName.getText().toString(), Pass.getText().toString()),
                         creditCard.getText().toString());
-                //  }
             }
         });
     }
 
-    //Tarea Asincrona para llamar al WS de insercion en segundo plano
-    private class TareaWSInsertar extends AsyncTask<String,Integer,Boolean> {
-        ArrayList<Usuarios> usuarios = new ArrayList<Usuarios>();
-        protected Boolean doInBackground(String... params) {
-
-            boolean resul = true;
-
-            HttpClient httpClient = new DefaultHttpClient();
-
-            HttpGet del = new HttpGet("http://bectar.ddns.net/Api/Usuarios/Usuario");
-
-
-            try
-            {
-                HttpResponse resp = httpClient.execute(del);
-                String respStr = EntityUtils.toString(resp.getEntity());
-
-                JSONArray respJSON = new JSONArray(respStr);
-
-                for(int i=0; i<respJSON.length(); i++)
-                {
-                    JSONObject obj = respJSON.getJSONObject(i);
-
-                    Usuarios usuario = new Usuarios();
-
-                    usuario.setUserName(obj.getString("UserName"));
-                    usuarios.add(usuario);
-                }
-
-                for(int x =0;x<usuarios.size();x++){
-                    if(usuarios.get(x).getUserName().equals(NickName.getText().toString())){
-                        //Toast.makeText(getApplicationContext(),"El user ya existe..",Toast.LENGTH_SHORT).show();
-                        SePuedeinsertar=false;
-                        break;
-                    }
-                    else{
-                        SePuedeinsertar=true;
-                    }
-                }
-            }
-            catch(Exception ex)
-            {
-                Log.e("ServicioRest","Error!", ex);
-                resul = false;
-            }
-        if(SePuedeinsertar){
-
-               HttpPost post = new HttpPost("http://bectar.ddns.net/Api/Usuarios/Usuario");
-               post.setHeader("content-type", "application/json");
-
-                try
-                {
-                    //Construimos el objeto cliente en formato JSON
-                    JSONObject dato = new JSONObject();
-
-                    //dato.put("Id", Integer.parseInt(txtId.getText().toString()));
-                    dato.put("DNI", params[0]);
-                    //dato.put("ImgUsuario", params[1]);
-                    dato.put("Nombre", params[1]);
-                    dato.put("Apellidos", params[2]);
-                    dato.put("Email", params[3]);
-                    dato.put("UserName", params[4]);
-                    dato.put("Pass", params[5]);
-                    dato.put("T_Credito", params[6]);
-
-                    StringEntity entity = new StringEntity(dato.toString());
-                    post.setEntity(entity);
-
-                    HttpResponse resp = httpClient.execute(post);
-                    String respStr = EntityUtils.toString(resp.getEntity());
-
-                    if(!respStr.equals("true"))
-                        resul = false;
-                }
-                catch(Exception ex)
-                {
-                    Log.e("ServicioRest", "Error!", ex);
-                    resul = false;
-                }
-        }
-            return resul;
-        }
-
-        protected void onPostExecute(Boolean result) {
-            if(SePuedeinsertar){
-                Toast.makeText(getApplicationContext(),"Usuario registrado",Toast.LENGTH_SHORT).show();
-                Intent d = new Intent(getApplicationContext(),LogInActivity.class);
-                d.putExtra("username",NickName.getText().toString());
-                startActivity(d);
-            }
-            else{
-                Toast.makeText(getApplicationContext(),"Usuario ya existe",Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
-   /* private class TareaWSObtenerUsuarios extends AsyncTask<String,Integer,Boolean> {
-
+    private class TareaWSRegistrarUser extends AsyncTask<String,Integer,Boolean> {
 
         protected Boolean doInBackground(String... params) {
 
             boolean resul = true;
-
+            //le enviamos el nickname al web service
             HttpClient httpClient = new DefaultHttpClient();
-
-            HttpGet del = new HttpGet("http://10.0.2.2:49461/Api/Usuarios/Usuario/"+ NickName.getText().toString());
-
+            HttpGet del = new HttpGet("http://10.0.2.2:49461/Api/Usuarios/Usuario/"+params[4].toString());
             del.setHeader("content-type", "application/json");
-
             try {
                 HttpResponse resp = httpClient.execute(del);
                 String respStr = EntityUtils.toString(resp.getEntity());
 
-                JSONObject  respJSON = new JSONObject (respStr);//si el usuario no existe salta la excepcion
+                if(respStr.equals("")){
+                    SePuedeinsertar=true;
+                }
+                else
+                {
+                    SePuedeinsertar=false;
+                    JSONObject respJSON = new JSONObject(respStr);
+                }
 
+                if(SePuedeinsertar){
 
-                    Usuarios usuario = new Usuarios();
-                    if(respJSON.length()==0){
-                        insertar=true;
+                    HttpPost post = new HttpPost("http://10.0.2.2:49461/Api/Usuarios/Usuario");
+                    post.setHeader("content-type", "application/json");
+
+                    try
+                    {
+                        //Construimos el objeto cliente en formato JSON
+                        JSONObject dato = new JSONObject();
+
+                        //dato.put("Id", Integer.parseInt(txtId.getText().toString()));
+                        dato.put("DNI", params[0]);
+                        //dato.put("ImgUsuario", params[1]);
+                        dato.put("Nombre", params[1]);
+                        dato.put("Apellidos", params[2]);
+                        dato.put("Email", params[3]);
+                        dato.put("UserName", params[4]);
+                        dato.put("Pass", params[5]);
+                        dato.put("T_Credito", params[6]);
+
+                        StringEntity entity = new StringEntity(dato.toString());
+                        post.setEntity(entity);
+
+                        HttpResponse resp1 = httpClient.execute(post);
+                        String respStr1 = EntityUtils.toString(resp1.getEntity());
+
+                        if(!respStr1.equals("true"))
+                            resul = false;
                     }
-                else{
-                        usuario.setUserName(respJSON.getString(("UserName")));
-                        usuarios.add(usuario);
-                        insertar=false;
+                    catch(Exception ex)
+                    {
+                        Log.e("ServicioRest", "Error!", ex);
+                        resul = false;
                     }
-
+                }
 
             } catch (Exception ex) {
-                insertar=true;
+                SePuedeinsertar=true;
                 Log.e("ServicioRest", "Error!", ex);
                 resul = false;
             }
@@ -233,8 +137,16 @@ public class SignInActivity extends Activity {
 
             if (result)
             {
-                //Toast.makeText(getApplicationContext(),"Listado de usuarios obtenido",Toast.LENGTH_SHORT).show();
+                if(SePuedeinsertar){
+                    Toast.makeText(getApplicationContext(),"Usuario registrado correctamente",Toast.LENGTH_SHORT).show();
+                    Intent d = new Intent(getApplicationContext(),LogInActivity.class);
+                    d.putExtra("username",NickName.getText().toString());
+                    startActivity(d);
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),"El usuario ya existe",Toast.LENGTH_SHORT).show();
+                }
             }
         }
-    }*/
+    }
 }
