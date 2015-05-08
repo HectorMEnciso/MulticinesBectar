@@ -23,6 +23,12 @@
                 android:icon="@drawable/ic_action_action_exit_to_app"
                 android:title="Sign in">
              </item>
+            <item
+                android:id="@+id/LogOut"
+                android:icon="@drawable/ic_action_action_exit_to_app"
+                android:showAsAction="never"
+                android:title="Log Out">
+            </item>
         </menu>
     </item>
 </menu>

@@ -32,13 +32,16 @@ public class LogInActivity extends Activity {
     private Button btnLogin;
     private TextView link_to_register;
     private Button ShowPassword;
-    //private ArrayList<Usuarios> usuarios= new ArrayList<Usuarios>();
     private boolean sePuedeLogear = false;
     private Hash h;
+    // Session Manager Class
+    private SessionManager session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
+        // Session Manager
+        session = new SessionManager(getApplicationContext());
         h = new Hash();
 
         btnLogin=(Button)findViewById(R.id.btnLogin);
@@ -129,6 +132,10 @@ public class LogInActivity extends Activity {
 
                     if(UserPassHasheado.equals(usu.getPass())){
                         sePuedeLogear=true;
+                        // Creating user login session
+                        // For testing i am stroing name, email as follow
+                        // Use user real data
+                        session.createLoginSession(params[0].toString(),params[1].toString());
                     }
                     else{
                         sePuedeLogear=false;
@@ -150,6 +157,10 @@ public class LogInActivity extends Activity {
             else{
                 Toast.makeText(getApplicationContext(),"Usuario no existe",Toast.LENGTH_SHORT).show();
             }
+            // Staring MainActivity
+            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(i);
+            finish();
         }
     }
 }

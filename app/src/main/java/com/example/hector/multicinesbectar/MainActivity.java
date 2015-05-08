@@ -18,7 +18,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -36,6 +35,9 @@ public class MainActivity extends Activity {
     private CharSequence mTitle;
     private NavigationAdapter NavAdapter;
 
+    // Session Manager Class
+    private SessionManager session;
+
     /*private DBController controller = new DBController(this);
     ArrayList<HashMap<String, String>> CinesList;
     private ListView lstCines; //Declaracion GLobal del listView lstCoches.
@@ -45,14 +47,19 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigationdrawer_activity);
 
-        /*lstCines = (ListView) findViewById(R.id.LstCines);
+        // Session class instance
+        session = new SessionManager(getApplicationContext());
 
-        CinesList=controller.getAllCines();
+        session.checkLogin();
 
-        lstCines.setAdapter(adaptadorCines);
+        // get user data from session
+        HashMap<String, String> user = session.getUserDetails();
 
-        adaptadorCines = new SimpleAdapter(MainActivity.this,CinesList, R.layout.cines_layout, new String[] { "IdCine" ,"ImgCine","NombreCine"}, new int[] {R.id.IDCine,R.id.ivContactImage, R.id.lblNombreCine});
-        lstCines.setAdapter(adaptadorCines);*/
+        // Username
+        String name = user.get(SessionManager.KEY_USERNAME);
+
+        // email
+        String email = user.get(SessionManager.KEY_EMAIL);
 
         //Drawer Layout
         NavDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -202,6 +209,14 @@ public class MainActivity extends Activity {
         if (id == R.id.SignIn) {
             Intent SignIn = new Intent(this,SignInActivity.class);
             startActivity(SignIn);
+            return true;
+        }
+
+        if (id == R.id.LogOut) {
+            // Clear the session data
+            // This will clear all session data and
+            // redirect user to LoginActivity
+            session.logoutUser();
             return true;
         }
         return super.onOptionsItemSelected(item);
