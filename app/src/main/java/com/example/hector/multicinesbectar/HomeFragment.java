@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SimpleAdapter;
@@ -37,6 +38,8 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
     private SearchView mSearchView; //Declaracion global del SearchView sSearchView
     private TabHost tabs;
+    private int posi,x;
+    private TextView ID;
     public HomeFragment(){}
 
     ArrayList<HashMap<String, String>> CinesList;
@@ -73,6 +76,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
         controller = new DBController(getActivity());
        // setupSearchView();
+
         Resources res = getResources();
 
         tabs=(TabHost) getActivity().findViewById(R.id.tabhost);
@@ -130,6 +134,38 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         adaptadorIrYa = new SimpleAdapter(getActivity(),IrYaList, R.layout.irya_layout, new String[] { "IdPelicula" ,"ImgPelicula","Titulo","NombreCine","Hora"}, new int[] {R.id.IDPeliculaIrYa,R.id.ivContactImagePeliculaIrYa,R.id.lblTituloPeliculaIrYa, R.id.lblCinePeliculaIrYa,R.id.lblHoraPeliculaIrYa});
         lstIrYa.setAdapter(adaptadorIrYa);
 
+        // #######################################	VISTA DETALLE !!!!!!  #####################################################
+
+        if(PeliculasList.size()!=0) {
+            lstPeliculas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                    ID = (TextView) v.findViewById(R.id.IDPelicula);
+                    Intent data = new Intent(getActivity(), PeliculaVistaDetalle.class);//Intent explicito a editActivity
+                    TextView ti = (TextView) v.findViewById(R.id.lblTituloPelicula);//Obtenemos la referencia al listView TextView
+                    String m = ti.getText().toString();//Almacenamos el texto
+                    Log.e("m ", m);
+                    for (int k = 0; k < PeliculasList.size(); k++) {//Recorremos el ArrayList<Motos> datos
+                        if (PeliculasList.get(k).get("Titulo").toString().equalsIgnoreCase(m)) {//Para cada elemento comparamos cada matricula
+                            x = k;//Guardamos aquella posicion cuyo elemento coincida.
+
+                        }
+                    }
+
+                //Pasamos todos los datos del elemento al vistaDetalle
+
+                    data.putExtra("id", PeliculasList.get(x).get("id"));
+                    //Log.e("id= " ,  PeliculasList.get(x).get("id"));
+                    startActivity(data);
+                }
+            });
+            //adaptadorPeliculas = new SimpleAdapter(getActivity(), PeliculasList, R.layout.vista_detalle_pelicula, new String[]{"id", "ImgPelicula", "Titulo", "Director", "Interpretes", "Genero","Duracion","Anyo"}, new int[]{R.id.IDPeliculaDetalle, R.id.imageViewPelicula, R.id.TituloPeliculaDetalle, R.id.DirectorDetalle, R.id.InterpretesDetalle, R.id.Genero,R.id.Duracion,R.id.Anyo});
+           // lstPeliculas.setAdapter(adaptadorPeliculas);
+        }
+
+
+        // ############################################################################################################################
+
     }
 
     private void setupSearchView() {
@@ -167,10 +203,10 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
             HttpClient httpClient = new DefaultHttpClient();
 
-            //HttpGet del = new HttpGet("http://10.0.2.2:49461/Api/Cines/Cine");
+            HttpGet del = new HttpGet("http://10.0.2.2:49461/Api/Cines/Cine");
            // HttpGet del = new HttpGet("http://localhost:49461/Api/Cines/Cine");
 
-            HttpGet del = new HttpGet("http://bectar.ddns.net/Api/Cines/Cine");
+            //HttpGet del = new HttpGet("http://bectar.ddns.net/Api/Cines/Cine");
 
             del.setHeader("content-type", "application/json");
 
@@ -237,9 +273,9 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
             HttpClient httpClient = new DefaultHttpClient();
 
-           // HttpGet del = new HttpGet("http://10.0.2.2:49461/Api/Peliculas/Pelicula");
+            HttpGet del = new HttpGet("http://10.0.2.2:49461/Api/Peliculas/Pelicula");
             // HttpGet del = new HttpGet("http://localhost:49461/Api/Cines/Cine");
-            HttpGet del = new HttpGet("http://bectar.ddns.net/Api/Peliculas/Pelicula");
+           // HttpGet del = new HttpGet("http://bectar.ddns.net/Api/Peliculas/Pelicula");
             del.setHeader("content-type", "application/json");
 
             try
@@ -312,8 +348,8 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
             HttpClient httpClient = new DefaultHttpClient();
 
-           // HttpGet del = new HttpGet("http://10.0.2.2:49461/Api/Proyecciones/Proyeccion");
-            HttpGet del = new HttpGet("http://bectar.ddns.net/Api/Proyecciones/Proyeccion");
+            HttpGet del = new HttpGet("http://10.0.2.2:49461/Api/Proyecciones/Proyeccion");
+           // HttpGet del = new HttpGet("http://bectar.ddns.net/Api/Proyecciones/Proyeccion");
             // HttpGet del = new HttpGet("http://localhost:49461/Api/Cines/Cine");
 
             del.setHeader("content-type", "application/json");

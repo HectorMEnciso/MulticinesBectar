@@ -275,20 +275,20 @@ public class DBController extends SQLiteOpenHelper {
     }
 
 
-    public HashMap<String, String> getCocheInfo(String id) {
+    public HashMap<String, String> getPeliculainfo(String id) {
         HashMap<String, String> wordList = new HashMap<String, String>();
         SQLiteDatabase database = this.getReadableDatabase();
-        String selectQuery = "SELECT * FROM Coches where id='"+id+"'";
+        String selectQuery = "SELECT * FROM Peliculas where IdPelicula='"+id+"'";
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
-                wordList.put("idfoto", cursor.getString(1));
-                wordList.put("matricula", cursor.getString(2));
-                wordList.put("marca", cursor.getString(3));
-                wordList.put("modelo", cursor.getString(4));
-                wordList.put("motorizacion", cursor.getString(5));
-                wordList.put("cilindrada", cursor.getString(6));
-                wordList.put("fechaCompra", cursor.getString(7));
+                wordList.put("ImgPelicula", cursor.getString(1));
+                wordList.put("Titulo", cursor.getString(2));
+                wordList.put("Director", cursor.getString(3));
+                wordList.put("Interpretes", cursor.getString(4));
+                wordList.put("Genero", cursor.getString(5));
+                wordList.put("Duracion", cursor.getString(6));
+                wordList.put("Anyo", cursor.getString(7));
             } while (cursor.moveToNext());
         }
         return wordList;
