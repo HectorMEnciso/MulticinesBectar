@@ -148,15 +148,14 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
                     for (int k = 0; k < PeliculasList.size(); k++) {//Recorremos el ArrayList<Motos> datos
                         if (PeliculasList.get(k).get("Titulo").toString().equalsIgnoreCase(m)) {//Para cada elemento comparamos cada matricula
                             x = k;//Guardamos aquella posicion cuyo elemento coincida.
-
                         }
                     }
 
                 //Pasamos todos los datos del elemento al vistaDetalle
 
-                    data.putExtra("id", PeliculasList.get(x).get("id"));
+                    data.putExtra("IdPelicula", PeliculasList.get(x).get("IdPelicula"));
                     //Log.e("id= " ,  PeliculasList.get(x).get("id"));
-                    startActivity(data);
+                    getActivity().startActivity(data);
                 }
             });
             //adaptadorPeliculas = new SimpleAdapter(getActivity(), PeliculasList, R.layout.vista_detalle_pelicula, new String[]{"id", "ImgPelicula", "Titulo", "Director", "Interpretes", "Genero","Duracion","Anyo"}, new int[]{R.id.IDPeliculaDetalle, R.id.imageViewPelicula, R.id.TituloPeliculaDetalle, R.id.DirectorDetalle, R.id.InterpretesDetalle, R.id.Genero,R.id.Duracion,R.id.Anyo});

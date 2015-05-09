@@ -73,6 +73,10 @@
             android:name=".MapsCinesActivity"
             android:label="@string/title_activity_maps" >
         </activity>
+        <activity
+            android:name=".PeliculaVistaDetalle"
+            android:label="@string/title_DetailView" >
+        </activity>
     </application>
 
 </manifest>

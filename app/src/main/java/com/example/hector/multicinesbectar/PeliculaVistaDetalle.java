@@ -31,11 +31,11 @@ public class PeliculaVistaDetalle extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vista_detalle_pelicula);
         Intent objIntent = getIntent();
-        String id = objIntent.getStringExtra("id");
+        String id = objIntent.getStringExtra("IdPelicula");
         PeliculasList = controller.getPeliculainfo(id);
 
         imageViewPelicula= (ImageView)findViewById(R.id.imageViewPelicula);
-        TituloPeliculaDetalle = (TextView)findViewById(R.id.lblTituloPelicula);
+        TituloPeliculaDetalle = (TextView)findViewById(R.id.TituloPeliculaDetalle);
         DirectorDetalle = (TextView)findViewById(R.id.DirectorDetalle);
         InterpretesDetalle = (TextView)findViewById(R.id.InterpretesDetalle);
         GeneroDetalle = (TextView)findViewById(R.id.Genero);
