@@ -71,13 +71,13 @@ public class MainActivity extends Activity {
         if(!session.isLoggedIn()) {//si no esta logeado
             NavItms.add(new Item_objct(titulos[0], NavIcons.getResourceId(0, -1)));
             //Perfil
-           // NavItms.add(new Item_objct(titulos[1], NavIcons.getResourceId(1, -1)));
+           NavItms.add(new Item_objct(titulos[1], NavIcons.getResourceId(1, -1)));
             //Eventos
             NavItms.add(new Item_objct(titulos[2], NavIcons.getResourceId(2, -1)));
             //Lugares
             NavItms.add(new Item_objct(titulos[3], NavIcons.getResourceId(3, -1)));
             //Etiquetas
-            NavItms.add(new Item_objct(titulos[4], NavIcons.getResourceId(4, -1)));
+            //NavItms.add(new Item_objct(titulos[4], NavIcons.getResourceId(4, -1)));
         }
         else{
             NavItms.add(new Item_objct(titulos[0], NavIcons.getResourceId(0, -1)));
@@ -130,7 +130,7 @@ public class MainActivity extends Activity {
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
                 if(!session.isLoggedIn()) {//si no esta logeado
                     if(position==0){
-                        MostrarFragmentNoLogin(position + 2);
+                        //MostrarFragmentNoLogin(position + 2);
                     }
                     else{
                         MostrarFragmentNoLogin(position);
@@ -204,10 +204,10 @@ public class MainActivity extends Activity {
             case 1:
                 fragment = new HomeFragment();
                 break;
-            case 2:
+            case 5:
                 fragment = new ProfileFragment();
                 break;
-            case 3:
+            case 2:
                 fragment= new MapsCinesActivity();
                 break;
 

@@ -74,7 +74,10 @@ public class SignInActivity extends Activity {
             boolean resul = true;
             //le enviamos el nickname al web service
             HttpClient httpClient = new DefaultHttpClient();
-            HttpGet del = new HttpGet("http://10.0.2.2:49461/Api/Usuarios/Usuario/"+params[4].toString());
+           // HttpGet del = new HttpGet("http://10.0.2.2:49461/Api/Usuarios/Usuario/"+params[4].toString());
+           // HttpGet del = new HttpGet("http://localhost:49461/Api/Usuarios/Usuario/"+params[4].toString());
+            HttpGet del = new HttpGet("http://bectar.ddns.net/Api/Usuarios/Usuario/"+params[4].toString());
+
             del.setHeader("content-type", "application/json");
             try {
                 HttpResponse resp = httpClient.execute(del);
@@ -91,7 +94,9 @@ public class SignInActivity extends Activity {
 
                 if(SePuedeinsertar){
 
-                    HttpPost post = new HttpPost("http://10.0.2.2:49461/Api/Usuarios/Usuario");
+                    //HttpPost post = new HttpPost("http://10.0.2.2:49461/Api/Usuarios/Usuario");
+                   // HttpPost post = new HttpPost("http://localhost:49461/Api/Usuarios/Usuario");
+                    HttpPost post = new HttpPost("http://bectar.ddns.net/Api/Usuarios/Usuario");
                     post.setHeader("content-type", "application/json");
 
                     try

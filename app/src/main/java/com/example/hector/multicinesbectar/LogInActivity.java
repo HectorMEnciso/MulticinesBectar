@@ -107,7 +107,9 @@ public class LogInActivity extends Activity {
             boolean resul = true;
 
             HttpClient httpClient = new DefaultHttpClient();
-            HttpGet del = new HttpGet("http://10.0.2.2:49461/Api/Usuarios/Usuario/"+params[0].toString());
+           //HttpGet del = new HttpGet("http://10.0.2.2:49461/Api/Usuarios/Usuario/"+params[0].toString());
+            //HttpGet del = new HttpGet("http://localhost:49461/Api/Usuarios/Usuario/"+params[0].toString());
+            HttpGet del = new HttpGet("http://bectar.ddns.net/Api/Usuarios/Usuario/"+params[0].toString());
             del.setHeader("content-type", "application/json");
 
             try
@@ -153,14 +155,14 @@ public class LogInActivity extends Activity {
         protected void onPostExecute(Boolean result) {
             if(sePuedeLogear){
                 Toast.makeText(getApplicationContext(),"Usuario logeado",Toast.LENGTH_SHORT).show();
+                // Staring MainActivity
+                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(i);
+                finish();
             }
             else{
                 Toast.makeText(getApplicationContext(),"Usuario no existe",Toast.LENGTH_SHORT).show();
             }
-            // Staring MainActivity
-            Intent i = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(i);
-            finish();
         }
     }
 }
