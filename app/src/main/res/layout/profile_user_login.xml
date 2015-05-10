@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#ff97c1d5">
+    android:background="#B7CCF2">
 
 
     <LinearLayout android:id="@+id/header"
@@ -37,8 +37,8 @@
     <ImageView
         android:id="@+id/imageUser"
         android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_width="125dp"
+        android:layout_height="125dp"/>
 
     <TextView
         android:id="@+id/NombreUserLogin"

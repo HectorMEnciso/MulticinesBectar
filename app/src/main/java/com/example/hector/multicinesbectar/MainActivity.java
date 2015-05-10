@@ -52,7 +52,6 @@ public class MainActivity extends Activity {
 
         session.checkLogin();
 
-
         //Drawer Layout
         NavDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         //Lista
@@ -129,21 +128,73 @@ public class MainActivity extends Activity {
         NavList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
-                if(position==0){
-                    MostrarFragment(position+2);
+                if(!session.isLoggedIn()) {//si no esta logeado
+                    if(position==0){
+                        MostrarFragmentNoLogin(position + 2);
+                    }
+                    else{
+                        MostrarFragmentNoLogin(position);
+                    }
+
                 }
                 else{
-                    MostrarFragment(position);
+                    if(position==0){
+                        MostrarFragment(position+2);
+                    }
+                    else{
+                        MostrarFragment(position);
+                    }
                 }
             }
         });
 
         //Cuando la aplicacion cargue por defecto mostrar la opcion Home
-        MostrarFragment(1);
+        if(!session.isLoggedIn()) {//si no esta logeado
+            MostrarFragmentNoLogin(1);
+        }
+        else{
+            MostrarFragment(1);
+        }
+
 
 
     }
+    private void MostrarFragmentNoLogin(int position) {
+        // update the navigationdrawer_activity content by replacing fragments
+        Fragment fragment = null;
 
+        switch (position) {
+            case 1:
+                fragment = new HomeFragment();
+                break;
+            case 2:
+                fragment= new MapsCinesActivity();
+                break;
+
+            default:
+                //si no esta la opcion mostrara un toast y nos mandara a Home
+                Toast.makeText(getApplicationContext(), "Opcion " + titulos[position-1] + " no disponible!", Toast.LENGTH_SHORT).show();
+                fragment = new HomeFragment();
+                position=1;
+                break;
+        }
+        //Validamos si el fragment no es nulo
+        if (fragment != null) {
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+
+            // Actualizamos el contenido segun la opcion elegida
+            NavList.setItemChecked(position, true);
+            NavList.setSelection(position);
+            //Cambiamos el titulo en donde decia "
+            setTitle(titulos[position-1]);
+            //Cerramos el menu deslizable
+            NavDrawerLayout.closeDrawer(NavList);
+        } else {
+            //Si el fragment es nulo mostramos un mensaje de error.
+            Log.e("Error  ", "MostrarFragment"+position);
+        }
+    }
 
     private void MostrarFragment(int position) {
         // update the navigationdrawer_activity content by replacing fragments
@@ -162,7 +213,7 @@ public class MainActivity extends Activity {
 
             default:
                 //si no esta la opcion mostrara un toast y nos mandara a Home
-                Toast.makeText(getApplicationContext(), "Opcion " + titulos[position - 1] + " no disponible!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Opcion " + titulos[position-1] + " no disponible!", Toast.LENGTH_SHORT).show();
                 fragment = new HomeFragment();
                 position=1;
                 break;
