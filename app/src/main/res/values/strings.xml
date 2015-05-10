@@ -9,7 +9,7 @@
    <!-- Lista de titulos de navegacion -->
     <string-array name="nav_options">
         <item>Cines/Peliculas</item>
-        <item>Perfil</item>
+        <item>Cuenta</item>
         <item>Lugares</item>
         <item>Configuración</item>
         <item>Compartir</item>

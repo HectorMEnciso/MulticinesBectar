@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.widget.Toast;
 
 public class SessionManager {
 	// Shared Preferences
@@ -65,15 +66,16 @@ public class SessionManager {
 		// Check login status
 		if(!this.isLoggedIn()){
 			// user is not logged in redirect him to Login Activity
-			Intent i = new Intent(_context, LogInActivity.class);
+			//Intent i = new Intent(_context, LogInActivity.class);
 			// Closing all the Activities
-			i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			//i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			
 			// Add new Flag to start new Activity
-			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			//i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			
 			// Staring Login Activity
-			_context.startActivity(i);
+			//_context.startActivity(i);
+			Toast.makeText(_context,"Sesion cerrada",Toast.LENGTH_SHORT).show();
 		}
 		
 	}
@@ -104,15 +106,15 @@ public class SessionManager {
 		editor.commit();
 		
 		// After logout redirect user to Loing Activity
-		Intent i = new Intent(_context, LogInActivity.class);
+		//Intent i = new Intent(_context, LogInActivity.class);
 		// Closing all the Activities
-		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		//i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		
 		// Add new Flag to start new Activity
-		i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		//i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		
 		// Staring Login Activity
-		_context.startActivity(i);
+		//_context.startActivity(i);
 	}
 	
 	/**
@@ -120,6 +122,7 @@ public class SessionManager {
 	 * **/
 	// Get Login State
 	public boolean isLoggedIn(){
-		return pref.getBoolean(IS_LOGIN, false);
+		return pref.getBoolean(IS_LOGIN, false);//false, valor a devolver si
+		//la preferencia no existe.
 	}
 }

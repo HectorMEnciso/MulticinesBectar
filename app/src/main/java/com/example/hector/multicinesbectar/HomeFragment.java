@@ -38,7 +38,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
     private SearchView mSearchView; //Declaracion global del SearchView sSearchView
     private TabHost tabs;
-    private int posi,x;
+    private int x;
     private TextView ID;
     public HomeFragment(){}
 

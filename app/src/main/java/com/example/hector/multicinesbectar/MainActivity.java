@@ -52,14 +52,6 @@ public class MainActivity extends Activity {
 
         session.checkLogin();
 
-        // get user data from session
-        HashMap<String, String> user = session.getUserDetails();
-
-        // Username
-        String name = user.get(SessionManager.KEY_USERNAME);
-
-        // email
-        String email = user.get(SessionManager.KEY_EMAIL);
 
         //Drawer Layout
         NavDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -76,16 +68,30 @@ public class MainActivity extends Activity {
         //Listado de titulos de barra de navegacion
         NavItms = new ArrayList<Item_objct>();
         //Agregamos objetos Item_objct al array
-        //Perfil
-        NavItms.add(new Item_objct(titulos[0], NavIcons.getResourceId(0, -1)));
-        //Favoritos
-        NavItms.add(new Item_objct(titulos[1], NavIcons.getResourceId(1, -1)));
-        //Eventos
-        NavItms.add(new Item_objct(titulos[2], NavIcons.getResourceId(2, -1)));
-        //Lugares
-        NavItms.add(new Item_objct(titulos[3], NavIcons.getResourceId(3, -1)));
-        //Etiquetas
-        NavItms.add(new Item_objct(titulos[4], NavIcons.getResourceId(4, -1)));
+
+        if(!session.isLoggedIn()) {//si no esta logeado
+            NavItms.add(new Item_objct(titulos[0], NavIcons.getResourceId(0, -1)));
+            //Perfil
+           // NavItms.add(new Item_objct(titulos[1], NavIcons.getResourceId(1, -1)));
+            //Eventos
+            NavItms.add(new Item_objct(titulos[2], NavIcons.getResourceId(2, -1)));
+            //Lugares
+            NavItms.add(new Item_objct(titulos[3], NavIcons.getResourceId(3, -1)));
+            //Etiquetas
+            NavItms.add(new Item_objct(titulos[4], NavIcons.getResourceId(4, -1)));
+        }
+        else{
+            NavItms.add(new Item_objct(titulos[0], NavIcons.getResourceId(0, -1)));
+            //Perfil
+            NavItms.add(new Item_objct(titulos[1], NavIcons.getResourceId(1, -1)));
+            //Eventos
+            NavItms.add(new Item_objct(titulos[2], NavIcons.getResourceId(2, -1)));
+            //Lugares
+            NavItms.add(new Item_objct(titulos[3], NavIcons.getResourceId(3, -1)));
+            //Etiquetas
+            NavItms.add(new Item_objct(titulos[4], NavIcons.getResourceId(4, -1)));
+        }
+
 
         //Declaramos y seteamos nuestro adaptador al cual le pasamos el array con los titulos
         NavAdapter= new NavigationAdapter(this,NavItms);
