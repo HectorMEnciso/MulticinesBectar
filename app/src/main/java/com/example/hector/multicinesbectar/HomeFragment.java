@@ -76,7 +76,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
         controller = new DBController(getActivity());
        // setupSearchView();
-
+        ActualizarTabs();
         Resources res = getResources();
 
         tabs=(TabHost) getActivity().findViewById(R.id.tabhost);
@@ -89,12 +89,12 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
         spec=tabs.newTabSpec("mitab2");
         spec.setContent(R.id.tab2);
-        spec.setIndicator("PELICULAS",res.getDrawable(android.R.drawable.ic_dialog_map));
+        spec.setIndicator("PELICULAS", res.getDrawable(android.R.drawable.ic_dialog_map));
         tabs.addTab(spec);
 
         spec=tabs.newTabSpec("mitab3");
         spec.setContent(R.id.tab3);
-        spec.setIndicator("IR YA!",res.getDrawable(android.R.drawable.ic_dialog_map));
+        spec.setIndicator("IR YA!", res.getDrawable(android.R.drawable.ic_dialog_map));
         tabs.addTab(spec);
 
         tabs.setCurrentTab(0);
@@ -104,17 +104,11 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
             @Override
             public void onTabChanged(String tabId) {
                 Log.i("AndroidTabsDemo", "Pulsada pestaña: " + tabId);
+                ActualizarTabs();
             }
         });
 
-        TareaWSListarCines tareaListarCines = new TareaWSListarCines();
-        tareaListarCines.execute();
-
-        TareaWSListarPeliculas tareaListasPeliculas = new TareaWSListarPeliculas();
-        tareaListasPeliculas.execute();
-
-        TareaWSListarProyeciones tareaListasProyeciones = new TareaWSListarProyeciones();
-        tareaListasProyeciones.execute();
+        //ActualizarTabs();
 
         mSearchView.setQuery("",false);
         mSearchView.clearFocus();
@@ -166,12 +160,27 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         // ############################################################################################################################
 
     }
+    public void onResume(){
+        super.onResume();
+        ActualizarTabs();
+       // adaptadorPeliculas.notifyDataSetChanged();
+    }
 
     private void setupSearchView() {
         mSearchView.setIconifiedByDefault(true); //Define el estado del campo de busqueda.
         mSearchView.setOnQueryTextListener((SearchView.OnQueryTextListener) getActivity());//Define un escuchador para para las acciones dentro del searchView
         mSearchView.setSubmitButtonEnabled(true);//Habilita el boton Submit cuando no esta vacia.
         mSearchView.setQueryHint("Introduzca matricula....");//Texto a mostrar.
+    }
+    private void ActualizarTabs(){
+        TareaWSListarCines tareaListarCines = new TareaWSListarCines();
+        tareaListarCines.execute();
+
+        TareaWSListarPeliculas tareaListasPeliculas = new TareaWSListarPeliculas();
+        tareaListasPeliculas.execute();
+
+        TareaWSListarProyeciones tareaListasProyeciones = new TareaWSListarProyeciones();
+        tareaListasProyeciones.execute();
     }
 
     @Override
