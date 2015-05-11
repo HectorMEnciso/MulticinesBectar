@@ -322,7 +322,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
                         queryValues.put("Titulo",String.valueOf(peliculas.get(i).getTitulo()));
                         queryValues.put("Director",String.valueOf(peliculas.get(i).getDirector()));
                         queryValues.put("Interpretes",String.valueOf(peliculas.get(i).getInterpretes()));
-                        queryValues.put("Genero",String.valueOf(peliculas.get(i).getDuracion()));
+                        queryValues.put("Genero",String.valueOf(peliculas.get(i).getGenero()));
                         queryValues.put("Duracion",String.valueOf(peliculas.get(i).getDuracion()));
                         queryValues.put("Anyo",String.valueOf(peliculas.get(i).getAnyo()));
                         controller.insertPelicula(queryValues);
