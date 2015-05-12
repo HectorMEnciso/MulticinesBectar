@@ -275,20 +275,37 @@ public class DBController extends SQLiteOpenHelper {
     }
 
 
-    public HashMap<String, String> getPeliculainfo(String id) {
-        HashMap<String, String> wordList = new HashMap<String, String>();
+    public ArrayList<HashMap<String, String>> getPeliculainfo(String id) {
+        ArrayList<HashMap<String, String>> wordList = new  ArrayList<HashMap<String, String>>();
         SQLiteDatabase database = this.getReadableDatabase();
-        String selectQuery = "SELECT * FROM Peliculas where IdPelicula='"+id+"'";
+       // String selectQuery = "SELECT * FROM Peliculas where IdPelicula='"+id+"'";
+        String selectQuery = "select Peliculas.IdPelicula,ImgPelicula,Titulo,Director,Interpretes," +
+        "Genero,Duracion,Anyo,NombreCine,Hora,Proyecciones.IdProyeccion from Peliculas,Proyecciones,Cines where Proyecciones.IdCine = Cines.IdCine " +
+         "and Proyecciones.IdPelicula=Peliculas.IdPelicula and Peliculas.IdPelicula='"+id+"' order by NombreCine";
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
-                wordList.put("ImgPelicula", cursor.getString(1));
+                /*wordList.put("ImgPelicula", cursor.getString(1));
                 wordList.put("Titulo", cursor.getString(2));
                 wordList.put("Director", cursor.getString(3));
                 wordList.put("Interpretes", cursor.getString(4));
                 wordList.put("Genero", cursor.getString(5));
                 wordList.put("Duracion", cursor.getString(6));
-                wordList.put("Anyo", cursor.getString(7));
+                wordList.put("Anyo", cursor.getString(7));*/
+                HashMap<String, String> map = new HashMap<String, String>();
+
+                map.put("IdPelicula", cursor.getString(0));
+                map.put("ImgPelicula", cursor.getString(1));
+                map.put("Titulo", cursor.getString(2));
+                map.put("Director", cursor.getString(3));
+                map.put("Interpretes", cursor.getString(4));
+                map.put("Genero", cursor.getString(5));
+                map.put("Duracion", cursor.getString(6));
+                map.put("Anyo", cursor.getString(7));
+                map.put("NombreCine", cursor.getString(8));
+                map.put("Hora", cursor.getString(9));
+                map.put("IdProyeccion", cursor.getString(10));
+                wordList.add(map);
             } while (cursor.moveToNext());
         }
         return wordList;
