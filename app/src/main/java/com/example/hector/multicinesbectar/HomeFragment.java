@@ -181,6 +181,9 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
         TareaWSListarProyeciones tareaListasProyeciones = new TareaWSListarProyeciones();
         tareaListasProyeciones.execute();
+
+        TareaWSListarSalas tareaListasProyecionesSalas = new TareaWSListarSalas();
+        tareaListasProyecionesSalas.execute();
     }
 
     @Override
@@ -425,13 +428,80 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
                         queryValues.put("Hora",String.valueOf(proyeciones.get(i).getHora()));
                         queryValues.put("Dia", String.valueOf(proyeciones.get(i).getDia()));
                         queryValues.put("ButacasDisponibles",String.valueOf(proyeciones.get(i).getButacasDisponibles()));
-                        queryValues.put("IdCompra",String.valueOf(proyeciones.get(i).getIdCompra()));
+                        queryValues.put("IdCompra", String.valueOf(proyeciones.get(i).getIdCompra()));
                         controller.insertProyeccion(queryValues);
                        // Intent objIntent = new Intent(getActivity(), MainActivity.class);
                         //startActivity(objIntent);
                     }
                 }
                 //DialogActualizar("Peliculas");
+            }
+        }
+    }
+
+
+    private class TareaWSListarSalas extends AsyncTask<String,Integer,Boolean> {
+
+        ArrayList<Salas> salas = new ArrayList<Salas>();
+
+
+        protected Boolean doInBackground(String... params) {
+
+            boolean resul = true;
+
+            HttpClient httpClient = new DefaultHttpClient();
+
+            //HttpGet del = new HttpGet("http://10.0.2.2:49461/Api/Salas/Sala");
+            HttpGet del = new HttpGet("http://bectar.ddns.net/Api/Salas/Sala");
+            // HttpGet del = new HttpGet("http://localhost:49461/Api/Salas/Sala");
+
+            del.setHeader("content-type", "application/json");
+
+            try
+            {
+                HttpResponse resp = httpClient.execute(del);
+                String respStr = EntityUtils.toString(resp.getEntity());
+
+                JSONArray respJSON = new JSONArray(respStr);
+
+                for(int i=0; i<respJSON.length(); i++)
+                {
+                    JSONObject obj = respJSON.getJSONObject(i);
+
+                    Salas sala = new Salas();
+
+                    sala.setIdSala(obj.getInt("IdSala"));
+                    sala.setNumeroSala(obj.getInt("NumeroSala"));
+                    sala.setNumeroFilas(obj.getInt("NumeroFilas"));
+                    sala.setNumeroButacas(obj.getInt("NumeroButacas"));
+                    salas.add(sala);
+                }
+            }
+            catch(Exception ex)
+            {
+                Log.e("ServicioRest","Error!", ex);
+                resul = false;
+            }
+
+            return resul;
+        }
+
+        protected void onPostExecute(Boolean result) {
+
+            if (result)
+            {
+                for(int i=0; i<salas.size(); i++){
+                    if(!controller.existeSala(salas.get(i).getIdSala())){
+                        HashMap<String, String> queryValues = new HashMap<String, String>();
+                        queryValues.put("IdSala",String.valueOf(salas.get(i).getIdSala()));
+                        queryValues.put("NumeroSala",String.valueOf(salas.get(i).getNumeroSala()));
+                        queryValues.put("NumeroFilas",String.valueOf(salas.get(i).getNumeroFilas()));
+                        queryValues.put("NumeroButacas",String.valueOf(salas.get(i).getNumeroButacas()));
+                        controller.insertSala(queryValues);
+                        // Intent objIntent = new Intent(getActivity(), MainActivity.class);
+                        //startActivity(objIntent);
+                    }
+                }
             }
         }
     }

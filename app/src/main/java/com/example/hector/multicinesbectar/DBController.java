@@ -259,10 +259,10 @@ public class DBController extends SQLiteOpenHelper {
     }
 
     public void deleteAllCoches() {
-        Log.d(LOGCAT,"deleteAll");
+        Log.d(LOGCAT, "deleteAll");
         SQLiteDatabase database = this.getWritableDatabase();
         String deleteQuery = "DELETE FROM Coches";
-        Log.d("query",deleteQuery);
+        Log.d("query", deleteQuery);
         database.execSQL(deleteQuery);
     }
 
@@ -280,8 +280,8 @@ public class DBController extends SQLiteOpenHelper {
         SQLiteDatabase database = this.getReadableDatabase();
        // String selectQuery = "SELECT * FROM Peliculas where IdPelicula='"+id+"'";
         String selectQuery = "select Peliculas.IdPelicula,ImgPelicula,Titulo,Director,Interpretes," +
-        "Genero,Duracion,Anyo,NombreCine,Hora,Proyecciones.IdProyeccion from Peliculas,Proyecciones,Cines where Proyecciones.IdCine = Cines.IdCine " +
-         "and Proyecciones.IdPelicula=Peliculas.IdPelicula and Peliculas.IdPelicula='"+id+"' order by NombreCine";
+        "Genero,Duracion,Anyo,NombreCine,Hora,Proyecciones.IdProyeccion,Salas.NumeroSala from Peliculas,Proyecciones,Cines,Salas where Proyecciones.IdCine = Cines.IdCine " +
+         "and Proyecciones.IdPelicula=Peliculas.IdPelicula and Proyecciones.IdSala=Salas.IdSala and Peliculas.IdPelicula='"+id+"' order by NombreCine";
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
@@ -305,11 +305,41 @@ public class DBController extends SQLiteOpenHelper {
                 map.put("NombreCine", cursor.getString(8));
                 map.put("Hora", cursor.getString(9));
                 map.put("IdProyeccion", cursor.getString(10));
+                map.put("NumeroSala", cursor.getString(11));
                 wordList.add(map);
             } while (cursor.moveToNext());
         }
         return wordList;
     }
+
+
+
+    public void insertSala(HashMap<String, String> queryValues ) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("IdSala", queryValues.get("IdSala"));
+        values.put("NumeroSala", queryValues.get("NumeroSala"));
+        values.put("NumeroFilas", queryValues.get("NumeroFilas"));
+        values.put("NumeroButacas", queryValues.get("NumeroButacas"));
+        database.insert("Salas", null, values);
+        database.close();
+    }
+
+    public boolean existeSala(int id){
+        boolean existe=false;
+        String selectQuery = "SELECT * FROM Salas where IdSala='" + id+"'";
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()){
+            existe=true;
+        }
+        else {
+            existe = false;
+        }
+        return existe;
+    }
+
+
 
     public void GenerarXMl(ArrayList<HashMap<String, String>> map){
         int i=0;
@@ -374,5 +404,6 @@ public class DBController extends SQLiteOpenHelper {
             e.printStackTrace();
         }
     }
+
 
 }

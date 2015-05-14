@@ -78,15 +78,28 @@
                 android:textStyle="bold"
                 android:textSize="22dp" />
 
+
             <TextView
-                android:id="@+id/lblHorario"
+                android:id="@+id/lblCinePelicula"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:gravity="center_horizontal"
-                android:layout_below="@+id/lblCinePelicula"
+                android:layout_below="@+id/lblTituloPelicula"
                 android:layout_toRightOf="@+id/ivContactImagePelicula"
                 android:textStyle="bold"
+                android:textAllCaps="true"
+                android:typeface="sans"/>
+
+            <TextView
+                android:id="@+id/lblHoraPelicula"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="19dp"
+                android:gravity="left"
+                android:layout_below="@+id/lblCinePelicula"
+                android:layout_toRightOf="@+id/ivContactImagePelicula"
+                android:textStyle="normal"
                 android:textAllCaps="true"
                 android:typeface="sans"/>
 

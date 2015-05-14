@@ -36,7 +36,7 @@ public class PeliculaVistaDetalle extends Activity {
         String id = objIntent.getStringExtra("IdPelicula");
         PeliculasList = controller.getPeliculainfo(id);
 
-        lblHorario= (TextView)findViewById(R.id.lblHorario);
+        lblHorario= (TextView)findViewById(R.id.lblHoraPelicula);
         imageViewPelicula= (ImageView)findViewById(R.id.imageViewPelicula);
         TituloPeliculaDetalle = (TextView)findViewById(R.id.TituloPeliculaDetalle);
         DirectorDetalle = (TextView)findViewById(R.id.DirectorDetalle);
@@ -49,18 +49,29 @@ public class PeliculaVistaDetalle extends Activity {
     public void onResume(){
         super.onResume();
         String horario="";
-        for(int i =0;i<PeliculasList.size(); i++){
-            HoraPelicula=PeliculasList.get(i).get("Hora");
-            TituloPelicula=PeliculasList.get(i).get("Titulo");
-            Director=PeliculasList.get(i).get("Director");
-            Interpretes=PeliculasList.get(i).get("Interpretes");
-            Genero=PeliculasList.get(i).get("Genero");
-            Duracion=PeliculasList.get(i).get("Duracion");
-            Anyo=PeliculasList.get(i).get("Anyo");
-            imageUri = Uri.parse(PeliculasList.get(i).get("ImgPelicula"));
-       }
+
         for(int k = 0; k < PeliculasList.size(); k++){
-            horario=horario+PeliculasList.get(k).get("NombreCine")+": "+PeliculasList.get(k).get("Hora")+"\n";
+
+            horario=horario+PeliculasList.get(k).get("NombreCine")+": "+PeliculasList.get(k).get("Hora") +" Sala: "+ PeliculasList.get(k).get("NumeroSala")+"\n";
+
+                /*if(horario.contains(PeliculasList.get(k).get("NombreCine"))){
+                    posicionInicial=horario.indexOf(PeliculasList.get(k).get("NombreCine"));
+                    posicionFinal=posicionInicial+ (PeliculasList.get(k).get("NombreCine")).length();
+                    nombreCine=horario.substring(posicionInicial, posicionFinal);
+                    horarioSinCineRepetido=horario.replace(nombreCine, "");
+                    horario=nombreCine +"\n"+horarioSinCineRepetido ;
+
+                }*/
+
+
+
+            TituloPelicula=PeliculasList.get(k).get("Titulo");
+            Director=PeliculasList.get(k).get("Director");
+            Interpretes=PeliculasList.get(k).get("Interpretes");
+            Genero=PeliculasList.get(k).get("Genero");
+            Duracion=PeliculasList.get(k).get("Duracion");
+            Anyo=PeliculasList.get(k).get("Anyo");
+            imageUri = Uri.parse(PeliculasList.get(k).get("ImgPelicula"));
         }
         imageViewPelicula.setImageURI(imageUri);
         TituloPeliculaDetalle.setText(TituloPelicula);
@@ -68,7 +79,7 @@ public class PeliculaVistaDetalle extends Activity {
         InterpretesDetalle.setText("Interpretes: " + Interpretes);
         GeneroDetalle.setText("Genero: " + Genero);
         DuracionDetalle.setText("Duracion: " + Duracion);
-        AnyoDetalle.setText("Año: " + Anyo);
+        AnyoDetalle.setText("Ano: " + Anyo);
         lblHorario.setText(horario);
         horario="";
     }
