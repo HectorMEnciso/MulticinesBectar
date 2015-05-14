@@ -47,7 +47,7 @@ public class PeliculaVistaDetalle extends Activity {
         super.onResume();
         String horario="";
         for(int k = 0; k < PeliculasList.size(); k++){
-            horario=horario+PeliculasList.get(k).get("NombreCine")+": "+PeliculasList.get(k).get("Hora") +" Sala: "+ PeliculasList.get(k).get("NumeroSala")+"\n";
+            horario=horario+PeliculasList.get(k).get("NombreCine")+": "+PeliculasList.get(k).get("Hora") +" Sala: "+ PeliculasList.get(k).get("NumeroSala")+"\n\n";
             TituloPelicula=PeliculasList.get(k).get("Titulo");
             Director=PeliculasList.get(k).get("Director");
             Interpretes=PeliculasList.get(k).get("Interpretes");

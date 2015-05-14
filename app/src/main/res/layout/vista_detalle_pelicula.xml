@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:text="Detalles"
                 android:textStyle="bold"
-                android:textSize="22dp" />
+                android:textSize="20dp" />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -71,31 +71,31 @@
                 android:id="@+id/DirectorDetalle"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20dp" />
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/InterpretesDetalle"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20dp" />
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/Genero"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20dp" />
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/Duracion"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20dp" />
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/Anyo"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20dp" />
+                android:textSize="16dp" />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -108,20 +108,22 @@
                 android:layout_height="wrap_content"
                 android:text="Horarios"
                 android:textStyle="bold"
-                android:textSize="22dp" />
+                android:textSize="20dp" />
 
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
 
             <TextView
                 android:id="@+id/lblHoraPelicula"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="19dp"
+                android:textSize="16dp"
                 android:gravity="left"
                 android:layout_below="@+id/lblCinePelicula"
                 android:layout_toRightOf="@+id/ivContactImagePelicula"
                 android:textStyle="normal"
-                android:textAllCaps="true"
-                android:typeface="sans"/>
+                android:typeface="normal"/>
 
             <TextView
                 android:layout_width="fill_parent"
@@ -133,7 +135,7 @@
                 android:layout_height="wrap_content"
                 android:text="Trailer"
                 android:textStyle="bold"
-                android:textSize="22dp" />
+                android:textSize="20dp" />
 
             <TextView
                 android:layout_width="fill_parent"
