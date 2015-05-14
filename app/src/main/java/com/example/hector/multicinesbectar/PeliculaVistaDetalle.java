@@ -24,10 +24,9 @@ public class PeliculaVistaDetalle extends Activity {
     TextView AnyoDetalle;
     TextView lblHorario;
     Uri imageUri;
-    String TituloPelicula,Director,Interpretes,Genero,Duracion,Anyo,HoraPelicula;
+    String TituloPelicula,Director,Interpretes,Genero,Duracion,Anyo;
     DBController controller = new DBController(this);
     ArrayList<HashMap<String, String>> PeliculasList;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +34,6 @@ public class PeliculaVistaDetalle extends Activity {
         Intent objIntent = getIntent();
         String id = objIntent.getStringExtra("IdPelicula");
         PeliculasList = controller.getPeliculainfo(id);
-
         lblHorario= (TextView)findViewById(R.id.lblHoraPelicula);
         imageViewPelicula= (ImageView)findViewById(R.id.imageViewPelicula);
         TituloPeliculaDetalle = (TextView)findViewById(R.id.TituloPeliculaDetalle);
@@ -44,27 +42,12 @@ public class PeliculaVistaDetalle extends Activity {
         GeneroDetalle = (TextView)findViewById(R.id.Genero);
         DuracionDetalle = (TextView)findViewById(R.id.Duracion);
         AnyoDetalle = (TextView)findViewById(R.id.Anyo);
-
     }
     public void onResume(){
         super.onResume();
         String horario="";
-
         for(int k = 0; k < PeliculasList.size(); k++){
-
             horario=horario+PeliculasList.get(k).get("NombreCine")+": "+PeliculasList.get(k).get("Hora") +" Sala: "+ PeliculasList.get(k).get("NumeroSala")+"\n";
-
-                /*if(horario.contains(PeliculasList.get(k).get("NombreCine"))){
-                    posicionInicial=horario.indexOf(PeliculasList.get(k).get("NombreCine"));
-                    posicionFinal=posicionInicial+ (PeliculasList.get(k).get("NombreCine")).length();
-                    nombreCine=horario.substring(posicionInicial, posicionFinal);
-                    horarioSinCineRepetido=horario.replace(nombreCine, "");
-                    horario=nombreCine +"\n"+horarioSinCineRepetido ;
-
-                }*/
-
-
-
             TituloPelicula=PeliculasList.get(k).get("Titulo");
             Director=PeliculasList.get(k).get("Director");
             Interpretes=PeliculasList.get(k).get("Interpretes");
@@ -81,6 +64,5 @@ public class PeliculaVistaDetalle extends Activity {
         DuracionDetalle.setText("Duracion: " + Duracion);
         AnyoDetalle.setText("Ano: " + Anyo);
         lblHorario.setText(horario);
-        horario="";
     }
 }

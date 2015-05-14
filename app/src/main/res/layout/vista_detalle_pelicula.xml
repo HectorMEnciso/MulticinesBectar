@@ -5,7 +5,31 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#B7CCF2">
+
+        <LinearLayout android:id="@+id/header"
+            android:layout_width="fill_parent"
+            android:layout_height="70dip"
+            android:orientation="vertical"
+            android:background="@drawable/carrete2"
+            android:paddingBottom="5dip">
+        </LinearLayout>
+
+        <LinearLayout android:id="@+id/footer"
+            android:layout_width="fill_parent"
+            android:layout_height="70dip"
+            android:orientation="vertical"
+            android:background="@drawable/carrete2"
+            android:paddingTop="5dip"
+            android:layout_alignParentBottom="true">
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="italic"
+            android:orientation="vertical">
 
         <TextView
             android:id="@+id/IDPeliculaDetalle"
@@ -15,15 +39,10 @@
 
         <ImageView
             android:id="@+id/imageViewPelicula"
-            android:layout_width="fill_parent"
-            android:layout_height="160dp" />
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="italic"
-            android:layout_below="@+id/imageViewPelicula"
-            android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_marginTop="55dp"
+            android:layout_gravity="center"
+            android:layout_height="match_parent" />
 
             <TextView
                 android:id="@+id/TituloPeliculaDetalle"
@@ -33,12 +52,20 @@
                 android:textSize="20dp" />
 
             <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
                 android:id="@+id/Detalles"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Detalles"
                 android:textStyle="bold"
                 android:textSize="22dp" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
 
             <TextView
                 android:id="@+id/DirectorDetalle"
@@ -71,6 +98,11 @@
                 android:textSize="20dp" />
 
             <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
                 android:id="@+id/Horarios"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -78,18 +110,6 @@
                 android:textStyle="bold"
                 android:textSize="22dp" />
 
-
-            <TextView
-                android:id="@+id/lblCinePelicula"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:gravity="center_horizontal"
-                android:layout_below="@+id/lblTituloPelicula"
-                android:layout_toRightOf="@+id/ivContactImagePelicula"
-                android:textStyle="bold"
-                android:textAllCaps="true"
-                android:typeface="sans"/>
 
             <TextView
                 android:id="@+id/lblHoraPelicula"
@@ -103,6 +123,9 @@
                 android:textAllCaps="true"
                 android:typeface="sans"/>
 
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
 
             <TextView
                 android:id="@+id/Trailer"
@@ -112,7 +135,42 @@
                 android:textStyle="bold"
                 android:textSize="22dp" />
 
-
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
     </RelativeLayout>
 </ScrollView>

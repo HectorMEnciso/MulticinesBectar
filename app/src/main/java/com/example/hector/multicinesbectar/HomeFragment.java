@@ -69,7 +69,6 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         super.onActivityCreated(savedInstanceState);
 
         mSearchView = (SearchView) getActivity().findViewById(R.id.searchView1);//Obtenemos la referencia al SearchView mSearchView
-        //setupSearchView();
         lstCines = (ListView)getActivity().findViewById(R.id.LstCines);
         lstPeliculas = (ListView)getActivity().findViewById(R.id.LstPeliculas);
         lstIrYa=(ListView)getActivity().findViewById(R.id.LstIrYa);
@@ -107,8 +106,6 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
                 ActualizarTabs();
             }
         });
-
-        //ActualizarTabs();
 
         mSearchView.setQuery("",false);
         mSearchView.clearFocus();
@@ -148,12 +145,10 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
                 //Pasamos todos los datos del elemento al vistaDetalle
 
                     data.putExtra("IdPelicula", PeliculasList.get(x).get("IdPelicula"));
-                    //Log.e("id= " ,  PeliculasList.get(x).get("id"));
                     getActivity().startActivity(data);
                 }
             });
-            //adaptadorPeliculas = new SimpleAdapter(getActivity(), PeliculasList, R.layout.vista_detalle_pelicula, new String[]{"id", "ImgPelicula", "Titulo", "Director", "Interpretes", "Genero","Duracion","Anyo"}, new int[]{R.id.IDPeliculaDetalle, R.id.imageViewPelicula, R.id.TituloPeliculaDetalle, R.id.DirectorDetalle, R.id.InterpretesDetalle, R.id.Genero,R.id.Duracion,R.id.Anyo});
-           // lstPeliculas.setAdapter(adaptadorPeliculas);
+
         }
 
 
