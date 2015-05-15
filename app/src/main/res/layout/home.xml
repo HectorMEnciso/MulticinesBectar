@@ -31,11 +31,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <SearchView
+                    <!--<SearchView
                         android:id="@+id/searchView1"
                         android:queryHint="Buscar cine"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content" />-->
 
                     <ListView
                         android:id="@+id/LstCines"
@@ -59,11 +59,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <SearchView
+                    <!--<SearchView
                         android:id="@+id/searchView2"
                         android:queryHint="Buscar pelicula proximos pases"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content" />-->
 
                     <ListView
                         android:id="@+id/LstPeliculas"
@@ -76,8 +76,8 @@
                         android:paddingLeft="9dp"
                         android:paddingRight="9dp"
                         android:paddingTop="10dp"
-                        android:listSelector="@drawable/list_selector"
-                        android:background="@drawable/border_ui"></ListView>
+                        android:listSelector="@drawable/list_selector_tabs"
+                        android:background="@drawable/border_ui_tabs"></ListView>
 
                 </LinearLayout>
 
@@ -87,11 +87,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <SearchView
+                    <!--<SearchView
                         android:id="@+id/searchView3"
                         android:queryHint="Buscar pelicula proximos pases"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content" />-->
 
                     <ListView
                         android:id="@+id/LstIrYa"
@@ -104,8 +104,8 @@
                         android:paddingLeft="9dp"
                         android:paddingRight="9dp"
                         android:paddingTop="10dp"
-                        android:listSelector="@drawable/list_selector"
-                        android:background="@drawable/border_ui"></ListView>
+                        android:listSelector="@drawable/list_selector_tabs"
+                        android:background="@drawable/border_ui_tabs"></ListView>
 
                 </LinearLayout>
             </FrameLayout>

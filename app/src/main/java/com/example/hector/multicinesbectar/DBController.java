@@ -135,9 +135,8 @@ public class DBController extends SQLiteOpenHelper {
     public ArrayList<HashMap<String, String>> getAllPeliculas() {
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "select Peliculas.IdPelicula,ImgPelicula,Titulo,Director,Interpretes," +
-        "Genero,Duracion,Anyo,NombreCine,Hora from Peliculas,Proyecciones,Cines where Proyecciones.IdCine = Cines.IdCine " +
-        "and Proyecciones.IdPelicula=Peliculas.IdPelicula;";
+        String selectQuery = "select distinct Peliculas.IdPelicula,ImgPelicula,Titulo, " +
+        "Genero,Duracion from Peliculas,Proyecciones where Proyecciones.IdPelicula=Peliculas.IdPelicula;";
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -146,13 +145,29 @@ public class DBController extends SQLiteOpenHelper {
                 map.put("IdPelicula", cursor.getString(0));
                 map.put("ImgPelicula", cursor.getString(1));
                 map.put("Titulo", cursor.getString(2));
-                map.put("Director", cursor.getString(3));
-                map.put("Interpretes", cursor.getString(4));
-                map.put("Genero", cursor.getString(5));
-                map.put("Duracion", cursor.getString(6));
-                map.put("Anyo", cursor.getString(7));
-                map.put("NombreCine", cursor.getString(8));
-                map.put("Hora", cursor.getString(9));
+                map.put("Genero", cursor.getString(3));
+                map.put("Duracion", cursor.getString(4));
+                wordList.add(map);
+            } while (cursor.moveToNext());
+        }
+        return wordList;
+    }
+
+    public ArrayList<HashMap<String, String>> getAllPeliculasByCineId(String IdCine){
+        ArrayList<HashMap<String, String>> wordList;
+        wordList = new ArrayList<HashMap<String, String>>();
+        String selectQuery = "select distinct Peliculas.IdPelicula,ImgPelicula,Titulo, " +
+                "Genero,Duracion from Peliculas,Proyecciones,Cines where Proyecciones.IdPelicula=Peliculas.IdPelicula and Proyecciones.IdCine=Cines.IdCine and Cines.IdCine='"+IdCine+"';";
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put("IdPelicula", cursor.getString(0));
+                map.put("ImgPelicula", cursor.getString(1));
+                map.put("Titulo", cursor.getString(2));
+                map.put("Genero", cursor.getString(3));
+                map.put("Duracion", cursor.getString(4));
                 wordList.add(map);
             } while (cursor.moveToNext());
         }

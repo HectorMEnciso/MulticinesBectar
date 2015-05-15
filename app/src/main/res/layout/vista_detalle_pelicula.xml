@@ -39,10 +39,10 @@
 
         <ImageView
             android:id="@+id/imageViewPelicula"
-            android:layout_width="match_parent"
+            android:layout_width="160dp"
             android:layout_marginTop="55dp"
             android:layout_gravity="center"
-            android:layout_height="match_parent" />
+            android:layout_height="200dp" />
 
             <TextView
                 android:id="@+id/TituloPeliculaDetalle"

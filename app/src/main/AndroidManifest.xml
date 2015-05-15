@@ -78,6 +78,11 @@
             android:label="@string/title_DetailView" >
         </activity>
 
+        <activity
+            android:name=".PeliculasByCine"
+            android:label="@string/PeliculasByCine" >
+        </activity>
+
     </application>
 
 </manifest>

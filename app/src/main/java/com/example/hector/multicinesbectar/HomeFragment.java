@@ -39,7 +39,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
     private SearchView mSearchView; //Declaracion global del SearchView sSearchView
     private TabHost tabs;
     private int x;
-    private TextView ID;
+    private TextView IDPelicula,IDCine;
     public HomeFragment(){}
 
     ArrayList<HashMap<String, String>> CinesList;
@@ -68,7 +68,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mSearchView = (SearchView) getActivity().findViewById(R.id.searchView1);//Obtenemos la referencia al SearchView mSearchView
+        //mSearchView = (SearchView) getActivity().findViewById(R.id.searchView1);//Obtenemos la referencia al SearchView mSearchView
         lstCines = (ListView)getActivity().findViewById(R.id.LstCines);
         lstPeliculas = (ListView)getActivity().findViewById(R.id.LstPeliculas);
         lstIrYa=(ListView)getActivity().findViewById(R.id.LstIrYa);
@@ -107,8 +107,8 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
             }
         });
 
-        mSearchView.setQuery("",false);
-        mSearchView.clearFocus();
+//        mSearchView.setQuery("", false);
+       // mSearchView.clearFocus();
 
         CinesList=controller.getAllCines();
 
@@ -117,7 +117,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
         PeliculasList=controller.getAllPeliculas();
 
-        adaptadorPeliculas = new SimpleAdapter(getActivity(),PeliculasList, R.layout.peliculas_layout, new String[] { "IdPelicula" ,"ImgPelicula","Titulo","NombreCine","Hora"}, new int[] {R.id.IDPelicula,R.id.ivContactImagePelicula,R.id.lblTituloPelicula, R.id.lblCinePelicula,R.id.lblHoraPelicula});
+        adaptadorPeliculas = new SimpleAdapter(getActivity(),PeliculasList, R.layout.peliculas_layout, new String[] { "IdPelicula" ,"ImgPelicula","Titulo","Genero","Duracion"}, new int[] {R.id.IDPelicula,R.id.ivContactImagePelicula,R.id.lblTituloPelicula, R.id.lblGenero,R.id.lblDuracion});
         lstPeliculas.setAdapter(adaptadorPeliculas);
 
         IrYaList=controller.getIrYa();
@@ -131,7 +131,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
             lstPeliculas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-                    ID = (TextView) v.findViewById(R.id.IDPelicula);
+                    IDPelicula = (TextView) v.findViewById(R.id.IDPelicula);
                     Intent data = new Intent(getActivity(), PeliculaVistaDetalle.class);//Intent explicito a editActivity
                     TextView ti = (TextView) v.findViewById(R.id.lblTituloPelicula);//Obtenemos la referencia al listView TextView
                     String m = ti.getText().toString();//Almacenamos el texto
@@ -150,6 +150,32 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
             });
 
         }
+
+
+        // ############################################################################################################################
+
+        // ######################################   Listado de peliculas por cine   ###################################################
+
+        if(CinesList.size()!=0) {
+            lstCines.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    IDCine=(TextView) view.findViewById(R.id.IDCine);
+                    Intent data = new Intent(getActivity(), PeliculasByCine.class);//Intent explicito a editActivity
+                    TextView ti = (TextView) view.findViewById(R.id.lblNombreCine);//Obtenemos la referencia al listView TextView
+                    String m = ti.getText().toString();//Almacenamos el texto
+                    Log.e("m ", m);
+                    for (int k = 0; k < CinesList.size(); k++) {//Recorremos el ArrayList<Motos> datos
+                        if (CinesList.get(k).get("NombreCine").toString().equalsIgnoreCase(m)) {//Para cada elemento comparamos cada matricula
+                            x = k;//Guardamos aquella posicion cuyo elemento coincida.
+                        }
+                    }
+                    data.putExtra("IdCine", CinesList.get(x).get("IdCine"));
+                    getActivity().startActivity(data);
+                }
+            });
+        }
+
 
 
         // ############################################################################################################################
