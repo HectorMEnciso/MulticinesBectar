@@ -154,14 +154,14 @@ public class LogInActivity extends Activity {
 
         protected void onPostExecute(Boolean result) {
             if(sePuedeLogear){
-                Toast.makeText(getApplicationContext(),"Sesion iniciada.",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Sesión iniciada.",Toast.LENGTH_SHORT).show();
                 // Staring MainActivity
                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(i);
                 finish();
             }
             else{
-                Toast.makeText(getApplicationContext(),"UserName o contrasena incorrectos\nPor favor, intntelo de nuevo",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"UserName o contrase.ña incorrectos\nPor favor, inténtelo de nuevo",Toast.LENGTH_SHORT).show();
             }
         }
     }

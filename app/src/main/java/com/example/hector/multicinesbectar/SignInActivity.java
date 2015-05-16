@@ -71,7 +71,7 @@ public class SignInActivity extends Activity {
                         }
                 }
                 else{
-                    Toast.makeText(getApplicationContext(),"Por favor, introduzca una contrasena",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Por favor, introduzca una contraseña",Toast.LENGTH_SHORT).show();
                 }
             }
         });
