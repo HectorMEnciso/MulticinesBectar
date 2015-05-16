@@ -107,9 +107,6 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
             }
         });
 
-//        mSearchView.setQuery("", false);
-       // mSearchView.clearFocus();
-
         CinesList=controller.getAllCines();
 
         adaptadorCines = new SimpleAdapter(getActivity(),CinesList, R.layout.cines_layout, new String[] { "IdCine" ,"ImgCine","NombreCine"}, new int[] {R.id.IDCine,R.id.ivContactImage, R.id.lblNombreCine});

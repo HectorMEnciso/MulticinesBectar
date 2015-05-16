@@ -293,22 +293,13 @@ public class DBController extends SQLiteOpenHelper {
     public ArrayList<HashMap<String, String>> getPeliculainfo(String id) {
         ArrayList<HashMap<String, String>> wordList = new  ArrayList<HashMap<String, String>>();
         SQLiteDatabase database = this.getReadableDatabase();
-       // String selectQuery = "SELECT * FROM Peliculas where IdPelicula='"+id+"'";
         String selectQuery = "select Peliculas.IdPelicula,ImgPelicula,Titulo,Director,Interpretes," +
         "Genero,Duracion,Anyo,NombreCine,Hora,Proyecciones.IdProyeccion,Salas.NumeroSala,Trailer from Peliculas,Proyecciones,Cines,Salas where Proyecciones.IdCine = Cines.IdCine " +
          "and Proyecciones.IdPelicula=Peliculas.IdPelicula and Proyecciones.IdSala=Salas.IdSala and Peliculas.IdPelicula='"+id+"' order by NombreCine";
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
-                /*wordList.put("ImgPelicula", cursor.getString(1));
-                wordList.put("Titulo", cursor.getString(2));
-                wordList.put("Director", cursor.getString(3));
-                wordList.put("Interpretes", cursor.getString(4));
-                wordList.put("Genero", cursor.getString(5));
-                wordList.put("Duracion", cursor.getString(6));
-                wordList.put("Anyo", cursor.getString(7));*/
                 HashMap<String, String> map = new HashMap<String, String>();
-
                 map.put("IdPelicula", cursor.getString(0));
                 map.put("ImgPelicula", cursor.getString(1));
                 map.put("Titulo", cursor.getString(2));

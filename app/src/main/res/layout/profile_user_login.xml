@@ -1,69 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#B7CCF2">
+    android:background="#B7CCF2"
+    android:orientation="vertical">
 
-
-    <LinearLayout android:id="@+id/header"
-        android:layout_width="fill_parent"
-        android:layout_height="70dip"
-        android:orientation="vertical"
-        android:background="@drawable/carrete2"
-        android:paddingBottom="5dip">
-    </LinearLayout>
-
-    <LinearLayout android:id="@+id/footer"
-        android:layout_width="fill_parent"
-        android:layout_height="70dip"
-        android:orientation="vertical"
-        android:background="@drawable/carrete2"
-        android:paddingTop="5dip"
-        android:layout_alignParentBottom="true">
-    </LinearLayout>
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/header"
+        android:layout_width="fill_parent"
+        android:layout_height="70dip"
+        android:background="@drawable/carrete2"
         android:orientation="vertical"
+        android:paddingBottom="5dip"></LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/footer"
+        android:layout_width="fill_parent"
+        android:layout_height="70dip"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/carrete2"
+        android:orientation="vertical"
+        android:paddingTop="5dip"></LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dip"
         android:layout_below="@id/header"
+        android:orientation="vertical"
+        android:padding="10dip"
         android:weightSum="1">
 
 
-    <ImageView
-        android:id="@+id/imageUser"
-        android:layout_gravity="center"
-        android:layout_width="125dp"
-        android:layout_height="125dp"/>
+        <!--<ImageView
+            android:id="@+id/imageUser"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:layout_gravity="center" />-->
 
-    <TextView
-        android:id="@+id/NombreUserLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/NombreUserLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/ApellidosUserLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/ApellidosUserLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/DNIUserLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/DNIUserLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/EMAILUserLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/EMAILUserLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/USERNAMELogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/USERNAMELogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/PassUserLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/CreditCard"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/btnEditarUserInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 </RelativeLayout>

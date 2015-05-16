@@ -31,7 +31,18 @@ public class SessionManager {
 	public static final String KEY_USERNAME = "UserName";
 	
 	// Email address (make variable public to access from outside)
+
 	public static final String KEY_EMAIL = "Email";
+
+	public static final String KEY_DNI = "DNI";
+
+	public static final String KEY_Nombre = "Nombre";
+
+	public static final String KEY_Apellidos = "Apellidos";
+
+	public static final String KEY_Pass = "Pass";
+
+	public static final String KEY_T_Credito = "T_Credito";
 	
 	// Constructor
 	public SessionManager(Context context){
@@ -43,7 +54,8 @@ public class SessionManager {
 	/**
 	 * Create login session
 	 * */
-	public void createLoginSession(String UserName, String Email){
+	public void createLoginSession(String UserName, String Email,
+		 String DNI,String Nombre,String Apellidos,String Pass,String T_Credito){
 		// Storing login value as TRUE
 		editor.putBoolean(IS_LOGIN, true);
 		
@@ -52,6 +64,17 @@ public class SessionManager {
 		
 		// Storing email in pref
 		editor.putString(KEY_EMAIL, Email);
+
+		editor.putString(KEY_Nombre, Nombre);
+
+		editor.putString(KEY_DNI, DNI);
+
+		editor.putString(KEY_Apellidos, Apellidos);
+
+		editor.putString(KEY_Pass, Pass);
+
+		editor.putString(KEY_T_Credito, T_Credito);
+
 		
 		// commit changes
 		editor.commit();
@@ -75,7 +98,7 @@ public class SessionManager {
 			
 			// Staring Login Activity
 			//_context.startActivity(i);
-			Toast.makeText(_context,"Sesion cerrada",Toast.LENGTH_SHORT).show();
+
 		}
 		
 	}
@@ -92,6 +115,18 @@ public class SessionManager {
 		
 		// user email id
 		user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
+
+		user.put(KEY_DNI, pref.getString(KEY_DNI, null));
+
+		user.put(KEY_Nombre, pref.getString(KEY_Nombre, null));
+
+		user.put(KEY_Apellidos, pref.getString(KEY_Apellidos, null));
+
+		user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
+
+		user.put(KEY_Pass, pref.getString(KEY_Pass, null));
+
+		user.put(KEY_T_Credito, pref.getString(KEY_T_Credito, null));
 		
 		// return user
 		return user;
@@ -104,7 +139,8 @@ public class SessionManager {
 		// Clearing all data from Shared Preferences
 		editor.clear();
 		editor.commit();
-		
+
+		Toast.makeText(_context,"Sesion cerrada",Toast.LENGTH_SHORT).show();
 		// After logout redirect user to Loing Activity
 		Intent i = new Intent(_context, MainActivity.class);
 		// Closing all the Activities

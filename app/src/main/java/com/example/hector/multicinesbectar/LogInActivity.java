@@ -16,14 +16,9 @@ import android.widget.Toast;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 public class LogInActivity extends Activity {
     private EditText EditPassword;
@@ -101,7 +96,7 @@ public class LogInActivity extends Activity {
 
     private class TareaWSLogIn extends AsyncTask<String,Integer,Boolean> {
         //ArrayList<Usuarios> usuarios = new ArrayList<Usuarios>();
-        Usuarios usu= new Usuarios();
+        Usuarios usuario = new Usuarios();
         protected Boolean doInBackground(String... params) {
 
             boolean resul = true;
@@ -123,21 +118,32 @@ public class LogInActivity extends Activity {
                 else
                 {
                     JSONObject respJSON = new JSONObject(respStr);
-                    String username = respJSON.get("UserName").toString();
-                    String pass = respJSON.get("Pass").toString();
-                    usu.setUserName(username);
-                    usu.setPass(pass);
+                   /* String Username = respJSON.get("UserName").toString();
+                    String Pass = respJSON.get("Pass").toString();
+                    String DNI= respJSON.get("DNI").toString();
+                    String Email= respJSON.get("Email").toString();
+                    String Nombre= respJSON.get("Nombre").toString();
+                    String Apellidos= respJSON.get("Apellidos").toString();
+                    String T_Credito= respJSON.get("T_Credito").toString();*/
+                    usuario.setUserName(respJSON.get("UserName").toString());
+                    usuario.setPass(respJSON.get("Pass").toString());
+                    usuario.setDNI(respJSON.get("DNI").toString());
+                    usuario.setEmail(respJSON.get("Email").toString());
+                    usuario.setNombre(respJSON.get("Nombre").toString());
+                    usuario.setApellidos(respJSON.get("Apellidos").toString());
+                    usuario.setT_Credito(respJSON.get("T_Credito").toString());
 
                     String UserPassHasheado;
 
                     UserPassHasheado=h.computeSHAHash(params[0].toString(),params[1].toString());
 
-                    if(UserPassHasheado.equals(usu.getPass())){
+                    if(UserPassHasheado.equals(usuario.getPass())){
                         sePuedeLogear=true;
                         // Creating user login session
                         // For testing i am stroing name, email as follow
                         // Use user real data
-                        session.createLoginSession(params[0].toString(),params[1].toString());
+                        session.createLoginSession(usuario.getUserName(), usuario.getEmail(), usuario.getDNI(),
+                                usuario.getNombre(), usuario.getApellidos(), usuario.getPass(), usuario.getT_Credito());
                     }
                     else{
                         sePuedeLogear=false;
