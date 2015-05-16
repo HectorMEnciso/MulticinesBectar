@@ -36,6 +36,26 @@ public class Hash {
         return SHAHash;
     }
 
+    public String computeSHAHash(String CreditCard) {
+        MessageDigest mdShaPass = null;
+        try {
+            mdShaPass = MessageDigest.getInstance("SHA-1");//define tipo de hasheo
+        } catch (NoSuchAlgorithmException e1) {
+        }
+        try {
+            mdShaPass.update(CreditCard.getBytes("ASCII"));
+        } catch (UnsupportedEncodingException e) {
+        }
+        byte[] dataPass = mdShaPass.digest();
+        try {
+            SHAHash = convertToHex(dataPass);
+        } catch (IOException e) {
+        }
+        return SHAHash;
+    }
+
+
+
     private static String convertToHex(byte[] data) throws java.io.IOException
     {
 

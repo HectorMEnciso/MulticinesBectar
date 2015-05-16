@@ -184,7 +184,6 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
     public void onResume(){
         super.onResume();
         ActualizarTabs();
-       // adaptadorPeliculas.notifyDataSetChanged();
     }
 
     private void setupSearchView() {

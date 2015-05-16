@@ -289,7 +289,6 @@ public class DBController extends SQLiteOpenHelper {
         database.execSQL(deleteQuery);
     }
 
-
     public ArrayList<HashMap<String, String>> getPeliculainfo(String id) {
         ArrayList<HashMap<String, String>> wordList = new  ArrayList<HashMap<String, String>>();
         SQLiteDatabase database = this.getReadableDatabase();
@@ -327,8 +326,6 @@ public class DBController extends SQLiteOpenHelper {
         return wordList;
     }
 
-
-
     public void insertSala(HashMap<String, String> queryValues ) {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -353,8 +350,6 @@ public class DBController extends SQLiteOpenHelper {
         }
         return existe;
     }
-
-
 
     public void GenerarXMl(ArrayList<HashMap<String, String>> map){
         int i=0;

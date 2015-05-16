@@ -54,19 +54,28 @@ public class SignInActivity extends Activity {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TareaWSRegistrarUser tarea = new TareaWSRegistrarUser();
-                tarea.execute(
-                        dni.getText().toString(),
-                        nombre.getText().toString(),
-                        apellidos.getText().toString(),
-                        email.getText().toString(),
-                        NickName.getText().toString(),
-                        h.computeSHAHash(NickName.getText().toString(), Pass.getText().toString()),
-                        creditCard.getText().toString());
+                if(!Pass.getText().toString().equals("") && !repeatPass.getText().toString().equals("")){
+                        if((Pass.getText().toString().equals(repeatPass.getText().toString()))){
+                            TareaWSRegistrarUser tarea = new TareaWSRegistrarUser();
+                            tarea.execute(
+                                    dni.getText().toString(),
+                                    nombre.getText().toString(),
+                                    apellidos.getText().toString(),
+                                    email.getText().toString(),
+                                    NickName.getText().toString(),
+                                    h.computeSHAHash(NickName.getText().toString(), Pass.getText().toString()),
+                                    h.computeSHAHash(creditCard.getText().toString()));
+                        }
+                        else{
+                            Toast.makeText(getApplicationContext(),"Las contraseñas no coinciden",Toast.LENGTH_SHORT).show();
+                        }
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),"Por favor, introduzca una contrasena",Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
-
     private class TareaWSRegistrarUser extends AsyncTask<String,Integer,Boolean> {
 
         protected Boolean doInBackground(String... params) {
@@ -84,7 +93,7 @@ public class SignInActivity extends Activity {
                 String respStr = EntityUtils.toString(resp.getEntity());
 
                 if(respStr.equals("")){
-                    SePuedeinsertar=true;
+                        SePuedeinsertar=true;
                 }
                 else
                 {
@@ -149,7 +158,7 @@ public class SignInActivity extends Activity {
                     startActivity(d);
                 }
                 else{
-                    Toast.makeText(getApplicationContext(),"El usuario ya existe",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"El usuario ya existe\nPor favor elija otro",Toast.LENGTH_SHORT).show();
                 }
             }
         }
