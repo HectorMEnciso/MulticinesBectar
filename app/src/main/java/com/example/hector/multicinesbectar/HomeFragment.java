@@ -330,6 +330,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
                     pelicula.setGenero(obj.getString("Genero"));
                     pelicula.setDuracion(obj.getString("Duracion"));
                     pelicula.setAnyo(obj.getString("Anyo"));
+                    pelicula.setTrailer(obj.getString("Trailer"));
                     peliculas.add(pelicula);
                 }
             }
@@ -357,6 +358,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
                         queryValues.put("Genero",String.valueOf(peliculas.get(i).getGenero()));
                         queryValues.put("Duracion",String.valueOf(peliculas.get(i).getDuracion()));
                         queryValues.put("Anyo",String.valueOf(peliculas.get(i).getAnyo()));
+                        queryValues.put("Trailer",String.valueOf(peliculas.get(i).getTrailer()));
                         controller.insertPelicula(queryValues);
                         Intent objIntent = new Intent(getActivity(), MainActivity.class);
                        startActivity(objIntent);

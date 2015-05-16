@@ -137,6 +137,12 @@
                 android:textStyle="bold"
                 android:textSize="20dp" />
 
+            <com.google.android.youtube.player.YouTubePlayerView
+                android:id="@+id/youtube_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp" />
+
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"/>

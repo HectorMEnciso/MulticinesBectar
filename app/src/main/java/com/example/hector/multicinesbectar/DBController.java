@@ -44,7 +44,7 @@ public class DBController extends SQLiteOpenHelper {
         Log.d(LOGCAT,"Proyecciones Created");
 
         String queryPeliculas = "CREATE TABLE Peliculas (IdPelicula integer PRIMARY KEY AUTOINCREMENT," +
-        "ImgPelicula TEXT, Titulo TEXT, Director TEXT,Interpretes TEXT, Genero Text, Duracion TEXT, Anyo TEXT," +
+        "ImgPelicula TEXT, Titulo TEXT, Director TEXT,Interpretes TEXT, Genero Text, Duracion TEXT, Anyo TEXT,Trailer TEXT," +
         "FOREIGN KEY (IdPelicula) references Proyecciones(IdProyeccion))";
         database.execSQL(queryPeliculas);
         Log.d(LOGCAT,"Peliculas Created");
@@ -212,6 +212,7 @@ public class DBController extends SQLiteOpenHelper {
         values.put("Genero", queryValues.get("Genero"));
         values.put("Duracion", queryValues.get("Duracion"));
         values.put("Anyo", queryValues.get("Anyo"));
+        values.put("Trailer", queryValues.get("Trailer"));
         database.insert("Peliculas", null, values);
         database.close();
     }
@@ -294,7 +295,7 @@ public class DBController extends SQLiteOpenHelper {
         SQLiteDatabase database = this.getReadableDatabase();
        // String selectQuery = "SELECT * FROM Peliculas where IdPelicula='"+id+"'";
         String selectQuery = "select Peliculas.IdPelicula,ImgPelicula,Titulo,Director,Interpretes," +
-        "Genero,Duracion,Anyo,NombreCine,Hora,Proyecciones.IdProyeccion,Salas.NumeroSala from Peliculas,Proyecciones,Cines,Salas where Proyecciones.IdCine = Cines.IdCine " +
+        "Genero,Duracion,Anyo,NombreCine,Hora,Proyecciones.IdProyeccion,Salas.NumeroSala,Trailer from Peliculas,Proyecciones,Cines,Salas where Proyecciones.IdCine = Cines.IdCine " +
          "and Proyecciones.IdPelicula=Peliculas.IdPelicula and Proyecciones.IdSala=Salas.IdSala and Peliculas.IdPelicula='"+id+"' order by NombreCine";
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -320,6 +321,7 @@ public class DBController extends SQLiteOpenHelper {
                 map.put("Hora", cursor.getString(9));
                 map.put("IdProyeccion", cursor.getString(10));
                 map.put("NumeroSala", cursor.getString(11));
+                map.put("Trailer", cursor.getString(12));
                 wordList.add(map);
             } while (cursor.moveToNext());
         }

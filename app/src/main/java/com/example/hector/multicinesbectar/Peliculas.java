@@ -13,6 +13,7 @@ public class Peliculas {
     private String Genero;
     private String Duracion;
     private String Anyo;
+    private String Trailer;
 
     public Peliculas() {
     }
@@ -79,5 +80,13 @@ public class Peliculas {
 
     public void setAnyo(String anyo) {
         Anyo = anyo;
+    }
+
+    public String getTrailer() {
+        return Trailer;
+    }
+
+    public void setTrailer(String trailer) {
+        Trailer = trailer;
     }
 }
