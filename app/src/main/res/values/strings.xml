@@ -10,7 +10,7 @@
     <string-array name="nav_options">
         <item>Cines/Peliculas</item>
         <item>Lugares</item>
-        <item>Configuración</item>
+        <item>Seguridad</item>
         <item>Compartir</item>
         <item>Cuenta</item>
     </string-array>
@@ -29,5 +29,7 @@
 
     <string name="btn_skip_intro">Skip Intro</string>
     <string name="error_player">There was an error initializing the YouTubePlayer (%1$s)</string>
+
+    <string name="EditUserLoginInfo">Editar</string>
 
 </resources>

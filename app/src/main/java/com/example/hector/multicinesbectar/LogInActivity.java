@@ -118,13 +118,6 @@ public class LogInActivity extends Activity {
                 else
                 {
                     JSONObject respJSON = new JSONObject(respStr);
-                   /* String Username = respJSON.get("UserName").toString();
-                    String Pass = respJSON.get("Pass").toString();
-                    String DNI= respJSON.get("DNI").toString();
-                    String Email= respJSON.get("Email").toString();
-                    String Nombre= respJSON.get("Nombre").toString();
-                    String Apellidos= respJSON.get("Apellidos").toString();
-                    String T_Credito= respJSON.get("T_Credito").toString();*/
                     usuario.setUserName(respJSON.get("UserName").toString());
                     usuario.setPass(respJSON.get("Pass").toString());
                     usuario.setDNI(respJSON.get("DNI").toString());
@@ -160,14 +153,14 @@ public class LogInActivity extends Activity {
 
         protected void onPostExecute(Boolean result) {
             if(sePuedeLogear){
-                Toast.makeText(getApplicationContext(),"Sesión iniciada.",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Ha iniciado sesión",Toast.LENGTH_SHORT).show();
                 // Staring MainActivity
                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(i);
                 finish();
             }
             else{
-                Toast.makeText(getApplicationContext(),"UserName o contrase.ña incorrectos\nPor favor, inténtelo de nuevo",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Nombre de usuario o contraseña incorrectos\nPor favor, inténtelo de nuevo",Toast.LENGTH_SHORT).show();
             }
         }
     }

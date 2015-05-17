@@ -83,6 +83,11 @@
             android:label="@string/PeliculasByCine" >
         </activity>
 
+        <activity
+            android:name=".EditUserLoginInfo"
+            android:label="@string/EditUserLoginInfo" >
+        </activity>
+
     </application>
 
 </manifest>

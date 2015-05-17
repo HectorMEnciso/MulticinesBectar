@@ -63,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <TextView
+        <!--<TextView
             android:id="@+id/PassUserLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -71,12 +71,15 @@
         <TextView
             android:id="@+id/CreditCard"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"/>-->
 
         <Button
             android:id="@+id/btnEditarUserInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/estilos_botones"
+            android:text="Presione para editar sus datos"
+            android:layout_gravity="center"/>
 
     </LinearLayout>
 </RelativeLayout>

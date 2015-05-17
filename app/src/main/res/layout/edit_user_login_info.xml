@@ -92,7 +92,7 @@
                 android:inputType="textEmailAddress"
                 android:singleLine="true"/>
 
-            <TextView
+            <!--<TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#372c24"
@@ -105,60 +105,16 @@
                 android:drawableLeft="@drawable/ic_action_account_box"
                 android:layout_marginTop="5dip"
                 android:inputType="textEmailAddress"
-                android:singleLine="true"/>
+                android:singleLine="true"/>-->
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#372c24"
-                android:text="Contraseña"/>
 
-            <EditText
-                android:id="@+id/txtPasswordSign"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_action_lock"
-                android:layout_marginTop="5dip"
-                android:inputType="textPassword"
-                android:singleLine="true"/>
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#372c24"
-                android:text="Repita Contraseña"/>
-
-            <EditText
-                android:id="@+id/txtRepeatPassword"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_action_lock"
-                android:layout_marginTop="5dip"
-                android:inputType="textPassword"
-                android:singleLine="true"
-                android:password="true"/>
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#372c24"
-                android:text="Tarjeta de crédito"/>
-
-            <EditText
-                android:id="@+id/txtCreditCard"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_action_payment"
-                android:layout_marginTop="5dip"
-                android:inputType="number"
-                android:singleLine="true"/>
             <Button
-                android:id="@+id/btnSignIn"
+                android:id="@+id/btnEditarUserInfo"
                 android:layout_width="fill_parent"
                 android:layout_below="@+id/txtCreditCard"
                 android:background="@drawable/estilos_botones"
                 android:layout_height="wrap_content"
-                android:text="Registrarse"
+                android:text="Modificar datos"
                 android:textStyle="bold"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp" />

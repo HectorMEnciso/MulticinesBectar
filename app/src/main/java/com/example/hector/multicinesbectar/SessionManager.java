@@ -40,9 +40,9 @@ public class SessionManager {
 
 	public static final String KEY_Apellidos = "Apellidos";
 
-	public static final String KEY_Pass = "Pass";
+	//public static final String KEY_Pass = "Pass";
 
-	public static final String KEY_T_Credito = "T_Credito";
+	//public static final String KEY_T_Credito = "T_Credito";
 	
 	// Constructor
 	public SessionManager(Context context){
@@ -71,9 +71,9 @@ public class SessionManager {
 
 		editor.putString(KEY_Apellidos, Apellidos);
 
-		editor.putString(KEY_Pass, Pass);
+		//editor.putString(KEY_Pass, Pass);
 
-		editor.putString(KEY_T_Credito, T_Credito);
+		//editor.putString(KEY_T_Credito, T_Credito);
 
 		
 		// commit changes
@@ -124,9 +124,9 @@ public class SessionManager {
 
 		user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
 
-		user.put(KEY_Pass, pref.getString(KEY_Pass, null));
+		//user.put(KEY_Pass, pref.getString(KEY_Pass, null));
 
-		user.put(KEY_T_Credito, pref.getString(KEY_T_Credito, null));
+		//user.put(KEY_T_Credito, pref.getString(KEY_T_Credito, null));
 		
 		// return user
 		return user;
@@ -140,7 +140,7 @@ public class SessionManager {
 		editor.clear();
 		editor.commit();
 
-		Toast.makeText(_context,"Sesion cerrada",Toast.LENGTH_SHORT).show();
+		Toast.makeText(_context,"Ha abandonado la sesión",Toast.LENGTH_SHORT).show();
 		// After logout redirect user to Loing Activity
 		Intent i = new Intent(_context, MainActivity.class);
 		// Closing all the Activities

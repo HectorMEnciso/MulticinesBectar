@@ -13,21 +13,21 @@
 
         <menu>
             <item
+                android:id="@+id/SignIn"
+                android:icon="@drawable/ic_action_action_exit_to_app"
+                android:title="Registrarse">
+            </item>
+            <item
                 android:id="@+id/LogIn"
                 android:icon="@drawable/ic_action_action_exit_to_app"
                 android:showAsAction="never"
-                android:title="Log in">
-             </item>
-            <item
-                android:id="@+id/SignIn"
-                android:icon="@drawable/ic_action_action_exit_to_app"
-                android:title="Sign in">
+                android:title="Iniciar Sesión">
              </item>
             <item
                 android:id="@+id/LogOut"
                 android:icon="@drawable/ic_action_action_exit_to_app"
                 android:showAsAction="never"
-                android:title="Log Out">
+                android:title="Cerrar Sesión">
             </item>
         </menu>
     </item>

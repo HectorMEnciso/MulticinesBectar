@@ -158,7 +158,7 @@ public class SignInActivity extends Activity {
                     startActivity(d);
                 }
                 else{
-                    Toast.makeText(getApplicationContext(),"El usuario ya existe\nPor favor elija otro",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Ya existe un usuario con ese nombre de usuario\nPor favor elija otro",Toast.LENGTH_SHORT).show();
                 }
             }
         }

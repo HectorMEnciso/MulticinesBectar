@@ -88,7 +88,7 @@ public class PeliculaVistaDetalle extends YouTubeBaseActivity implements
         InterpretesDetalle.setText("Interpretes: " + Interpretes);
         GeneroDetalle.setText("Genero: " + Genero);
         DuracionDetalle.setText("Duracion: " + Duracion);
-        AnyoDetalle.setText("Año: " + Anyo);
+        AnyoDetalle.setText("AÃ±o: " + Anyo);
         lblHorario.setText(horario);
     }
 
