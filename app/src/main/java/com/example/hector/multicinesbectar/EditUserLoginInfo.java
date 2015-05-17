@@ -1,6 +1,9 @@
 package com.example.hector.multicinesbectar;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -24,7 +27,6 @@ import org.json.JSONObject;
  * Created by Hector on 17/05/2015.
  */
 public class EditUserLoginInfo  extends Activity {
-
     private TextView nombre;
     private TextView apellidos;
     private TextView DNI;
@@ -39,10 +41,15 @@ public class EditUserLoginInfo  extends Activity {
     private boolean SePuedeModificar=true;
   /*  private Hash h;*/
   private Bundle b;
+    // Session Manager Class
+    private SessionManager session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_user_login_info);
+
+        // Session Manager
+        session = new SessionManager(getApplicationContext());
 
         nombre = (TextView) findViewById(R.id.txtName);
         apellidos = (TextView) findViewById(R.id.txtSurname);
@@ -88,17 +95,11 @@ public class EditUserLoginInfo  extends Activity {
                 //Construimos el objeto cliente en formato JSON
                 JSONObject dato = new JSONObject();
 
-                //dato.put("Id", Integer.parseInt(txtId.getText().toString()));
-
-                //dato.put("ImgUsuario", params[1]);
                 dato.put("Nombre", params[0]);
                 dato.put("Apellidos", params[1]);
                 dato.put("Email", params[2]);
                 dato.put("DNI", params[3]);
                 dato.put("UserName",params[4]);
-                //dato.put("UserName", params[4]);
-                //dato.put("Pass", params[5]);
-                // dato.put("T_Credito", params[6]);
 
                 StringEntity entity = new StringEntity(dato.toString());
                 put.setEntity(entity);
@@ -121,10 +122,29 @@ public class EditUserLoginInfo  extends Activity {
             if (result)
             {
                 if(SePuedeModificar){
-                    Toast.makeText(getApplicationContext(), "Datos modificados correctamente", Toast.LENGTH_SHORT).show();
-                   /* Intent d = new Intent(getApplicationContext(),LogInActivity.class);
-                    d.putExtra("username",NickName.getText().toString());
-                    startActivity(d);*/
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(EditUserLoginInfo.this);
+                    builder1.setMessage("Se van a editar sus datos,\n Para que se apliquen deberá volver a iniciar sesión, ¿Está seguro? ");
+                    builder1.setCancelable(true);
+                    builder1.setPositiveButton("Sí",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    session.logoutUser();
+                                    Toast.makeText(getApplicationContext(), "Datos modificados correctamente", Toast.LENGTH_SHORT).show();
+                                    Intent d = new Intent(getApplicationContext(),LogInActivity.class);
+                                    d.putExtra("username", b.getString("NickName").toString());
+                                    startActivity(d);
+                                }
+                            });
+                    builder1.setNegativeButton("No",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                    finish();
+                                }
+                            });
+
+                    AlertDialog alert11 = builder1.create();
+                    alert11.show();
                 }
                 else{
                     Toast.makeText(getApplicationContext(),"Ya existe un usuario con ese nombre de usuario\nPor favor elija otro",Toast.LENGTH_SHORT).show();
