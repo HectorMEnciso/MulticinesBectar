@@ -2,10 +2,8 @@ package com.example.hector.multicinesbectar;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -28,7 +26,6 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -328,6 +325,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
                     pelicula.setDuracion(obj.getString("Duracion"));
                     pelicula.setAnyo(obj.getString("Anyo"));
                     pelicula.setTrailer(obj.getString("Trailer"));
+                    pelicula.setSinopsis(obj.getString("Sinopsis"));
                     peliculas.add(pelicula);
                 }
             }
@@ -356,6 +354,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
                         queryValues.put("Duracion",String.valueOf(peliculas.get(i).getDuracion()));
                         queryValues.put("Anyo",String.valueOf(peliculas.get(i).getAnyo()));
                         queryValues.put("Trailer",String.valueOf(peliculas.get(i).getTrailer()));
+                        queryValues.put("Sinopsis",String.valueOf(peliculas.get(i).getSinopsis()));
                         controller.insertPelicula(queryValues);
                         Intent objIntent = new Intent(getActivity(), MainActivity.class);
                        startActivity(objIntent);

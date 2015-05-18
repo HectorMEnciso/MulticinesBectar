@@ -39,8 +39,9 @@ public class PeliculaVistaDetalleByCine extends YouTubeBaseActivity implements
     TextView DuracionDetalle;
     TextView AnyoDetalle;
     TextView lblHorario;
+    TextView txtSinopsis;
     Uri imageUri;
-    String TituloPelicula,Director,Interpretes,Genero,Duracion,Anyo,Trailer;
+    String TituloPelicula,Director,Interpretes,Genero,Duracion,Anyo,Trailer,Sinopsis;
     DBController controller = new DBController(this);
     ArrayList<HashMap<String, String>> PeliculasList;
     String NombreCine;
@@ -61,6 +62,7 @@ public class PeliculaVistaDetalleByCine extends YouTubeBaseActivity implements
         String id = objIntent.getStringExtra("IdPelicula");
         NombreCine = objIntent.getStringExtra("NombreCine");
         PeliculasList = controller.getPeliculainfo(id);
+        txtSinopsis= (TextView)findViewById(R.id.Sinopsis);
         lblHorario= (TextView)findViewById(R.id.lblHoraPelicula);
         imageViewPelicula= (ImageView)findViewById(R.id.imageViewPelicula);
         TituloPeliculaDetalle = (TextView)findViewById(R.id.TituloPeliculaDetalle);
@@ -69,6 +71,7 @@ public class PeliculaVistaDetalleByCine extends YouTubeBaseActivity implements
         GeneroDetalle = (TextView)findViewById(R.id.Genero);
         DuracionDetalle = (TextView)findViewById(R.id.Duracion);
         AnyoDetalle = (TextView)findViewById(R.id.Anyo);
+        txtSinopsis= (TextView)findViewById(R.id.Sinopsis);
     }
     public void onResume(){
         super.onResume();
@@ -76,7 +79,7 @@ public class PeliculaVistaDetalleByCine extends YouTubeBaseActivity implements
         for(int k = 0; k < PeliculasList.size(); k++){
             if(PeliculasList.get(k).get("NombreCine").equals(NombreCine)){
                 String horaLimpia=PeliculasList.get(k).get("Hora").substring(0,5);
-                horario=horaLimpia +" Sala: "+ PeliculasList.get(k).get("NumeroSala")+"\n\n";
+                horario=horario+horaLimpia +" Sala: "+ PeliculasList.get(k).get("NumeroSala")+"\n\n";
             }
 
             TituloPelicula=PeliculasList.get(k).get("Titulo");
@@ -87,6 +90,7 @@ public class PeliculaVistaDetalleByCine extends YouTubeBaseActivity implements
             Anyo=PeliculasList.get(k).get("Anyo");
             imageUri = Uri.parse(PeliculasList.get(k).get("ImgPelicula"));
             Trailer=PeliculasList.get(k).get("Trailer");
+            Sinopsis=PeliculasList.get(k).get("Sinopsis");
         }
         imageViewPelicula.setImageURI(imageUri);
         TituloPeliculaDetalle.setText(TituloPelicula);
@@ -96,6 +100,7 @@ public class PeliculaVistaDetalleByCine extends YouTubeBaseActivity implements
         DuracionDetalle.setText("Duracion: " + Duracion);
         AnyoDetalle.setText("Año: " + Anyo);
         lblHorario.setText(horario);
+        txtSinopsis.setText(Sinopsis);
     }
 
     @Override

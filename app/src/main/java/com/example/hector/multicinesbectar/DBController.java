@@ -44,7 +44,7 @@ public class DBController extends SQLiteOpenHelper {
         Log.d(LOGCAT,"Proyecciones Created");
 
         String queryPeliculas = "CREATE TABLE Peliculas (IdPelicula integer PRIMARY KEY AUTOINCREMENT," +
-        "ImgPelicula TEXT, Titulo TEXT, Director TEXT,Interpretes TEXT, Genero Text, Duracion TEXT, Anyo TEXT,Trailer TEXT," +
+        "ImgPelicula TEXT, Titulo TEXT, Director TEXT,Interpretes TEXT, Genero Text, Duracion TEXT, Anyo TEXT,Trailer TEXT,Sinopsis TEXT," +
         "FOREIGN KEY (IdPelicula) references Proyecciones(IdProyeccion))";
         database.execSQL(queryPeliculas);
         Log.d(LOGCAT,"Peliculas Created");
@@ -169,6 +169,7 @@ public class DBController extends SQLiteOpenHelper {
                 map.put("Genero", cursor.getString(3));
                 map.put("Duracion", cursor.getString(4));
                 map.put("NombreCine", cursor.getString(5));
+                //map.put("Sinopsis", cursor.getString(6));
                 wordList.add(map);
             } while (cursor.moveToNext());
         }
@@ -214,6 +215,7 @@ public class DBController extends SQLiteOpenHelper {
         values.put("Duracion", queryValues.get("Duracion"));
         values.put("Anyo", queryValues.get("Anyo"));
         values.put("Trailer", queryValues.get("Trailer"));
+        values.put("Sinopsis", queryValues.get("Sinopsis"));
         database.insert("Peliculas", null, values);
         database.close();
     }
@@ -295,7 +297,7 @@ public class DBController extends SQLiteOpenHelper {
         ArrayList<HashMap<String, String>> wordList = new  ArrayList<HashMap<String, String>>();
         SQLiteDatabase database = this.getReadableDatabase();
         String selectQuery = "select Peliculas.IdPelicula,ImgPelicula,Titulo,Director,Interpretes," +
-        "Genero,Duracion,Anyo,NombreCine,Hora,Proyecciones.IdProyeccion,Salas.NumeroSala,Trailer from Peliculas,Proyecciones,Cines,Salas where Proyecciones.IdCine = Cines.IdCine " +
+        "Genero,Duracion,Anyo,NombreCine,Hora,Proyecciones.IdProyeccion,Salas.NumeroSala,Trailer,Sinopsis from Peliculas,Proyecciones,Cines,Salas where Proyecciones.IdCine = Cines.IdCine " +
          "and Proyecciones.IdPelicula=Peliculas.IdPelicula and Proyecciones.IdSala=Salas.IdSala and Peliculas.IdPelicula='"+id+"' order by NombreCine";
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -314,6 +316,7 @@ public class DBController extends SQLiteOpenHelper {
                 map.put("IdProyeccion", cursor.getString(10));
                 map.put("NumeroSala", cursor.getString(11));
                 map.put("Trailer", cursor.getString(12));
+                map.put("Sinopsis", cursor.getString(13));
                 wordList.add(map);
             } while (cursor.moveToNext());
         }

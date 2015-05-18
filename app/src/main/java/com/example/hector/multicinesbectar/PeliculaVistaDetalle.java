@@ -9,14 +9,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayer.PlayerStyle;
 import com.google.android.youtube.player.YouTubePlayerView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Hector on 09/05/2015.
@@ -39,8 +39,9 @@ public class PeliculaVistaDetalle extends YouTubeBaseActivity implements
     TextView DuracionDetalle;
     TextView AnyoDetalle;
     TextView lblHorario;
+    TextView txtSinopsis;
     Uri imageUri;
-    String TituloPelicula,Director,Interpretes,Genero,Duracion,Anyo,Trailer;
+    String TituloPelicula,Director,Interpretes,Genero,Duracion,Anyo,Trailer,Sinopsis;
     DBController controller = new DBController(this);
     ArrayList<HashMap<String, String>> PeliculasList;
     @Override
@@ -59,6 +60,7 @@ public class PeliculaVistaDetalle extends YouTubeBaseActivity implements
         Intent objIntent = getIntent();
         String id = objIntent.getStringExtra("IdPelicula");
         PeliculasList = controller.getPeliculainfo(id);
+        txtSinopsis= (TextView)findViewById(R.id.Sinopsis);
         lblHorario= (TextView)findViewById(R.id.lblHoraPelicula);
         imageViewPelicula= (ImageView)findViewById(R.id.imageViewPelicula);
         TituloPeliculaDetalle = (TextView)findViewById(R.id.TituloPeliculaDetalle);
@@ -82,6 +84,7 @@ public class PeliculaVistaDetalle extends YouTubeBaseActivity implements
             Anyo=PeliculasList.get(k).get("Anyo");
             imageUri = Uri.parse(PeliculasList.get(k).get("ImgPelicula"));
             Trailer=PeliculasList.get(k).get("Trailer");
+            Sinopsis=PeliculasList.get(k).get("Sinopsis");
         }
         imageViewPelicula.setImageURI(imageUri);
         TituloPeliculaDetalle.setText(TituloPelicula);
@@ -91,6 +94,7 @@ public class PeliculaVistaDetalle extends YouTubeBaseActivity implements
         DuracionDetalle.setText("Duracion: " + Duracion);
         AnyoDetalle.setText("Año: " + Anyo);
         lblHorario.setText(horario);
+        txtSinopsis.setText(Sinopsis);
     }
 
     @Override

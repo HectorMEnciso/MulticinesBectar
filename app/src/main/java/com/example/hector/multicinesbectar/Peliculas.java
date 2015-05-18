@@ -15,6 +15,16 @@ public class Peliculas {
     private String Anyo;
     private String Trailer;
 
+    public String getSinopsis() {
+        return Sinopsis;
+    }
+
+    public void setSinopsis(String sinopsis) {
+        Sinopsis = sinopsis;
+    }
+
+    private String Sinopsis;
+
     public Peliculas() {
     }
 
