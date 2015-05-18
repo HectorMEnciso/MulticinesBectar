@@ -31,5 +31,8 @@
     <string name="error_player">There was an error initializing the YouTubePlayer (%1$s)</string>
 
     <string name="EditUserLoginInfo">Editar</string>
+    <string name="txtDialog"> Se van a editar sus datos,
+    Para que se apliquen deberá volver a iniciar sesión, ¿Está seguro?</string>
+
 
 </resources>

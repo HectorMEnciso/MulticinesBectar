@@ -123,9 +123,9 @@ public class EditUserLoginInfo  extends Activity {
             {
                 if(SePuedeModificar){
                     AlertDialog.Builder builder1 = new AlertDialog.Builder(EditUserLoginInfo.this);
-                    builder1.setMessage("Se van a editar sus datos,\n Para que se apliquen deberá volver a iniciar sesión, ¿Está seguro? ");
+                    builder1.setMessage(getString(R.string.txtDialog));
                     builder1.setCancelable(true);
-                    builder1.setPositiveButton("Sí",
+                    builder1.setPositiveButton("Si",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     session.logoutUser();
