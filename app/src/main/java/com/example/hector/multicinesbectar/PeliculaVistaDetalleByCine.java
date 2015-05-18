@@ -75,7 +75,8 @@ public class PeliculaVistaDetalleByCine extends YouTubeBaseActivity implements
         String horario="";
         for(int k = 0; k < PeliculasList.size(); k++){
             if(PeliculasList.get(k).get("NombreCine").equals(NombreCine)){
-                horario=PeliculasList.get(k).get("Hora") +" Sala: "+ PeliculasList.get(k).get("NumeroSala")+"\n\n";
+                String horaLimpia=PeliculasList.get(k).get("Hora").substring(0,5);
+                horario=horaLimpia +" Sala: "+ PeliculasList.get(k).get("NumeroSala")+"\n\n";
             }
 
             TituloPelicula=PeliculasList.get(k).get("Titulo");
