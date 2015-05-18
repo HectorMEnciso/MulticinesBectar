@@ -91,7 +91,7 @@ public class ProfileFragment extends Fragment {
 
         DNIUserLogin.setText("DNI\n" + usuario.getDNI());
 
-//            PassUserLogin.setText("Contraseña\n"+usuario.getPass());
+//            PassUserLogin.setText("Contrasena\n"+usuario.getPass());
 
         //CreditCard.setText("Tarjeta credito\n"+usuario.getT_Credito());
 

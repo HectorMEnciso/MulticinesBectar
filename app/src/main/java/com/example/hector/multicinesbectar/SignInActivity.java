@@ -67,11 +67,11 @@ public class SignInActivity extends Activity {
                                     h.computeSHAHash(creditCard.getText().toString()));
                         }
                         else{
-                            Toast.makeText(getApplicationContext(),"Las contraseñas no coinciden",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),getString(R.string.ContrasenasNoCoinciden),Toast.LENGTH_SHORT).show();
                         }
                 }
                 else{
-                    Toast.makeText(getApplicationContext(),"Por favor, introduzca una contraseña",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),getString(R.string.ContrasenasRequerida),Toast.LENGTH_SHORT).show();
                 }
             }
         });

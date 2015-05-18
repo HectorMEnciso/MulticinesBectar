@@ -153,14 +153,14 @@ public class LogInActivity extends Activity {
 
         protected void onPostExecute(Boolean result) {
             if(sePuedeLogear){
-                Toast.makeText(getApplicationContext(),"Ha iniciado sesión",Toast.LENGTH_SHORT).show();
-                // Staring MainActivity
-                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                Toast.makeText(getApplicationContext(),getString(R.string.SesionIniciada),Toast.LENGTH_SHORT).show();
+                        // Staring MainActivity
+                        Intent i = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(i);
                 finish();
             }
             else{
-                Toast.makeText(getApplicationContext(),"Nombre de usuario o contraseña incorrectos\nPor favor, inténtelo de nuevo",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),getString(R.string.PasswordIncorrect),Toast.LENGTH_SHORT).show();
             }
         }
     }

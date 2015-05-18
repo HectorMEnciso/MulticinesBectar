@@ -140,7 +140,7 @@ public class SessionManager {
 		editor.clear();
 		editor.commit();
 
-		Toast.makeText(_context,"Ha abandonado la sesión",Toast.LENGTH_SHORT).show();
+		Toast.makeText(_context,"Ha abandonado la sesiÃ³n",Toast.LENGTH_SHORT).show();
 		// After logout redirect user to Loing Activity
 		Intent i = new Intent(_context, MainActivity.class);
 		// Closing all the Activities
