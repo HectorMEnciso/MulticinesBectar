@@ -56,4 +56,12 @@
         android:textAllCaps="true"
         android:typeface="sans"/>
 
+    <TextView
+        android:id="@+id/NombreCine"
+        android:layout_width="fill_parent"
+        android:visibility="invisible"
+        android:layout_height="wrap_content"
+        android:typeface="sans"/>
+
+
 </RelativeLayout>

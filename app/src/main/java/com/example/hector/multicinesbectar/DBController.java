@@ -157,7 +157,7 @@ public class DBController extends SQLiteOpenHelper {
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
         String selectQuery = "select distinct Peliculas.IdPelicula,ImgPelicula,Titulo, " +
-                "Genero,Duracion from Peliculas,Proyecciones,Cines where Proyecciones.IdPelicula=Peliculas.IdPelicula and Proyecciones.IdCine=Cines.IdCine and Cines.IdCine='"+IdCine+"';";
+                "Genero,Duracion,NombreCine from Peliculas,Proyecciones,Cines where Proyecciones.IdPelicula=Peliculas.IdPelicula and Proyecciones.IdCine=Cines.IdCine and Cines.IdCine='"+IdCine+"';";
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -168,6 +168,7 @@ public class DBController extends SQLiteOpenHelper {
                 map.put("Titulo", cursor.getString(2));
                 map.put("Genero", cursor.getString(3));
                 map.put("Duracion", cursor.getString(4));
+                map.put("NombreCine", cursor.getString(5));
                 wordList.add(map);
             } while (cursor.moveToNext());
         }

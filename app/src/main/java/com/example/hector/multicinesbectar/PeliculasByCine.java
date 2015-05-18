@@ -22,6 +22,7 @@ public class PeliculasByCine extends Activity{
     private SimpleAdapter adaptadorPeliculasByCine;
     private int x;
     private TextView IDPelicula;
+    private TextView NombreCine;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +37,7 @@ public class PeliculasByCine extends Activity{
 
         PeliculasByCineList=controller.getAllPeliculasByCineId(IdCine);
 
-        adaptadorPeliculasByCine=new SimpleAdapter(this,PeliculasByCineList, R.layout.peliculas_layout, new String[] { "IdPelicula" ,"ImgPelicula","Titulo","Genero","Duracion"}, new int[] {R.id.IDPelicula,R.id.ivContactImagePelicula,R.id.lblTituloPelicula, R.id.lblGenero,R.id.lblDuracion});
+        adaptadorPeliculasByCine=new SimpleAdapter(this,PeliculasByCineList, R.layout.peliculas_layout, new String[] { "IdPelicula" ,"ImgPelicula","Titulo","Genero","Duracion","NombreCine"}, new int[] {R.id.IDPelicula,R.id.ivContactImagePelicula,R.id.lblTituloPelicula, R.id.lblGenero,R.id.lblDuracion,R.id.NombreCine});
 
         lstPeliculasByCine.setAdapter(adaptadorPeliculasByCine);
 
@@ -47,7 +48,8 @@ public class PeliculasByCine extends Activity{
                 @Override
                 public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                     IDPelicula = (TextView) v.findViewById(R.id.IDPelicula);
-                    Intent data = new Intent(getApplicationContext(), PeliculaVistaDetalle.class);//Intent explicito a editActivity
+                    NombreCine= (TextView) v.findViewById(R.id.NombreCine);
+                    Intent data = new Intent(getApplicationContext(), PeliculaVistaDetalleByCine.class);//Intent explicito a editActivity
                     TextView ti = (TextView) v.findViewById(R.id.lblTituloPelicula);//Obtenemos la referencia al listView TextView
                     String m = ti.getText().toString();//Almacenamos el texto
                     Log.e("m ", m);
@@ -57,6 +59,7 @@ public class PeliculasByCine extends Activity{
                         }
                     }
                     data.putExtra("IdPelicula", PeliculasByCineList.get(x).get("IdPelicula"));
+                    data.putExtra("NombreCine", PeliculasByCineList.get(x).get("NombreCine"));
                     startActivity(data);
                 }
             });

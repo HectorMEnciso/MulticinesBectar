@@ -88,6 +88,11 @@
             android:label="@string/EditUserLoginInfo" >
         </activity>
 
+        <activity
+            android:name=".PeliculaVistaDetalleByCine"
+            android:label="@string/title_DetailView" >
+        </activity>
+
     </application>
 
 </manifest>
