@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:textSize="25dp"
-        android:textColor="#ff1e1bcc"
+        android:textColor="#454545"
         android:gravity="center_horizontal"
         android:layout_alignParentBottom="true"
         android:text="Bectar Multicines" />
