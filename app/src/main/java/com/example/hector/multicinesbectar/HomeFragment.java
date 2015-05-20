@@ -2,6 +2,8 @@ package com.example.hector.multicinesbectar;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.AsyncTask;
@@ -9,6 +11,9 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -30,17 +35,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /*  Fragment para seccion perfil */ 
-public class HomeFragment extends Fragment implements SearchView.OnQueryTextListener {
+public class HomeFragment extends Fragment implements SearchView.OnQueryTextListener  {
     private DBController controller;
 
     private SearchView mSearchView; //Declaracion global del SearchView sSearchView
+    private SearchView mSearchViewCines;
     private TabHost tabs;
     private int x;
-    private TextView IDPelicula,IDCine;
-    public HomeFragment(){}
+    private TextView IDPelicula, IDCine;
+
+    public HomeFragment() {
+    }
 
     ArrayList<HashMap<String, String>> CinesList;
-    private ListView lstCines; //Declaracion GLobal del listView lstCoches.
+     ListView lstCines; //Declaracion GLobal del listView lstCoches.
     SimpleAdapter adaptadorCines;
 
     ArrayList<HashMap<String, String>> PeliculasList;
@@ -53,7 +61,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.home, container, false);
 
@@ -65,30 +73,31 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        //mSearchView = (SearchView) getActivity().findViewById(R.id.searchView1);//Obtenemos la referencia al SearchView mSearchView
-        lstCines = (ListView)getActivity().findViewById(R.id.LstCines);
-        lstPeliculas = (ListView)getActivity().findViewById(R.id.LstPeliculas);
-        lstIrYa=(ListView)getActivity().findViewById(R.id.LstIrYa);
+        // mSearchView = (SearchView) getActivity().findViewById(R.id.searchView1);//Obtenemos la referencia al SearchView mSearchView
+        // mSearchViewCines= (SearchView) getActivity().findViewById(R.id.searchView2);
+        lstCines = (ListView) getActivity().findViewById(R.id.LstCines);
+        lstPeliculas = (ListView) getActivity().findViewById(R.id.LstPeliculas);
+        lstIrYa = (ListView) getActivity().findViewById(R.id.LstIrYa);
 
         controller = new DBController(getActivity());
-       // setupSearchView();
+        // setupSearchView();
         ActualizarTabs();
         Resources res = getResources();
 
-        tabs=(TabHost) getActivity().findViewById(R.id.tabhost);
+        tabs = (TabHost) getActivity().findViewById(R.id.tabhost);
         tabs.setup();
 
-        TabHost.TabSpec spec=tabs.newTabSpec("mitab1");
+        TabHost.TabSpec spec = tabs.newTabSpec("mitab1");
         spec.setContent(R.id.tab1);
         spec.setIndicator("CINES", res.getDrawable(android.R.drawable.ic_menu_mylocation));
         tabs.addTab(spec);
 
-        spec=tabs.newTabSpec("mitab2");
+        spec = tabs.newTabSpec("mitab2");
         spec.setContent(R.id.tab2);
         spec.setIndicator("PELICULAS", res.getDrawable(android.R.drawable.ic_dialog_map));
         tabs.addTab(spec);
 
-        spec=tabs.newTabSpec("mitab3");
+        spec = tabs.newTabSpec("mitab3");
         spec.setContent(R.id.tab3);
         spec.setIndicator("IR YA!", res.getDrawable(android.R.drawable.ic_dialog_map));
         tabs.addTab(spec);
@@ -104,24 +113,25 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
             }
         });
 
-        CinesList=controller.getAllCines();
+        CinesList = controller.getAllCines();
 
-        adaptadorCines = new SimpleAdapter(getActivity(),CinesList, R.layout.cines_layout, new String[] { "IdCine" ,"ImgCine","NombreCine"}, new int[] {R.id.IDCine,R.id.ivContactImage, R.id.lblNombreCine});
+        adaptadorCines = new SimpleAdapter(getActivity(), CinesList, R.layout.cines_layout, new String[]{"IdCine", "ImgCine", "NombreCine"}, new int[]{R.id.IDCine, R.id.ivContactImage, R.id.lblNombreCine});
         lstCines.setAdapter(adaptadorCines);
+        lstCines.setTextFilterEnabled(true);
 
-        PeliculasList=controller.getAllPeliculas();
+        PeliculasList = controller.getAllPeliculas();
 
-        adaptadorPeliculas = new SimpleAdapter(getActivity(),PeliculasList, R.layout.peliculas_layout, new String[] { "IdPelicula" ,"ImgPelicula","Titulo","Genero","Duracion"}, new int[] {R.id.IDPelicula,R.id.ivContactImagePelicula,R.id.lblTituloPelicula, R.id.lblGenero,R.id.lblDuracion});
+        adaptadorPeliculas = new SimpleAdapter(getActivity(), PeliculasList, R.layout.peliculas_layout, new String[]{"IdPelicula", "ImgPelicula", "Titulo", "Genero", "Duracion"}, new int[]{R.id.IDPelicula, R.id.ivContactImagePelicula, R.id.lblTituloPelicula, R.id.lblGenero, R.id.lblDuracion});
         lstPeliculas.setAdapter(adaptadorPeliculas);
+        lstPeliculas.setTextFilterEnabled(true);
+        IrYaList = controller.getIrYa();
 
-        IrYaList=controller.getIrYa();
-
-        adaptadorIrYa = new SimpleAdapter(getActivity(),IrYaList, R.layout.irya_layout, new String[] { "IdPelicula" ,"ImgPelicula","Titulo","NombreCine","Hora"}, new int[] {R.id.IDPeliculaIrYa,R.id.ivContactImagePeliculaIrYa,R.id.lblTituloPeliculaIrYa, R.id.lblCinePeliculaIrYa,R.id.lblHoraPeliculaIrYa});
+        adaptadorIrYa = new SimpleAdapter(getActivity(), IrYaList, R.layout.irya_layout, new String[]{"IdPelicula", "ImgPelicula", "Titulo", "NombreCine", "Hora"}, new int[]{R.id.IDPeliculaIrYa, R.id.ivContactImagePeliculaIrYa, R.id.lblTituloPeliculaIrYa, R.id.lblCinePeliculaIrYa, R.id.lblHoraPeliculaIrYa});
         lstIrYa.setAdapter(adaptadorIrYa);
-
+//        setupSearchView();
         // #######################################	VISTA DETALLE !!!!!!  #####################################################
 
-        if(PeliculasList.size()!=0) {
+        if (PeliculasList.size() != 0) {
             lstPeliculas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> a, View v, int position, long id) {
@@ -136,7 +146,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
                         }
                     }
 
-                //Pasamos todos los datos del elemento al vistaDetalle
+                    //Pasamos todos los datos del elemento al vistaDetalle
 
                     data.putExtra("IdPelicula", PeliculasList.get(x).get("IdPelicula"));
                     getActivity().startActivity(data);
@@ -150,11 +160,11 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
         // ######################################   Listado de peliculas por cine   ###################################################
 
-        if(CinesList.size()!=0) {
-            lstCines.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        if (CinesList.size() != 0) {
+            lstCines.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    IDCine=(TextView) view.findViewById(R.id.IDCine);
+                    IDCine = (TextView) view.findViewById(R.id.IDCine);
                     Intent data = new Intent(getActivity(), PeliculasByCine.class);//Intent explicito a editActivity
                     TextView ti = (TextView) view.findViewById(R.id.lblNombreCine);//Obtenemos la referencia al listView TextView
                     String m = ti.getText().toString();//Almacenamos el texto
@@ -171,22 +181,26 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         }
 
 
-
         // ############################################################################################################################
 
     }
-    public void onResume(){
+
+    public void onResume() {
         super.onResume();
         ActualizarTabs();
     }
 
-    private void setupSearchView() {
+   /* private void setupSearchView() {
         mSearchView.setIconifiedByDefault(true); //Define el estado del campo de busqueda.
-        mSearchView.setOnQueryTextListener((SearchView.OnQueryTextListener) getActivity());//Define un escuchador para para las acciones dentro del searchView
+        mSearchView.setOnQueryTextListener(HomeFragment.this);//Define un escuchador para para las acciones dentro del searchView
         mSearchView.setSubmitButtonEnabled(true);//Habilita el boton Submit cuando no esta vacia.
-        mSearchView.setQueryHint("Introduzca matricula....");//Texto a mostrar.
-    }
-    private void ActualizarTabs(){
+        //mSearchView.setQueryHint("Introduzca matricula....");//Texto a mostrar.
+    }*/
+
+
+
+
+    private void ActualizarTabs() {
         TareaWSListarCines tareaListarCines = new TareaWSListarCines();
         tareaListarCines.execute();
 
@@ -207,17 +221,11 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        if (TextUtils.isEmpty(newText)) {
-            lstCines.clearTextFilter();
-        } else {
-            lstCines.setFilterText(newText);
-        }
-        return true;
+        return false;
     }
 
 
-
-    private class TareaWSListarCines extends AsyncTask<String,Integer,Boolean> {
+    private class TareaWSListarCines extends AsyncTask<String, Integer, Boolean> {
 
         ArrayList<Cines> cines = new ArrayList<Cines>();
 
@@ -228,22 +236,20 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
             HttpClient httpClient = new DefaultHttpClient();
 
-           //HttpGet del = new HttpGet("http://10.0.2.2:49461/Api/Cines/Cine");
-           //HttpGet del = new HttpGet("http://localhost:49461/Api/Cines/Cine");
+            //HttpGet del = new HttpGet("http://10.0.2.2:49461/Api/Cines/Cine");
+            //HttpGet del = new HttpGet("http://localhost:49461/Api/Cines/Cine");
 
             HttpGet del = new HttpGet("http://bectar.ddns.net/Api/Cines/Cine");
 
             del.setHeader("content-type", "application/json");
 
-            try
-            {
+            try {
                 HttpResponse resp = httpClient.execute(del);
                 String respStr = EntityUtils.toString(resp.getEntity());
 
                 JSONArray respJSON = new JSONArray(respStr);
 
-                for(int i=0; i<respJSON.length(); i++)
-                {
+                for (int i = 0; i < respJSON.length(); i++) {
                     JSONObject obj = respJSON.getJSONObject(i);
 
                     Cines cine = new Cines();
@@ -255,10 +261,8 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
                     cines.add(cine);
                 }
-            }
-            catch(Exception ex)
-            {
-                Log.e("ServicioRest","Error!", ex);
+            } catch (Exception ex) {
+                Log.e("ServicioRest", "Error!", ex);
                 resul = false;
             }
 
@@ -267,15 +271,14 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
         protected void onPostExecute(Boolean result) {
 
-            if (result)
-            {
-                for(int i=0; i<cines.size(); i++){
-                    if(!controller.existeCine(cines.get(i).getNombreCine())){
+            if (result) {
+                for (int i = 0; i < cines.size(); i++) {
+                    if (!controller.existeCine(cines.get(i).getNombreCine())) {
                         HashMap<String, String> queryValues = new HashMap<String, String>();
-                        queryValues.put("IdCine",String.valueOf(cines.get(i).getIdCine()));
-                        queryValues.put("ImgCine",String.valueOf(cines.get(i).getImgCine()));
-                        queryValues.put("Direccion",String.valueOf(cines.get(i).getDireccion()));
-                        queryValues.put("NombreCine",String.valueOf(cines.get(i).getNombreCine()));
+                        queryValues.put("IdCine", String.valueOf(cines.get(i).getIdCine()));
+                        queryValues.put("ImgCine", String.valueOf(cines.get(i).getImgCine()));
+                        queryValues.put("Direccion", String.valueOf(cines.get(i).getDireccion()));
+                        queryValues.put("NombreCine", String.valueOf(cines.get(i).getNombreCine()));
                         controller.insertCine(queryValues);
                         Intent objIntent = new Intent(getActivity(), MainActivity.class);
                         startActivity(objIntent);
@@ -287,7 +290,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
     }
 
 
-    private class TareaWSListarPeliculas extends AsyncTask<String,Integer,Boolean> {
+    private class TareaWSListarPeliculas extends AsyncTask<String, Integer, Boolean> {
 
         ArrayList<Peliculas> peliculas = new ArrayList<Peliculas>();
 
@@ -299,19 +302,17 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
             HttpClient httpClient = new DefaultHttpClient();
 
             //HttpGet del = new HttpGet("http://10.0.2.2:49461/Api/Peliculas/Pelicula");
-           // HttpGet del = new HttpGet("http://localhost:49461/Api/Cines/Cine");
-           HttpGet del = new HttpGet("http://bectar.ddns.net/Api/Peliculas/Pelicula");
+            // HttpGet del = new HttpGet("http://localhost:49461/Api/Cines/Cine");
+            HttpGet del = new HttpGet("http://bectar.ddns.net/Api/Peliculas/Pelicula");
             del.setHeader("content-type", "application/json");
 
-            try
-            {
+            try {
                 HttpResponse resp = httpClient.execute(del);
                 String respStr = EntityUtils.toString(resp.getEntity());
 
                 JSONArray respJSON = new JSONArray(respStr);
 
-                for(int i=0; i<respJSON.length(); i++)
-                {
+                for (int i = 0; i < respJSON.length(); i++) {
                     JSONObject obj = respJSON.getJSONObject(i);
 
                     Peliculas pelicula = new Peliculas();
@@ -328,10 +329,8 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
                     pelicula.setSinopsis(obj.getString("Sinopsis"));
                     peliculas.add(pelicula);
                 }
-            }
-            catch(Exception ex)
-            {
-                Log.e("ServicioRest","Error!", ex);
+            } catch (Exception ex) {
+                Log.e("ServicioRest", "Error!", ex);
                 resul = false;
             }
 
@@ -340,24 +339,23 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
         protected void onPostExecute(Boolean result) {
 
-            if (result)
-            {
-                for(int i=0; i<peliculas.size(); i++){
-                    if(!controller.existePelicula(peliculas.get(i).getTitulo())){
+            if (result) {
+                for (int i = 0; i < peliculas.size(); i++) {
+                    if (!controller.existePelicula(peliculas.get(i).getTitulo())) {
                         HashMap<String, String> queryValues = new HashMap<String, String>();
-                        queryValues.put("IdCine",String.valueOf(peliculas.get(i).getIdPelicula()));
-                        queryValues.put("ImgPelicula",String.valueOf(peliculas.get(i).getImgPelicula()));
-                        queryValues.put("Titulo",String.valueOf(peliculas.get(i).getTitulo()));
-                        queryValues.put("Director",String.valueOf(peliculas.get(i).getDirector()));
-                        queryValues.put("Interpretes",String.valueOf(peliculas.get(i).getInterpretes()));
-                        queryValues.put("Genero",String.valueOf(peliculas.get(i).getGenero()));
-                        queryValues.put("Duracion",String.valueOf(peliculas.get(i).getDuracion()));
-                        queryValues.put("Anyo",String.valueOf(peliculas.get(i).getAnyo()));
-                        queryValues.put("Trailer",String.valueOf(peliculas.get(i).getTrailer()));
-                        queryValues.put("Sinopsis",String.valueOf(peliculas.get(i).getSinopsis()));
+                        queryValues.put("IdCine", String.valueOf(peliculas.get(i).getIdPelicula()));
+                        queryValues.put("ImgPelicula", String.valueOf(peliculas.get(i).getImgPelicula()));
+                        queryValues.put("Titulo", String.valueOf(peliculas.get(i).getTitulo()));
+                        queryValues.put("Director", String.valueOf(peliculas.get(i).getDirector()));
+                        queryValues.put("Interpretes", String.valueOf(peliculas.get(i).getInterpretes()));
+                        queryValues.put("Genero", String.valueOf(peliculas.get(i).getGenero()));
+                        queryValues.put("Duracion", String.valueOf(peliculas.get(i).getDuracion()));
+                        queryValues.put("Anyo", String.valueOf(peliculas.get(i).getAnyo()));
+                        queryValues.put("Trailer", String.valueOf(peliculas.get(i).getTrailer()));
+                        queryValues.put("Sinopsis", String.valueOf(peliculas.get(i).getSinopsis()));
                         controller.insertPelicula(queryValues);
                         Intent objIntent = new Intent(getActivity(), MainActivity.class);
-                       startActivity(objIntent);
+                        startActivity(objIntent);
                     }
                 }
 //                DialogActualizar("Peliculas");
@@ -366,7 +364,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
     }
 
 
-    private class TareaWSListarProyeciones extends AsyncTask<String,Integer,Boolean> {
+    private class TareaWSListarProyeciones extends AsyncTask<String, Integer, Boolean> {
 
         ArrayList<Proyecciones> proyeciones = new ArrayList<Proyecciones>();
 
@@ -383,15 +381,13 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
             del.setHeader("content-type", "application/json");
 
-            try
-            {
+            try {
                 HttpResponse resp = httpClient.execute(del);
                 String respStr = EntityUtils.toString(resp.getEntity());
 
                 JSONArray respJSON = new JSONArray(respStr);
 
-                for(int i=0; i<respJSON.length(); i++)
-                {
+                for (int i = 0; i < respJSON.length(); i++) {
                     JSONObject obj = respJSON.getJSONObject(i);
 
                     Proyecciones proyeccion = new Proyecciones();
@@ -403,9 +399,9 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
                     proyeccion.setIdSala(obj.getInt("IdSala"));
                     proyeccion.setHora(obj.getString("Hora"));
 
-                    String diaReplace="";
+                    String diaReplace = "";
 
-                    diaReplace=obj.getString("Dia").replace("0:00:00","");
+                    diaReplace = obj.getString("Dia").replace("0:00:00", "");
 
 
                     String str[] = diaReplace.split("/");//Vector con caracter delimitador
@@ -413,18 +409,16 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
                     String month = str[1];
                     String year = str[2];
 
-                    String fechaBuena=year+"-"+month+"-"+day;
-                    String fechaBuena2=fechaBuena.replace(" ","");
+                    String fechaBuena = year + "-" + month + "-" + day;
+                    String fechaBuena2 = fechaBuena.replace(" ", "");
                     proyeccion.setDia(fechaBuena2);
 
                     proyeccion.setButacasDisponibles(obj.getString("ButacasDisponibles"));
                     proyeccion.setIdCompra(obj.getString("IdCompra"));
                     proyeciones.add(proyeccion);
                 }
-            }
-            catch(Exception ex)
-            {
-                Log.e("ServicioRest","Error!", ex);
+            } catch (Exception ex) {
+                Log.e("ServicioRest", "Error!", ex);
                 resul = false;
             }
 
@@ -433,22 +427,21 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
         protected void onPostExecute(Boolean result) {
 
-            if (result)
-            {
-                for(int i=0; i<proyeciones.size(); i++){
-                    if(!controller.existeProyeccion(proyeciones.get(i).getIdProyeccion())){
+            if (result) {
+                for (int i = 0; i < proyeciones.size(); i++) {
+                    if (!controller.existeProyeccion(proyeciones.get(i).getIdProyeccion())) {
                         HashMap<String, String> queryValues = new HashMap<String, String>();
-                        queryValues.put("IdProyeccion",String.valueOf(proyeciones.get(i).getIdProyeccion()));
-                        queryValues.put("IdCine",String.valueOf(proyeciones.get(i).getIdCine()));
-                        queryValues.put("IdPelicula",String.valueOf(proyeciones.get(i).getIdPelicula()));
-                        queryValues.put("IdButaca",String.valueOf(proyeciones.get(i).getIdButaca()));
-                        queryValues.put("IdSala",String.valueOf(proyeciones.get(i).getIdSala()));
-                        queryValues.put("Hora",String.valueOf(proyeciones.get(i).getHora()));
+                        queryValues.put("IdProyeccion", String.valueOf(proyeciones.get(i).getIdProyeccion()));
+                        queryValues.put("IdCine", String.valueOf(proyeciones.get(i).getIdCine()));
+                        queryValues.put("IdPelicula", String.valueOf(proyeciones.get(i).getIdPelicula()));
+                        queryValues.put("IdButaca", String.valueOf(proyeciones.get(i).getIdButaca()));
+                        queryValues.put("IdSala", String.valueOf(proyeciones.get(i).getIdSala()));
+                        queryValues.put("Hora", String.valueOf(proyeciones.get(i).getHora()));
                         queryValues.put("Dia", String.valueOf(proyeciones.get(i).getDia()));
-                        queryValues.put("ButacasDisponibles",String.valueOf(proyeciones.get(i).getButacasDisponibles()));
+                        queryValues.put("ButacasDisponibles", String.valueOf(proyeciones.get(i).getButacasDisponibles()));
                         queryValues.put("IdCompra", String.valueOf(proyeciones.get(i).getIdCompra()));
                         controller.insertProyeccion(queryValues);
-                       // Intent objIntent = new Intent(getActivity(), MainActivity.class);
+                        // Intent objIntent = new Intent(getActivity(), MainActivity.class);
                         //startActivity(objIntent);
                     }
                 }
@@ -458,7 +451,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
     }
 
 
-    private class TareaWSListarSalas extends AsyncTask<String,Integer,Boolean> {
+    private class TareaWSListarSalas extends AsyncTask<String, Integer, Boolean> {
 
         ArrayList<Salas> salas = new ArrayList<Salas>();
 
@@ -475,15 +468,13 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
             del.setHeader("content-type", "application/json");
 
-            try
-            {
+            try {
                 HttpResponse resp = httpClient.execute(del);
                 String respStr = EntityUtils.toString(resp.getEntity());
 
                 JSONArray respJSON = new JSONArray(respStr);
 
-                for(int i=0; i<respJSON.length(); i++)
-                {
+                for (int i = 0; i < respJSON.length(); i++) {
                     JSONObject obj = respJSON.getJSONObject(i);
 
                     Salas sala = new Salas();
@@ -494,10 +485,8 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
                     sala.setNumeroButacas(obj.getInt("NumeroButacas"));
                     salas.add(sala);
                 }
-            }
-            catch(Exception ex)
-            {
-                Log.e("ServicioRest","Error!", ex);
+            } catch (Exception ex) {
+                Log.e("ServicioRest", "Error!", ex);
                 resul = false;
             }
 
@@ -506,15 +495,14 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
         protected void onPostExecute(Boolean result) {
 
-            if (result)
-            {
-                for(int i=0; i<salas.size(); i++){
-                    if(!controller.existeSala(salas.get(i).getIdSala())){
+            if (result) {
+                for (int i = 0; i < salas.size(); i++) {
+                    if (!controller.existeSala(salas.get(i).getIdSala())) {
                         HashMap<String, String> queryValues = new HashMap<String, String>();
-                        queryValues.put("IdSala",String.valueOf(salas.get(i).getIdSala()));
-                        queryValues.put("NumeroSala",String.valueOf(salas.get(i).getNumeroSala()));
-                        queryValues.put("NumeroFilas",String.valueOf(salas.get(i).getNumeroFilas()));
-                        queryValues.put("NumeroButacas",String.valueOf(salas.get(i).getNumeroButacas()));
+                        queryValues.put("IdSala", String.valueOf(salas.get(i).getIdSala()));
+                        queryValues.put("NumeroSala", String.valueOf(salas.get(i).getNumeroSala()));
+                        queryValues.put("NumeroFilas", String.valueOf(salas.get(i).getNumeroFilas()));
+                        queryValues.put("NumeroButacas", String.valueOf(salas.get(i).getNumeroButacas()));
                         controller.insertSala(queryValues);
                         // Intent objIntent = new Intent(getActivity(), MainActivity.class);
                         //startActivity(objIntent);
@@ -527,13 +515,12 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
     public void DialogActualizar(String tab) {
 
-         ProgressDialog ringProgressDialog=null;
+        ProgressDialog ringProgressDialog = null;
 
-        if(tab.equals("Cines")){
-            ringProgressDialog = ProgressDialog.show(getActivity(), "Por favor espere....","Actualizando lista de cines ...", true);
-        }
-        else if(tab.equals("Peliculas")){
-            ringProgressDialog = ProgressDialog.show(getActivity(), "Por favor espere....","Actualizando lista de peliculas ...", true);
+        if (tab.equals("Cines")) {
+            ringProgressDialog = ProgressDialog.show(getActivity(), "Por favor espere....", "Actualizando lista de cines ...", true);
+        } else if (tab.equals("Peliculas")) {
+            ringProgressDialog = ProgressDialog.show(getActivity(), "Por favor espere....", "Actualizando lista de peliculas ...", true);
         }
 
         ringProgressDialog.setCancelable(true);
@@ -553,4 +540,35 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         }).start();
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_main, menu);
+        // Retrieves the system search manager service
+        final SearchManager searchManager =
+                (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        MenuItem searchItem = menu.findItem(R.id.search);
+        // Retrieves the SearchView from the search menu item
+        final SearchView searchView = (SearchView) searchItem.getActionView();
+
+        // Assign searchable info to SearchView
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getActivity().getComponentName()));
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (TextUtils.isEmpty(newText)) {
+                    lstCines.clearTextFilter();
+                } else {
+                    lstCines.setFilterText(newText.toString());
+                }
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+        });
+    }
 }

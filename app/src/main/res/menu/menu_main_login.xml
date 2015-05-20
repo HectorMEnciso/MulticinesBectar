@@ -13,22 +13,11 @@
 
         <menu>
             <item
-                android:id="@+id/SignIn"
-                android:icon="@drawable/ic_action_action_exit_to_app"
-                android:title="Registrarse">
-            </item>
-            <item
-                android:id="@+id/LogIn"
-                android:icon="@drawable/ic_action_action_exit_to_app"
-                android:showAsAction="never"
-                android:title="Iniciar Sesión">
-             </item>
-            <!--<item
                 android:id="@+id/LogOut"
                 android:icon="@drawable/ic_action_action_exit_to_app"
                 android:showAsAction="never"
                 android:title="Cerrar Sesión">
-            </item>-->
+            </item>
         </menu>
     </item>
 </menu>

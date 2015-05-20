@@ -13,6 +13,7 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,10 +22,9 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements SearchView.OnQueryTextListener {
     private String[] titulos;
     private DrawerLayout NavDrawerLayout;
     private ListView NavList;
@@ -34,7 +34,6 @@ public class MainActivity extends Activity {
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     private NavigationAdapter NavAdapter;
-
     // Session Manager Class
     private SessionManager session;
 
@@ -257,6 +256,8 @@ public class MainActivity extends Activity {
         }
         int id = item.getItemId();
 
+
+
         if (id == R.id.LogIn) {
             Intent LogIn = new Intent(this,LogInActivity.class);
             startActivity(LogIn);
@@ -281,8 +282,15 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuInflater inflater = getMenuInflater();
+        if(!session.isLoggedIn()) {
+            inflater.inflate(R.menu.menu_main, menu);
+        }
+        else{
+            inflater.inflate(R.menu.menu_main_login, menu);
+        }
+
+
         // Associate searchable configuration with the SearchView
         SearchManager searchManager =
                 (SearchManager) getSystemService(Context.SEARCH_SERVICE);
@@ -290,6 +298,19 @@ public class MainActivity extends Activity {
                 (SearchView) menu.findItem(R.id.search).getActionView();
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getComponentName()));
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setOnQueryTextListener(this);
+
         return true;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
     }
 }

@@ -61,7 +61,7 @@
 
                     <!--<SearchView
                         android:id="@+id/searchView2"
-                        android:queryHint="Buscar pelicula proximos pases"
+                        android:queryHint="Buscar peliculas"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />-->
 
