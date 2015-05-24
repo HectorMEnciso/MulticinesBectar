@@ -2,8 +2,10 @@ package com.example.hector.multicinesbectar;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.TextView;
 
 /**
  * Created by Hector on 19/05/2015.
@@ -36,6 +38,12 @@ public class SplashScreen extends Activity {
                 finish();
             }
         }, SPLASH_TIME_OUT);
+
+        TextView title=(TextView)findViewById(R.id.titleBectar);
+        Typeface font = Typeface.createFromAsset(
+                this.getAssets(),
+                "fonts/Roboto-BlackItalic.ttf");
+        title .setTypeface(font);
     }
 
 }

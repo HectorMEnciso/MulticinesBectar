@@ -1,6 +1,7 @@
 package com.example.hector.multicinesbectar;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Window;
@@ -61,14 +62,28 @@ public class PeliculaVistaDetalle extends YouTubeBaseActivity implements
         String id = objIntent.getStringExtra("IdPelicula");
         PeliculasList = controller.getPeliculainfo(id);
         txtSinopsis= (TextView)findViewById(R.id.Sinopsis);
+
+        Typeface font = Typeface.createFromAsset(
+                this.getAssets(),
+                "fonts/RobotoCondensed-Italic.ttf");
+        txtSinopsis.setTypeface(font);
+
         lblHorario= (TextView)findViewById(R.id.lblHoraPelicula);
         imageViewPelicula= (ImageView)findViewById(R.id.imageViewPelicula);
         TituloPeliculaDetalle = (TextView)findViewById(R.id.TituloPeliculaDetalle);
+
+        Typeface fontTitulo = Typeface.createFromAsset(
+                this.getAssets(),
+                "fonts/RobotoCondensed-BoldItalic.ttf");
+        TituloPeliculaDetalle.setTypeface(fontTitulo);
+
         DirectorDetalle = (TextView)findViewById(R.id.DirectorDetalle);
         InterpretesDetalle = (TextView)findViewById(R.id.InterpretesDetalle);
         GeneroDetalle = (TextView)findViewById(R.id.Genero);
         DuracionDetalle = (TextView)findViewById(R.id.Duracion);
         AnyoDetalle = (TextView)findViewById(R.id.Anyo);
+
+
     }
     public void onResume(){
         super.onResume();

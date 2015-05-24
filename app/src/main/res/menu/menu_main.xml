@@ -14,21 +14,15 @@
         <menu>
             <item
                 android:id="@+id/SignIn"
-                android:icon="@drawable/ic_action_action_exit_to_app"
+                android:icon="@drawable/ic_action_account_box"
                 android:title="Registrarse">
             </item>
             <item
                 android:id="@+id/LogIn"
-                android:icon="@drawable/ic_action_action_exit_to_app"
+                android:icon="@drawable/ic_action_account_circle"
                 android:showAsAction="never"
-                android:title="Iniciar Sesión">
+                android:title="Iniciar sesión">
              </item>
-            <!--<item
-                android:id="@+id/LogOut"
-                android:icon="@drawable/ic_action_action_exit_to_app"
-                android:showAsAction="never"
-                android:title="Cerrar Sesión">
-            </item>-->
         </menu>
     </item>
 </menu>
