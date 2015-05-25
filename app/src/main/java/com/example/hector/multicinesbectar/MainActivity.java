@@ -72,7 +72,7 @@ public class MainActivity extends Activity implements SearchView.OnQueryTextList
             //Perfil
            NavItms.add(new Item_objct(titulos[1], NavIcons.getResourceId(1, -1)));
             //Eventos
-            NavItms.add(new Item_objct(titulos[2], NavIcons.getResourceId(2, -1)));
+            /*NavItms.add(new Item_objct(titulos[2], NavIcons.getResourceId(2, -1)));*/
             //Lugares
             NavItms.add(new Item_objct(titulos[3], NavIcons.getResourceId(3, -1)));
             //Etiquetas
@@ -169,7 +169,9 @@ public class MainActivity extends Activity implements SearchView.OnQueryTextList
             case 2:
                 fragment= new MapsCinesActivity();
                 break;
-
+            case 3:
+                Toast.makeText(getApplicationContext(), "Opcion " + titulos[position] + " en construcción!", Toast.LENGTH_SHORT).show();
+                break;
             default:
                 //si no esta la opcion mostrara un toast y nos mandara a Home
                 Toast.makeText(getApplicationContext(), "Opcion " + titulos[position-1] + " no disponible!", Toast.LENGTH_SHORT).show();
@@ -203,13 +205,16 @@ public class MainActivity extends Activity implements SearchView.OnQueryTextList
             case 1:
                 fragment = new HomeFragment();
                 break;
-            case 5:
-                fragment = new ProfileFragment();
-                break;
+
             case 2:
                 fragment= new MapsCinesActivity();
                 break;
-
+            case 3:
+                fragment=new SecurityFragment();
+                break;
+            case 5:
+                fragment = new ProfileFragment();
+                break;
             default:
                 //si no esta la opcion mostrara un toast y nos mandara a Home
                 Toast.makeText(getApplicationContext(), "Opcion " + titulos[position-1] + " no disponible!", Toast.LENGTH_SHORT).show();
