@@ -80,27 +80,33 @@ public class SecurityFragment extends Fragment {
             HttpGet del = new HttpGet("http://bectar.ddns.net/Api/Usuarios/Usuario/"+params[0].toString());//username
             del.setHeader("content-type", "application/json");
 
-            try
-            {
-                HttpResponse resp = httpClient.execute(del);
-                String respStr = EntityUtils.toString(resp.getEntity());
+            try {
+                    HttpResponse resp = httpClient.execute(del);
+                    String respStr = EntityUtils.toString(resp.getEntity());
 
-                JSONObject respJSON = new JSONObject(respStr);
-                usuario.setUserName(respJSON.get("UserName").toString());
-                usuario.setPass(respJSON.get("Pass").toString());
-                usuario.setT_Credito(respJSON.get("T_Credito").toString());
+                    JSONObject respJSON = new JSONObject(respStr);
+                    usuario.setUserName(respJSON.get("UserName").toString());
+                    usuario.setPass(respJSON.get("Pass").toString());
+                    usuario.setT_Credito(respJSON.get("T_Credito").toString());
 
-                String UserPassHasheado;
+                    String UserPassHasheado;
 
-                UserPassHasheado=h.computeSHAHash(params[0].toString(),params[1].toString());
+                    UserPassHasheado = h.computeSHAHash(params[0].toString(), params[1].toString());
 
-                if(UserPassHasheado.equals(usuario.getPass())) {
-                    correctPass = true;
-                    if (OldPass.getText().toString().equals(NewPass.getText().toString())) {
-                        EqualPass = true;
-                    } else if (NewPass.getText().toString().equals(RepeatNewPass.getText().toString())) {
-                        EqualPass2 = true;
+                    if (UserPassHasheado.equals(usuario.getPass())) {
+                            correctPass = true;
+                                if (OldPass.getText().toString().equals(NewPass.getText().toString())) {
+                                EqualPass = true;
+                                 } else if (NewPass.getText().toString().equals(RepeatNewPass.getText().toString())) {
+                                 EqualPass2 = true;
+                                }
                     }
+                 }
+
+            catch(Exception ex) {
+              Log.e("ServicioRest", "Error!", ex);
+              resul = false;
+            }
                     if(correctPass && !EqualPass && EqualPass2){
 
                     HttpClient httpClient1 = new DefaultHttpClient();
@@ -111,8 +117,9 @@ public class SecurityFragment extends Fragment {
                         //Construimos el objeto cliente en formato JSON
                         JSONObject dato = new JSONObject();
 
-                        dato.put("Pass", NewPass.getText().toString());
+                        dato.put("Pass",h.computeSHAHash(usuario.getUserName().toString().toString(),NewPass.getText().toString()));
                         dato.put("T_Credito", h.computeSHAHash(CreditCard.getText().toString()));
+                        dato.put("UserName",usuario.getUserName().toString());
 
                         StringEntity entity1 = new StringEntity(dato.toString());
                         put.setEntity(entity1);
@@ -128,19 +135,6 @@ public class SecurityFragment extends Fragment {
                         resul = false;
                     }
                 }
-                }
-                else{
-                    correctPass=false;
-                }
-
-            }
-            catch(Exception ex)
-            {
-                Log.e("ServicioRest", "Error!", ex);
-                resul = false;
-            }
-
-
             return resul;
         }
         protected void onPostExecute(Boolean result) {
