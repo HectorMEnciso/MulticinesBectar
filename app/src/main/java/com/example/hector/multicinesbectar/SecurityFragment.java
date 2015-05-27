@@ -1,6 +1,8 @@
 package com.example.hector.multicinesbectar;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -64,8 +66,25 @@ public class SecurityFragment extends Fragment {
         EditarInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TareaWSModificarSecurityUser securityUser = new TareaWSModificarSecurityUser();
-                securityUser.execute(session.getUserDetails().get("UserName").toString(),OldPass.getText().toString());
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
+                builder1.setMessage(getString(R.string.txtDialogSecurity));
+                builder1.setCancelable(true);
+                builder1.setPositiveButton("Si",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                TareaWSModificarSecurityUser securityUser = new TareaWSModificarSecurityUser();
+                                securityUser.execute(session.getUserDetails().get("UserName").toString(),OldPass.getText().toString());
+                            }
+                        });
+                builder1.setNegativeButton("No",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+                AlertDialog alert11 = builder1.create();
+                alert11.show();
             }
 
         });

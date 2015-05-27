@@ -1,14 +1,25 @@
 package com.example.hector.multicinesbectar;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 
 import java.util.HashMap;
 
@@ -24,7 +35,7 @@ public class ProfileFragment extends Fragment {
     private TextView EMAILUserLogin;
     private TextView USERNAMELogin;
     private TextView CreditCard;
-    private Button EditarInfo;
+    private Button EditarInfo,DarDeBaja;
     private Usuarios usuario = null;
 
     public ProfileFragment() {
@@ -78,18 +89,18 @@ public class ProfileFragment extends Fragment {
         USERNAMELogin = (TextView) getActivity().findViewById(R.id.USERNAMELogin);
         // CreditCard=(TextView) getActivity().findViewById(R.id.CreditCard);
         EditarInfo = (Button) getActivity().findViewById(R.id.btnEditarUserInfo);
-
+        DarDeBaja=(Button) getActivity().findViewById(R.id.btnDarDeBaja);
         // imageUser.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_user));
 
-        USERNAMELogin.setText("Nombre de usuario\n" + usuario.getUserName());
+        USERNAMELogin.setText("Nombre de usuario: " + usuario.getUserName());
 
-        EMAILUserLogin.setText("Email\n" + usuario.getEmail());
+        EMAILUserLogin.setText("Email: " + usuario.getEmail());
 
-        NombreUserLogin.setText("Nombre\n" + usuario.getNombre());
+        NombreUserLogin.setText("Nombre: " + usuario.getNombre());
 
-        ApellidosUserLogin.setText("Apellidos\n" + usuario.getApellidos());
+        ApellidosUserLogin.setText("Apellidos: " + usuario.getApellidos());
 
-        DNIUserLogin.setText("DNI\n" + usuario.getDNI());
+        DNIUserLogin.setText("DNI: " + usuario.getDNI());
 
 //            PassUserLogin.setText("Contrasena\n"+usuario.getPass());
 
@@ -98,15 +109,77 @@ public class ProfileFragment extends Fragment {
         EditarInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            Intent datos = new Intent(getActivity(),EditUserLoginInfo.class);
-                datos.putExtra("Nombre",usuario.getNombre());
-                datos.putExtra("Apellidos",usuario.getApellidos());
-                datos.putExtra("DNI",usuario.getDNI());
-                datos.putExtra("Email",usuario.getEmail());
-                datos.putExtra("NickName",usuario.getUserName());
+                Intent datos = new Intent(getActivity(), EditUserLoginInfo.class);
+                datos.putExtra("Nombre", usuario.getNombre());
+                datos.putExtra("Apellidos", usuario.getApellidos());
+                datos.putExtra("DNI", usuario.getDNI());
+                datos.putExtra("Email", usuario.getEmail());
+                datos.putExtra("NickName", usuario.getUserName());
                 getActivity().startActivity(datos);
             }
 
         });
+
+
+        DarDeBaja.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
+                builder1.setMessage(getString(R.string.txtDialogBaja));
+                builder1.setCancelable(true);
+                builder1.setPositiveButton("Si",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                TareaWEliminarUsuario tareaEliminar = new TareaWEliminarUsuario();
+                                tareaEliminar.execute(usuario.getUserName().toString());
+                            }
+                        });
+                builder1.setNegativeButton("No",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+                AlertDialog alert11 = builder1.create();
+                alert11.show();
+            }
+        });
+    }
+
+    private class TareaWEliminarUsuario extends AsyncTask<String, Integer, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            boolean resul = true;
+
+            HttpClient httpClient = new DefaultHttpClient();
+
+            HttpDelete del = new HttpDelete("http://bectar.ddns.net/Api/Usuarios/Usuario/"+params[0].toString());
+
+            del.setHeader("content-type", "application/json");
+
+            try
+            {
+                HttpResponse resp = httpClient.execute(del);
+                String respStr = EntityUtils.toString(resp.getEntity());
+
+            }
+            catch(Exception ex)
+            {
+                Log.e("ServicioRest", "Error!", ex);
+            }
+
+            return resul;
+        }
+        protected void onPostExecute(Boolean result) {
+            if (result) {
+                session.logoutUser();
+                Toast.makeText(getActivity(), "Usuario dado de baja correctamente", Toast.LENGTH_SHORT).show();
+                Intent d = new Intent(getActivity(),MainActivity.class);
+                getActivity().startActivity(d);
+            }
+        }
     }
 }
