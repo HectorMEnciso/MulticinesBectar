@@ -6,16 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsCinesActivity extends Fragment {
@@ -80,7 +76,7 @@ public class MapsCinesActivity extends Fragment {
     private void setUpMap() {
 
         mMap.addMarker(new MarkerOptions().position(new LatLng(41.651, -0.88267717)).title("CINE PALAFOX").snippet("Multicine con estrenos y cine clásico"));
-        mMap.addMarker(new MarkerOptions().position(new LatLng(41.6220213, -0.8803059)).title("CINESA \nPUERTO VENCECIA 3D"));
+        mMap.addMarker(new MarkerOptions().position(new LatLng(41.6220213, -0.8803059)).title("CINESA \nPUERTO VENCECIA 3D").snippet("Cines Puerto Venecia"));
         mMap.addMarker(new MarkerOptions().position(new LatLng(41.640309, -0.909454)).title("CINES ARAGONIA").snippet("Aragonia"));
         mMap.addMarker(new MarkerOptions().position(new LatLng(41.650331, -0.88522)).title("CINES CERVANTES").snippet("Órpera y proyecciones cinematográficas"));
         mMap.addMarker(new MarkerOptions().position(new LatLng(41.6708, -0.890254)).title("CINESA GRANCASA").snippet("Cadena de cines multisala de estreno"));

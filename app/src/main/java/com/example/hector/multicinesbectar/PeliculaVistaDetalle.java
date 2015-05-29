@@ -69,7 +69,16 @@ public class PeliculaVistaDetalle extends YouTubeBaseActivity implements
         txtSinopsis.setTypeface(font);
 
         lblHorario= (TextView)findViewById(R.id.lblHoraPelicula);
+
+        Typeface horario = Typeface.createFromAsset(
+                this.getAssets(),
+                "fonts/RobotoCondensed-Bold.ttf");
+        lblHorario.setTypeface(horario);
+
+
+
         imageViewPelicula= (ImageView)findViewById(R.id.imageViewPelicula);
+
         TituloPeliculaDetalle = (TextView)findViewById(R.id.TituloPeliculaDetalle);
 
         Typeface fontTitulo = Typeface.createFromAsset(
@@ -77,11 +86,44 @@ public class PeliculaVistaDetalle extends YouTubeBaseActivity implements
                 "fonts/RobotoCondensed-BoldItalic.ttf");
         TituloPeliculaDetalle.setTypeface(fontTitulo);
 
+
+
         DirectorDetalle = (TextView)findViewById(R.id.DirectorDetalle);
+
+        Typeface directorDetalle = Typeface.createFromAsset(
+                this.getAssets(),
+                "fonts/RobotoCondensed-Italic.ttf");
+        DirectorDetalle.setTypeface(directorDetalle);
+
         InterpretesDetalle = (TextView)findViewById(R.id.InterpretesDetalle);
+
+        Typeface interpretesDetalle = Typeface.createFromAsset(
+                this.getAssets(),
+                "fonts/RobotoCondensed-Italic.ttf");
+        InterpretesDetalle.setTypeface(interpretesDetalle);
+
         GeneroDetalle = (TextView)findViewById(R.id.Genero);
+
+        Typeface generoDetalle = Typeface.createFromAsset(
+                this.getAssets(),
+                "fonts/RobotoCondensed-Italic.ttf");
+        GeneroDetalle.setTypeface(generoDetalle);
+
+
         DuracionDetalle = (TextView)findViewById(R.id.Duracion);
+
+        Typeface duracionDetalle = Typeface.createFromAsset(
+                this.getAssets(),
+                "fonts/RobotoCondensed-Italic.ttf");
+        DuracionDetalle.setTypeface(duracionDetalle);
+
+
         AnyoDetalle = (TextView)findViewById(R.id.Anyo);
+
+        Typeface añoDetalle = Typeface.createFromAsset(
+                this.getAssets(),
+                "fonts/RobotoCondensed-Italic.ttf");
+        AnyoDetalle.setTypeface(añoDetalle);
 
 
     }

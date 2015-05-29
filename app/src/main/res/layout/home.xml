@@ -40,10 +40,8 @@
                     <ListView
                         android:id="@+id/LstCines"
                         android:layout_width="wrap_content"
-                        android:divider="#0b84aa"
                         android:scrollbarStyle="outsideOverlay"
                         android:layout_height="wrap_content"
-                        android:dividerHeight="2dp"
                         android:paddingBottom="7dp"
                         android:paddingLeft="9dp"
                         android:paddingRight="9dp"
@@ -68,10 +66,8 @@
                     <ListView
                         android:id="@+id/LstPeliculas"
                         android:layout_width="wrap_content"
-                        android:divider="#ff08cca3"
                         android:scrollbarStyle="outsideOverlay"
                         android:layout_height="wrap_content"
-                        android:dividerHeight="2dp"
                         android:paddingBottom="7dp"
                         android:paddingLeft="9dp"
                         android:paddingRight="9dp"

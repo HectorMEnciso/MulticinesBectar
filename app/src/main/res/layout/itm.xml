@@ -18,6 +18,7 @@
         android:layout_height="match_parent"
         android:layout_toRightOf="@id/icon"
         android:textColor="#ffffffff"
+        android:textSize="19dp"
         android:gravity="center_vertical"
         android:paddingRight="40dp"
         android:paddingTop="15dp"
