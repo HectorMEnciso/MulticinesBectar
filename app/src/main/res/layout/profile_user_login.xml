@@ -33,31 +33,35 @@
 
         <TextView
             android:id="@+id/NombreUserLogin"
-            android:textStyle="bold"
+            android:textSize="24dp"
+            android:layout_marginBottom="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/ApellidosUserLogin"
-            android:textStyle="bold"
+            android:textSize="24dp"
+            android:layout_marginBottom="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/DNIUserLogin"
-            android:textStyle="bold"
+            android:textSize="24dp"
+            android:layout_marginBottom="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/EMAILUserLogin"
-            android:textStyle="bold"
+            android:textSize="24dp"
+            android:layout_marginBottom="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/USERNAMELogin"
-            android:textStyle="bold"
+            android:textSize="24dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -65,17 +69,20 @@
             android:id="@+id/btnEditarUserInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="20dp"
+            android:layout_marginBottom="45dp"
             android:background="@drawable/estilos_botones"
-            android:text="Presione para editar sus datos"
+            android:text="Editar"
             android:layout_gravity="center"/>
 
         <Button
             android:id="@+id/btnDarDeBaja"
             android:layout_width="match_parent"
-            android:layout_marginTop="35dp"
+            android:textSize="20dp"
             android:layout_height="wrap_content"
             android:background="@drawable/estilos_botones"
-            android:text="Presione para darse de baja"
+            android:text="Darse de baja"
             android:layout_gravity="center"/>
 
     </LinearLayout>

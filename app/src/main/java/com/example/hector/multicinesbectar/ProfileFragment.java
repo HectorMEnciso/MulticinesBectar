@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -61,12 +62,11 @@ public class ProfileFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         usuario = new Usuarios();
 
-        // get user data from session
-        HashMap<String, String> user = session.getUserDetails();
 
-        // Username
+        HashMap<String, String> user = session.getUserDetails();// get user data from session
+
         usuario.setUserName(user.get(SessionManager.KEY_USERNAME));
-        // email
+
         usuario.setEmail(user.get(SessionManager.KEY_EMAIL));
 
         usuario.setDNI(user.get(SessionManager.KEY_DNI));
@@ -75,22 +75,39 @@ public class ProfileFragment extends Fragment {
 
         usuario.setApellidos(user.get(SessionManager.KEY_Apellidos));
 
-        //usuario.setPass(user.get(SessionManager.KEY_Pass));
-
-        // usuario.setT_Credito(user.get(SessionManager.KEY_T_Credito));
-
-
-        //imageUser=(ImageView)  getActivity().findViewById(R.id.imageUser);
         NombreUserLogin = (TextView) getActivity().findViewById(R.id.NombreUserLogin);
         ApellidosUserLogin = (TextView) getActivity().findViewById(R.id.ApellidosUserLogin);
-        //PassUserLogin=(TextView) getActivity().findViewById(R.id.PassUserLogin);
         DNIUserLogin = (TextView) getActivity().findViewById(R.id.DNIUserLogin);
         EMAILUserLogin = (TextView) getActivity().findViewById(R.id.EMAILUserLogin);
         USERNAMELogin = (TextView) getActivity().findViewById(R.id.USERNAMELogin);
-        // CreditCard=(TextView) getActivity().findViewById(R.id.CreditCard);
         EditarInfo = (Button) getActivity().findViewById(R.id.btnEditarUserInfo);
         DarDeBaja=(Button) getActivity().findViewById(R.id.btnDarDeBaja);
-        // imageUser.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_user));
+
+
+        Typeface nombre = Typeface.createFromAsset(
+                getActivity().getAssets(),
+                "fonts/RobotoCondensed-BoldItalic.ttf");
+        NombreUserLogin.setTypeface(nombre);
+
+        Typeface apellidos = Typeface.createFromAsset(
+                getActivity().getAssets(),
+                "fonts/RobotoCondensed-BoldItalic.ttf");
+        ApellidosUserLogin.setTypeface(apellidos);
+
+        Typeface DNI = Typeface.createFromAsset(
+                getActivity().getAssets(),
+                "fonts/RobotoCondensed-BoldItalic.ttf");
+        DNIUserLogin.setTypeface(DNI);
+
+        Typeface email = Typeface.createFromAsset(
+                getActivity().getAssets(),
+                "fonts/RobotoCondensed-BoldItalic.ttf");
+        EMAILUserLogin.setTypeface(email);
+
+        Typeface username = Typeface.createFromAsset(
+                getActivity().getAssets(),
+                "fonts/RobotoCondensed-BoldItalic.ttf");
+        USERNAMELogin.setTypeface(username);
 
         USERNAMELogin.setText("Nombre de usuario: " + usuario.getUserName());
 
@@ -102,9 +119,6 @@ public class ProfileFragment extends Fragment {
 
         DNIUserLogin.setText("DNI: " + usuario.getDNI());
 
-//            PassUserLogin.setText("Contrasena\n"+usuario.getPass());
-
-        //CreditCard.setText("Tarjeta credito\n"+usuario.getT_Credito());
 
         EditarInfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,6 +133,10 @@ public class ProfileFragment extends Fragment {
             }
 
         });
+        Typeface edit = Typeface.createFromAsset(
+                getActivity().getAssets(),
+                "fonts/RobotoCondensed-Bold.ttf");
+        EditarInfo.setTypeface(edit);
 
 
         DarDeBaja.setOnClickListener(new View.OnClickListener() {
@@ -146,6 +164,10 @@ public class ProfileFragment extends Fragment {
                 alert11.show();
             }
         });
+        Typeface baja = Typeface.createFromAsset(
+                getActivity().getAssets(),
+                "fonts/RobotoCondensed-Bold.ttf");
+        DarDeBaja.setTypeface(baja);
     }
 
     private class TareaWEliminarUsuario extends AsyncTask<String, Integer, Boolean> {
