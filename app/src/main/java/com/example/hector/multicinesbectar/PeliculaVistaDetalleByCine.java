@@ -1,12 +1,20 @@
 package com.example.hector.multicinesbectar;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,8 +38,11 @@ public class PeliculaVistaDetalleByCine extends YouTubeBaseActivity implements
     // YouTube player view
     private YouTubePlayerView youTubeView;
 
-
-
+    private Context context;
+    private Button btnComprar;
+    private SessionManager session;
+    private Spinner compras;
+    private String opnSpinner;
     ImageView imageViewPelicula;
     TextView TituloPeliculaDetalle;
     TextView DirectorDetalle;
@@ -52,7 +63,17 @@ public class PeliculaVistaDetalleByCine extends YouTubeBaseActivity implements
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.vista_detalle_pelicula);
+
+        session = new SessionManager(this);
+        context=this;
+        session.checkLogin();
+
+        if (session.isLoggedIn()) {//si esta logeado
+            setContentView(R.layout.vista_detalle_pelicula);
+        }
+        else{
+            setContentView(R.layout.vista_detalle_pelicula_no_login);
+        }
 
         youTubeView = (YouTubePlayerView) findViewById(R.id.youtube_view);
 
@@ -71,7 +92,10 @@ public class PeliculaVistaDetalleByCine extends YouTubeBaseActivity implements
                 "fonts/RobotoCondensed-Bold.ttf");
         lblHorario.setTypeface(horario);
 
-
+        if (session.isLoggedIn()) {//si esta logeado
+            compras=(Spinner)findViewById(R.id.spncompras);
+        }
+        btnComprar=(Button)findViewById(R.id.btnComprar);
         imageViewPelicula= (ImageView)findViewById(R.id.imageViewPelicula);
         TituloPeliculaDetalle = (TextView)findViewById(R.id.TituloPeliculaDetalle);
 
@@ -128,6 +152,7 @@ public class PeliculaVistaDetalleByCine extends YouTubeBaseActivity implements
     public void onResume(){
         super.onResume();
         String horario="";
+        int tamaño=PeliculasList.size();
         for(int k = 0; k < PeliculasList.size(); k++){
             if(PeliculasList.get(k).get("NombreCine").equals(NombreCine)){
                 String horaLimpia=PeliculasList.get(k).get("Hora").substring(0,5);
@@ -151,6 +176,54 @@ public class PeliculaVistaDetalleByCine extends YouTubeBaseActivity implements
         GeneroDetalle.setText("Genero: " + Genero);
         DuracionDetalle.setText("Duracion: " + Duracion);
         AnyoDetalle.setText("Año: " + Anyo);
+
+        String[] sesiones = new String[]{};
+        if (session.isLoggedIn()) {//si esta logeado
+
+            for(int i=0;i<tamaño;i++){
+                sesiones= horario.split("\n\n");
+            }
+            ArrayAdapter<String> adap=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,sesiones);
+            adap.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            compras.setAdapter(adap);
+            final String[] finalSesiones = sesiones;
+            compras.setOnItemSelectedListener(
+                    new AdapterView.OnItemSelectedListener() {
+                        public void onItemSelected(AdapterView<?> parent,
+                                                   android.view.View v, int position, long id) {
+
+                            opnSpinner = finalSesiones[position].toString();
+                        }
+
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+            btnComprar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
+                    builder1.setMessage("Ha seleccionado: " + opnSpinner + ", ¿Está seguro?");
+                    builder1.setCancelable(true);
+                    builder1.setPositiveButton("Si",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    Toast.makeText(getApplicationContext(), "Compra realizada con éxito", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                    builder1.setNegativeButton("No",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+
+                    AlertDialog alert11 = builder1.create();
+                    alert11.show();
+                }
+            });
+        }
+
         lblHorario.setText(horario);
         txtSinopsis.setText(Sinopsis);
     }

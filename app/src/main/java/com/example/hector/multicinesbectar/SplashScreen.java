@@ -11,7 +11,7 @@ import android.widget.TextView;
  * Created by Hector on 19/05/2015.
  */
 public class SplashScreen extends Activity {
-
+    private DBController controller;
     // Splash screen timer
     private static int SPLASH_TIME_OUT = 2000;
 
@@ -20,6 +20,8 @@ public class SplashScreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        controller = new DBController(this);
+       // controller.deleteAll();
         new Handler().postDelayed(new Runnable() {
 
             /*
@@ -29,6 +31,7 @@ public class SplashScreen extends Activity {
 
             @Override
             public void run() {
+
                 // This method will be executed once the timer is over
                 // Start your app main activity
                 Intent i = new Intent(SplashScreen.this, MainActivity.class);

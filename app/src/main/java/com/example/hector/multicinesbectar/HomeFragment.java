@@ -80,8 +80,8 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         lstIrYa = (ListView) getActivity().findViewById(R.id.LstIrYa);
 
         controller = new DBController(getActivity());
-        // setupSearchView();
         ActualizarTabs();
+
         Resources res = getResources();
 
         tabs = (TabHost) getActivity().findViewById(R.id.tabhost);
@@ -207,11 +207,12 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         TareaWSListarPeliculas tareaListasPeliculas = new TareaWSListarPeliculas();
         tareaListasPeliculas.execute();
 
+        TareaWSListarSalas tareaListasProyecionesSalas = new TareaWSListarSalas();
+        tareaListasProyecionesSalas.execute();
+
         TareaWSListarProyeciones tareaListasProyeciones = new TareaWSListarProyeciones();
         tareaListasProyeciones.execute();
 
-        TareaWSListarSalas tareaListasProyecionesSalas = new TareaWSListarSalas();
-        tareaListasProyecionesSalas.execute();
     }
 
     @Override

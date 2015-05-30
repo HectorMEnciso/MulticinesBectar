@@ -7,22 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Text;
-
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.Result;
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 
 /**
  * Created by Hector on 21/01/2015.
@@ -82,9 +68,39 @@ public class DBController extends SQLiteOpenHelper {
     }
     @Override
     public void onUpgrade(SQLiteDatabase database, int version_old, int current_version) {
-        String query;
-        query = "DROP TABLE IF EXISTS Coches";
-        database.execSQL(query);
+        String queryProyecciones;
+        queryProyecciones = "DROP TABLE IF EXISTS Proyecciones";
+        database.execSQL(queryProyecciones);
+
+        String queryPeliculas;
+        queryPeliculas = "DROP TABLE IF EXISTS Peliculas";
+        database.execSQL(queryPeliculas);
+
+        String queryCines;
+        queryCines = "DROP TABLE IF EXISTS Cines";
+        database.execSQL(queryCines);
+
+        String querySalas;
+        querySalas = "DROP TABLE IF EXISTS Salas";
+        database.execSQL(querySalas);
+
+        String queryButacas;
+        queryButacas = "DROP TABLE IF EXISTS Butacas";
+        database.execSQL(queryButacas);
+
+        String queryCompras;
+        queryCompras = "DROP TABLE IF EXISTS Compras";
+        database.execSQL(queryCompras);
+
+        String queryEntradas;
+        queryEntradas = "DROP TABLE IF EXISTS Entradas";
+        database.execSQL(queryEntradas);
+
+        String queryUsuarios;
+        queryUsuarios = "DROP TABLE IF EXISTS Usuarios";
+        database.execSQL(queryUsuarios);
+
+
         onCreate(database);
     }
 
@@ -264,33 +280,42 @@ public class DBController extends SQLiteOpenHelper {
         return existe;
     }
 
-    public int updateCoche(HashMap<String, String> queryValues) {
-        SQLiteDatabase database = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("idfoto", queryValues.get("idfoto"));
-        values.put("matricula", queryValues.get("matricula"));
-        values.put("marca", queryValues.get("marca"));
-        values.put("modelo", queryValues.get("modelo"));
-        values.put("motorizacion", queryValues.get("motorizacion"));
-        values.put("cilindrada", queryValues.get("cilindrada"));
-        values.put("fechaCompra", queryValues.get("fechaCompra"));
-        return database.update("Coches", values, "id" + " = ?", new String[] { queryValues.get("id") });
-    }
-
-    public void deleteAllCoches() {
+    public void deleteAll() {
         Log.d(LOGCAT, "deleteAll");
         SQLiteDatabase database = this.getWritableDatabase();
-        String deleteQuery = "DELETE FROM Coches";
-        Log.d("query", deleteQuery);
-        database.execSQL(deleteQuery);
-    }
 
-    public void deleteCoche(String id) {
-        Log.d(LOGCAT,"delete");
-        SQLiteDatabase database = this.getWritableDatabase();
-        String deleteQuery = "DELETE FROM Coches where id='"+ id +"'";
-        Log.d("query",deleteQuery);
-        database.execSQL(deleteQuery);
+        String deleteProyecciones = "DELETE FROM Proyecciones";
+        Log.d("deleteProyecciones", deleteProyecciones);
+        database.execSQL(deleteProyecciones);
+
+        String deletePeliculas = "DELETE FROM Peliculas";
+        Log.d("deletePeliculas", deletePeliculas);
+        database.execSQL(deletePeliculas);
+
+        String deleteCines = "DELETE FROM Cines";
+        Log.d("deleteCines", deleteCines);
+        database.execSQL(deleteCines);
+
+        String deleteSalas = "DELETE FROM Salas";
+        Log.d("deleteSalas", deleteSalas);
+        database.execSQL(deleteSalas);
+
+        String deleteButacas = "DELETE FROM Butacas";
+        Log.d("deleteButacas", deleteButacas);
+        database.execSQL(deleteButacas);
+
+        String deleteEntradas = "DELETE FROM Entradas";
+        Log.d("deleteEntradas", deleteEntradas);
+        database.execSQL(deleteEntradas);
+
+        String deleteUsuarios = "DELETE FROM Usuarios";
+        Log.d("deleteUsuarios", deleteUsuarios);
+        database.execSQL(deleteUsuarios);
+
+        String deleteCompras = "DELETE FROM Compras";
+        Log.d("deleteCompras", deleteCompras);
+        database.execSQL(deleteCompras);
+
     }
 
     public ArrayList<HashMap<String, String>> getPeliculainfo(String id) {
@@ -347,70 +372,4 @@ public class DBController extends SQLiteOpenHelper {
         }
         return existe;
     }
-
-    public void GenerarXMl(ArrayList<HashMap<String, String>> map){
-        int i=0;
-        try {
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.newDocument();
-
-            doc.setXmlVersion("1.0");
-            Element raiz = doc.createElement("Coches");
-            doc.appendChild(raiz);
-
-            while(i<map.size()) {
-            Element coche = doc.createElement("coche");
-
-                Element idfoto = doc.createElement("idfoto");
-                Text textidfoto = doc.createTextNode(map.get(i).get("idfoto"));
-                idfoto.appendChild(textidfoto);
-                coche.appendChild(idfoto);
-
-                Element matricula = doc.createElement("matricula");
-                Text textmatricula = doc.createTextNode(map.get(i).get("matricula"));
-                matricula.appendChild(textmatricula);
-                coche.appendChild(matricula);
-
-                Element marca = doc.createElement("marca");
-                Text textmarca = doc.createTextNode(map.get(i).get("marca"));
-                marca.appendChild(textmarca);
-                coche.appendChild(marca);
-
-                Element modelo = doc.createElement("modelo");
-                Text textmodelo = doc.createTextNode(map.get(i).get("modelo"));
-                modelo.appendChild(textmodelo);
-                coche.appendChild(modelo);
-
-                Element motorizacion = doc.createElement("motorizacion");
-                Text textmotorizacion = doc.createTextNode(map.get(i).get("motorizacion"));
-                motorizacion.appendChild(textmotorizacion);
-                coche.appendChild(motorizacion);
-
-                Element cilindrada = doc.createElement("cilindrada");
-                Text textcilindrada = doc.createTextNode(map.get(i).get("cilindrada"));
-                cilindrada.appendChild(textcilindrada);
-                coche.appendChild(cilindrada);
-
-                Element fechaCompra = doc.createElement("fechaCompra");
-                Text textfechaCompra = doc.createTextNode(map.get(i).get("fechaCompra"));
-                fechaCompra.appendChild(textfechaCompra);
-                coche.appendChild(fechaCompra);
-
-                doc.getDocumentElement().appendChild(coche);
-                i++;
-            }
-            Source source = new DOMSource(doc);
-            Result result = new StreamResult(new File("/data/data/com.example.hector.crud/files/CochesGenerate.xml"));
-
-            // Transformación del Document al fichero
-            Transformer trans = TransformerFactory.newInstance().newTransformer();
-            trans.transform(source, result);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
 }
