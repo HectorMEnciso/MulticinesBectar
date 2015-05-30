@@ -157,7 +157,9 @@ public class PeliculaVistaDetalle extends YouTubeBaseActivity implements
         int tamaño=PeliculasList.size();
         for(int k = 0; k < PeliculasList.size(); k++){
             String horaLimpia=PeliculasList.get(k).get("Hora").substring(0,5);
-            horario=horario+PeliculasList.get(k).get("NombreCine")+": "+horaLimpia +" Sala: "+ PeliculasList.get(k).get("NumeroSala")+"\n\n";
+            String fechaSinAño=PeliculasList.get(k).get("Dia").substring(5, 10);
+            String cambioOrden=fechaSinAño.substring(3,5)+"/" +fechaSinAño.substring(0,2) ;
+            horario=horario+cambioOrden+" "+PeliculasList.get(k).get("NombreCine")+": "+horaLimpia +" Sala: "+ PeliculasList.get(k).get("NumeroSala")+"\n\n";
             TituloPelicula=PeliculasList.get(k).get("Titulo");
             Director=PeliculasList.get(k).get("Director");
             Interpretes=PeliculasList.get(k).get("Interpretes");

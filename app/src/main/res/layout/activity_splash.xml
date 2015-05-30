@@ -4,6 +4,36 @@
     android:layout_height="match_parent"
     android:background="#ff97c1d5" >
 
+    <LinearLayout android:id="@+id/header"
+        android:layout_width="fill_parent"
+        android:orientation="vertical"
+        android:background="@drawable/carrete"
+        android:layout_height="100dp"
+        android:layout_alignParentStart="true"
+        android:paddingBottom="5dip">
+    </LinearLayout>
+
+    <LinearLayout android:id="@+id/footer"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/carrete"
+        android:layout_alignParentBottom="true">
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/titleBectar1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:textSize="33dp"
+        android:textColor="#454545"
+        android:gravity="center_horizontal"
+        android:layout_alignParentTop="true"
+        android:text="Bectar" />
+
     <ImageView
         android:id="@+id/imgLogo"
         android:layout_width="wrap_content"
@@ -12,14 +42,14 @@
         android:background="@drawable/logo_bectar"/>
 
     <TextView
-        android:id="@+id/titleBectar"
+        android:id="@+id/titleBectar2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:textSize="30dp"
+        android:layout_marginBottom="100dp"
+        android:textSize="33dp"
         android:textColor="#454545"
         android:gravity="center_horizontal"
         android:layout_alignParentBottom="true"
-        android:text="Bectar Multicines" />
+        android:text="Multicines" />
 
 </RelativeLayout>

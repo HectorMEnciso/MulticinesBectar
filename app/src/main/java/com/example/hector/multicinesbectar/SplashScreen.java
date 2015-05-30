@@ -42,11 +42,17 @@ public class SplashScreen extends Activity {
             }
         }, SPLASH_TIME_OUT);
 
-        TextView title=(TextView)findViewById(R.id.titleBectar);
+        TextView title=(TextView)findViewById(R.id.titleBectar1);
         Typeface font = Typeface.createFromAsset(
                 this.getAssets(),
                 "fonts/Roboto-BlackItalic.ttf");
         title .setTypeface(font);
+
+        TextView title2=(TextView)findViewById(R.id.titleBectar2);
+        Typeface font2 = Typeface.createFromAsset(
+                this.getAssets(),
+                "fonts/Roboto-BlackItalic.ttf");
+        title2.setTypeface(font2);
     }
 
 }
