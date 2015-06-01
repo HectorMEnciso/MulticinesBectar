@@ -4,48 +4,64 @@
     android:layout_height="fill_parent">
 
     <TextView
-        android:id="@+id/IDPeliculaIrYa"
+        android:id="@+id/IDPelicula"
         android:visibility="invisible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <ImageView
-        android:id="@+id/ivContactImagePeliculaIrYa"
+        android:id="@+id/ivContactImagePelicula"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginTop="3dp"
         android:layout_alignParentLeft="true"/>
 
     <TextView
-        android:id="@+id/lblTituloPeliculaIrYa"
+        android:id="@+id/lblTituloPelicula"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="20dp"
-        android:layout_toRightOf="@+id/ivContactImagePeliculaIrYa"
+        android:paddingTop="40dp"
+        android:gravity="center_horizontal"
+        android:layout_toRightOf="@+id/ivContactImagePelicula"
         android:textStyle="bold"
         android:textAllCaps="true"
         android:typeface="sans"/>
 
     <TextView
-        android:id="@+id/lblCinePeliculaIrYa"
+        android:id="@+id/lblGenero"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:layout_below="@+id/lblTituloPeliculaIrYa"
-        android:layout_toRightOf="@+id/ivContactImagePeliculaIrYa"
+        android:textSize="15dp"
+        android:gravity="left"
+        android:paddingLeft="3dp"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/lblTituloPelicula"
+        android:layout_toRightOf="@+id/ivContactImagePelicula"
         android:textStyle="bold"
         android:textAllCaps="true"
         android:typeface="sans"/>
 
     <TextView
-        android:id="@+id/lblHoraPeliculaIrYa"
+        android:id="@+id/lblDuracion"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:layout_below="@+id/lblCinePeliculaIrYa"
-        android:layout_toRightOf="@+id/ivContactImagePeliculaIrYa"
+        android:textSize="15dp"
+        android:gravity="right"
+        android:paddingRight="3dp"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/lblGenero"
+        android:layout_toRightOf="@+id/ivContactImagePelicula"
         android:textStyle="bold"
         android:textAllCaps="true"
         android:typeface="sans"/>
+
+    <TextView
+        android:id="@+id/NombreCine"
+        android:layout_width="fill_parent"
+        android:visibility="invisible"
+        android:layout_height="wrap_content"
+        android:typeface="sans"/>
+
 
 </RelativeLayout>

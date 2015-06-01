@@ -119,7 +119,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
         IrYaList = controller.getIrYa();
 
-        adaptadorIrYa = new SimpleAdapter(getActivity(), IrYaList, R.layout.irya_layout, new String[]{"IdPelicula", "ImgPelicula", "Titulo", "NombreCine", "Hora"}, new int[]{R.id.IDPeliculaIrYa, R.id.ivContactImagePeliculaIrYa, R.id.lblTituloPeliculaIrYa, R.id.lblCinePeliculaIrYa, R.id.lblHoraPeliculaIrYa});
+        adaptadorIrYa = new SimpleAdapter(getActivity(), IrYaList, R.layout.irya_layout, new String[]{"IdPelicula", "ImgPelicula", "Titulo", "Genero", "Duracion"}, new int[]{R.id.IDPelicula, R.id.ivContactImagePelicula, R.id.lblTituloPelicula, R.id.lblGenero, R.id.lblDuracion});
         lstIrYa.setAdapter(adaptadorIrYa);
         lstIrYa.setTextFilterEnabled(true);
 
@@ -176,6 +176,40 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
 
         // ############################################################################################################################
+
+
+
+        // #######################################	VISTA DETALLE IR YA !!!!!!  #####################################################
+
+        if (IrYaList.size() != 0) {
+            lstIrYa.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                    IDPelicula = (TextView) v.findViewById(R.id.IDPelicula);
+                    Intent data = new Intent(getActivity(), PeliculaVistaDetalle.class);//Intent explicito a editActivity
+                    TextView ti = (TextView) v.findViewById(R.id.lblTituloPelicula);//Obtenemos la referencia al listView TextView
+                    String m = ti.getText().toString();//Almacenamos el texto
+                    Log.e("m ", m);
+                    for (int k = 0; k < IrYaList.size(); k++) {//Recorremos el ArrayList<Motos> datos
+                        if (IrYaList.get(k).get("Titulo").toString().equalsIgnoreCase(m)) {//Para cada elemento comparamos cada matricula
+                            x = k;//Guardamos aquella posicion cuyo elemento coincida.
+                        }
+                    }
+
+                    //Pasamos todos los datos del elemento al vistaDetalle
+
+                    data.putExtra("IdPelicula", IrYaList.get(x).get("IdPelicula"));
+                    getActivity().startActivity(data);
+                }
+            });
+
+        }
+
+
+        // ############################################################################################################################
+
+
+
 
     }
 
