@@ -195,7 +195,7 @@ public class DBController extends SQLiteOpenHelper {
     public ArrayList<HashMap<String, String>> getIrYa(){
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
-        String selectQuery = "select Peliculas.IdPelicula,ImgPelicula,Titulo,Director,Interpretes," +
+        String selectQuery = "select distinct Peliculas.IdPelicula,ImgPelicula,Titulo,Director,Interpretes," +
         "Genero,Duracion,Anyo,NombreCine,Hora from Peliculas,Proyecciones,Cines where Proyecciones.IdCine = Cines.IdCine " +
         "and Proyecciones.IdPelicula=Peliculas.IdPelicula and Date('now')=Proyecciones.Dia and Proyecciones.Hora>=time('now','localtime');";
         SQLiteDatabase database = this.getWritableDatabase();

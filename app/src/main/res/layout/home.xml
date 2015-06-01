@@ -78,10 +78,8 @@
                     <ListView
                         android:id="@+id/LstIrYa"
                         android:layout_width="wrap_content"
-                        android:divider="#0F1E81"
                         android:scrollbarStyle="outsideOverlay"
                         android:layout_height="wrap_content"
-                        android:dividerHeight="4dp"
                         android:paddingBottom="7dp"
                         android:paddingLeft="9dp"
                         android:paddingRight="9dp"
