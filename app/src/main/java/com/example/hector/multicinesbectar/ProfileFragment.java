@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpDelete;
@@ -24,10 +23,10 @@ import org.apache.http.util.EntityUtils;
 
 import java.util.HashMap;
 
-/*  Fragment para seccion perfil */ 
+
 public class ProfileFragment extends Fragment {
-    // Session Manager Class
-    private SessionManager session;
+
+    private SessionManager session;// Session Manager Class
     private ImageView imageUser;
     private TextView PassUserLogin;
     private TextView NombreUserLogin;
@@ -51,7 +50,7 @@ public class ProfileFragment extends Fragment {
 
         session.checkLogin();
 
-        if (session.isLoggedIn()) {
+        if (session.isLoggedIn()) {//si esta logeado.
             rootView = inflater.inflate(R.layout.profile_user_login, container, false);
         }
         return rootView;

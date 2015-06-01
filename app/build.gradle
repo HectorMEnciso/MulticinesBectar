@@ -25,4 +25,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile 'com.google.android.gms:play-services:7.0.0'
     compile files('libs/YouTubeAndroidPlayerApi')
+    compile files('libs/mail')
+    compile files('libs/activation')
+    compile files('libs/additionnal')
 }

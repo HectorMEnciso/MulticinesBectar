@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 
 public class NavigationAdapter extends BaseAdapter {
@@ -25,7 +24,7 @@ public class NavigationAdapter extends BaseAdapter {
        return arrayitms.get(position);
    }   
     public int getCount() {  
-      // TODO Auto-generated method stub  
+
         return arrayitms.size();  
     }    
     @Override
@@ -39,7 +38,7 @@ public class NavigationAdapter extends BaseAdapter {
     		ImageView icono;
     }  
    public View getView(int position, View convertView, ViewGroup parent) {
-      // TODO Auto-generated method stub  
+
 	   Fila view;  
        LayoutInflater inflator = activity.getLayoutInflater();
       if(convertView==null)  

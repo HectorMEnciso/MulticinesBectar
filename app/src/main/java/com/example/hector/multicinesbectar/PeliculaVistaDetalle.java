@@ -35,26 +35,26 @@ public class PeliculaVistaDetalle extends YouTubeBaseActivity implements
 
     private static final int RECOVERY_DIALOG_REQUEST = 1;
 
-    // YouTube player view
-    private YouTubePlayerView youTubeView;
+
+    private YouTubePlayerView youTubeView; // YouTube player view
     private SessionManager session;
     private Spinner compras;
     private String opnSpinner;
-    ImageView imageViewPelicula;
-    TextView TituloPeliculaDetalle;
-    TextView DirectorDetalle;
-    TextView InterpretesDetalle;
-    TextView GeneroDetalle;
-    TextView DuracionDetalle;
-    TextView AnyoDetalle;
-    TextView lblHorario;
-    TextView txtSinopsis;
+    private ImageView imageViewPelicula;
+    private TextView TituloPeliculaDetalle;
+    private TextView DirectorDetalle;
+    private TextView InterpretesDetalle;
+    private TextView GeneroDetalle;
+    private TextView DuracionDetalle;
+    private TextView AnyoDetalle;
+    private TextView lblHorario;
+    private TextView txtSinopsis;
     private Button btnComprar;
     private Context context;
-    Uri imageUri;
-    String TituloPelicula,Director,Interpretes,Genero,Duracion,Anyo,Trailer,Sinopsis;
-    DBController controller = new DBController(this);
-    ArrayList<HashMap<String, String>> PeliculasList;
+    private Uri imageUri;
+    private String TituloPelicula,Director,Interpretes,Genero,Duracion,Anyo,Trailer,Sinopsis;
+    private DBController controller = new DBController(this);
+    private ArrayList<HashMap<String, String>> PeliculasList;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,14 +75,16 @@ public class PeliculaVistaDetalle extends YouTubeBaseActivity implements
 
         youTubeView = (YouTubePlayerView) findViewById(R.id.youtube_view);
 
-        // Initializing video player with developer key
-        youTubeView.initialize(Config.DEVELOPER_KEY, this);
+
+        youTubeView.initialize(Config.DEVELOPER_KEY, this);// Inicializa el reproducto de youtube a partir de la clave generada.
 
         Intent objIntent = getIntent();
         String id = objIntent.getStringExtra("IdPelicula");
         PeliculasList = controller.getPeliculainfo(id);
         txtSinopsis= (TextView)findViewById(R.id.Sinopsis);
-
+        /*
+        * Cambiamos el tipo de la fuente a partir de la libreria roboto importada previamente.
+        * */
         Typeface font = Typeface.createFromAsset(
                 this.getAssets(),
                 "fonts/RobotoCondensed-Italic.ttf");

@@ -17,7 +17,7 @@ public class Hash {
     public Hash() {
     }
 
-    public String computeSHAHash(String userName,String password) {
+    public String computeSHAHash(String userName,String password) {//Haseamos el username junto con la contraseña
         MessageDigest mdShaPass = null;
         String HashUserPass=userName+password;
         try {

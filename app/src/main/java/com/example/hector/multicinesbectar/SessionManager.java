@@ -1,12 +1,12 @@
 package com.example.hector.multicinesbectar;
 
-import java.util.HashMap;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.widget.Toast;
+
+import java.util.HashMap;
 
 public class SessionManager {
 	// Shared Preferences
@@ -20,17 +20,13 @@ public class SessionManager {
 	
 	// Shared pref mode
 	int PRIVATE_MODE = 0;
+
+	private static final String PREF_NAME = "BectarPref";//Nombre del ficheo de las shared preferences.
+
+	private static final String IS_LOGIN = "IsLoggedIn";//Valor para saber si esta logeado.
 	
-	// Sharedpref file name
-	private static final String PREF_NAME = "BectarPref";
-	
-	// All Shared Preferences Keys
-	private static final String IS_LOGIN = "IsLoggedIn";
-	
-	// User name (make variable public to access from outside)
+	// Datos del usuario a guardar...
 	public static final String KEY_USERNAME = "UserName";
-	
-	// Email address (make variable public to access from outside)
 
 	public static final String KEY_EMAIL = "Email";
 
@@ -39,10 +35,6 @@ public class SessionManager {
 	public static final String KEY_Nombre = "Nombre";
 
 	public static final String KEY_Apellidos = "Apellidos";
-
-	//public static final String KEY_Pass = "Pass";
-
-	//public static final String KEY_T_Credito = "T_Credito";
 	
 	// Constructor
 	public SessionManager(Context context){
@@ -56,13 +48,12 @@ public class SessionManager {
 	 * */
 	public void createLoginSession(String UserName, String Email,
 		 String DNI,String Nombre,String Apellidos,String Pass,String T_Credito){
-		// Storing login value as TRUE
-		editor.putBoolean(IS_LOGIN, true);
+
+		editor.putBoolean(IS_LOGIN, true);//guardamos como que se ha logeado a true
 		
-		// Storing name in pref
+		// Guardos estos datos en el xml de la preferencias.
 		editor.putString(KEY_USERNAME, UserName);
-		
-		// Storing email in pref
+
 		editor.putString(KEY_EMAIL, Email);
 
 		editor.putString(KEY_Nombre, Nombre);
@@ -71,13 +62,7 @@ public class SessionManager {
 
 		editor.putString(KEY_Apellidos, Apellidos);
 
-		//editor.putString(KEY_Pass, Pass);
-
-		//editor.putString(KEY_T_Credito, T_Credito);
-
-		
-		// commit changes
-		editor.commit();
+		editor.commit();//aplicamos cambios
 	}	
 	
 	/**
@@ -110,10 +95,9 @@ public class SessionManager {
 	 * */
 	public HashMap<String, String> getUserDetails(){
 		HashMap<String, String> user = new HashMap<String, String>();
-		// user name
+
 		user.put(KEY_USERNAME, pref.getString(KEY_USERNAME, null));
-		
-		// user email id
+
 		user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
 
 		user.put(KEY_DNI, pref.getString(KEY_DNI, null));
@@ -123,13 +107,9 @@ public class SessionManager {
 		user.put(KEY_Apellidos, pref.getString(KEY_Apellidos, null));
 
 		user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
-
-		//user.put(KEY_Pass, pref.getString(KEY_Pass, null));
-
-		//user.put(KEY_T_Credito, pref.getString(KEY_T_Credito, null));
 		
 		// return user
-		return user;
+		return user;//Devuevo los datos de usuario guardamos en las preferencias.
 	}
 	
 	/**
@@ -158,7 +138,6 @@ public class SessionManager {
 	 * **/
 	// Get Login State
 	public boolean isLoggedIn(){
-		return pref.getBoolean(IS_LOGIN, false);//false, valor a devolver si
-		//la preferencia no existe.
+		return pref.getBoolean(IS_LOGIN, false);
 	}
 }

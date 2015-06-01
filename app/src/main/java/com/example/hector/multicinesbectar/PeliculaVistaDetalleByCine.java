@@ -37,26 +37,25 @@ public class PeliculaVistaDetalleByCine extends YouTubeBaseActivity implements
 
     // YouTube player view
     private YouTubePlayerView youTubeView;
-
     private Context context;
     private Button btnComprar;
     private SessionManager session;
     private Spinner compras;
     private String opnSpinner;
-    ImageView imageViewPelicula;
-    TextView TituloPeliculaDetalle;
-    TextView DirectorDetalle;
-    TextView InterpretesDetalle;
-    TextView GeneroDetalle;
-    TextView DuracionDetalle;
-    TextView AnyoDetalle;
-    TextView lblHorario;
-    TextView txtSinopsis;
-    Uri imageUri;
-    String TituloPelicula,Director,Interpretes,Genero,Duracion,Anyo,Trailer,Sinopsis;
-    DBController controller = new DBController(this);
-    ArrayList<HashMap<String, String>> PeliculasList;
-    String NombreCine;
+    private ImageView imageViewPelicula;
+    private TextView TituloPeliculaDetalle;
+    private TextView DirectorDetalle;
+    private TextView InterpretesDetalle;
+    private TextView GeneroDetalle;
+    private TextView DuracionDetalle;
+    private TextView AnyoDetalle;
+    private  TextView lblHorario;
+    private TextView txtSinopsis;
+    private Uri imageUri;
+    private String TituloPelicula,Director,Interpretes,Genero,Duracion,Anyo,Trailer,Sinopsis;
+    private DBController controller = new DBController(this);
+    private ArrayList<HashMap<String, String>> PeliculasList;
+    private String NombreCine;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

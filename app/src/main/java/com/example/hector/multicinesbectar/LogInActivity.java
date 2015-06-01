@@ -21,6 +21,7 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
 public class LogInActivity extends Activity {
+
     private EditText EditPassword;
     private EditText txtEmailUserName;
     private EditText txtPassword;
@@ -29,23 +30,26 @@ public class LogInActivity extends Activity {
     private Button ShowPassword;
     private boolean sePuedeLogear = false;
     private Hash h;
-    // Session Manager Class
-    private SessionManager session;
+    private SessionManager session;// Session Manager Class
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
-        // Session Manager
-        session = new SessionManager(getApplicationContext());
+
+        session = new SessionManager(getApplicationContext()); // Session Manager
+
         h = new Hash();
 
         btnLogin=(Button)findViewById(R.id.btnLogin);
-
         txtEmailUserName=(EditText)findViewById(R.id.txtEmailUserName);
         txtPassword=(EditText)findViewById(R.id.txtPassword);
+        EditPassword=(EditText)findViewById(R.id.txtPassword);
+        ShowPassword=(Button)findViewById(R.id.ShowPassword);
+        link_to_register=(TextView)findViewById(R.id.link_to_register);
 
         Bundle b;
-        b = getIntent().getExtras();
+        b = getIntent().getExtras();//recogemos el intent con la informacion asociada.
 
         if(b != null) {
             String username = b.getString("username");
@@ -55,10 +59,6 @@ public class LogInActivity extends Activity {
                 txtEmailUserName.setText(username);
             }
         }
-
-        EditPassword=(EditText)findViewById(R.id.txtPassword);
-        ShowPassword=(Button)findViewById(R.id.ShowPassword);
-        link_to_register=(TextView)findViewById(R.id.link_to_register);
 
         link_to_register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,18 +93,19 @@ public class LogInActivity extends Activity {
             }
         });
     }
-
+    /*Tarea asincrona encargada de comprobar la existencia del usuario que se va a logear, si existe permite el logeo.*/
     private class TareaWSLogIn extends AsyncTask<String,Integer,Boolean> {
-        //ArrayList<Usuarios> usuarios = new ArrayList<Usuarios>();
+
         Usuarios usuario = new Usuarios();
+
         protected Boolean doInBackground(String... params) {
 
             boolean resul = true;
 
             HttpClient httpClient = new DefaultHttpClient();
-           //HttpGet del = new HttpGet("http://10.0.2.2:49461/Api/Usuarios/Usuario/"+params[0].toString());
-            //HttpGet del = new HttpGet("http://localhost:49461/Api/Usuarios/Usuario/"+params[0].toString());
+
             HttpGet del = new HttpGet("http://bectar.ddns.net/Api/Usuarios/Usuario/"+params[0].toString());
+
             del.setHeader("content-type", "application/json");
 
             try
@@ -132,9 +133,7 @@ public class LogInActivity extends Activity {
 
                     if(UserPassHasheado.equals(usuario.getPass())){
                         sePuedeLogear=true;
-                        // Creating user login session
-                        // For testing i am stroing name, email as follow
-                        // Use user real data
+                        //Creamos el login de la sesion
                         session.createLoginSession(usuario.getUserName(), usuario.getEmail(), usuario.getDNI(),
                                 usuario.getNombre(), usuario.getApellidos(), usuario.getPass(), usuario.getT_Credito());
                     }
@@ -154,8 +153,7 @@ public class LogInActivity extends Activity {
         protected void onPostExecute(Boolean result) {
             if(sePuedeLogear){
                 Toast.makeText(getApplicationContext(),getString(R.string.SesionIniciada),Toast.LENGTH_SHORT).show();
-                        // Staring MainActivity
-                        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                Intent i = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(i);
                 finish();
             }

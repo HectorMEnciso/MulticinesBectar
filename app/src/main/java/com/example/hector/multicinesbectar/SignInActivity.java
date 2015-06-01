@@ -18,7 +18,6 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
-import java.util.ArrayList;
 
 public class SignInActivity extends Activity {
     private TextView nombre;
@@ -83,8 +82,7 @@ public class SignInActivity extends Activity {
             boolean resul = true;
             //le enviamos el nickname al web service
             HttpClient httpClient = new DefaultHttpClient();
-           // HttpGet del = new HttpGet("http://10.0.2.2:49461/Api/Usuarios/Usuario/"+params[4].toString());
-           // HttpGet del = new HttpGet("http://localhost:49461/Api/Usuarios/Usuario/"+params[4].toString());
+
             HttpGet del = new HttpGet("http://bectar.ddns.net/Api/Usuarios/Usuario/"+params[4].toString());
 
             del.setHeader("content-type", "application/json");
@@ -103,8 +101,6 @@ public class SignInActivity extends Activity {
 
                 if(SePuedeinsertar){
 
-                    //HttpPost post = new HttpPost("http://10.0.2.2:49461/Api/Usuarios/Usuario");
-                   // HttpPost post = new HttpPost("http://localhost:49461/Api/Usuarios/Usuario");
                     HttpPost post = new HttpPost("http://bectar.ddns.net/Api/Usuarios/Usuario");
                     post.setHeader("content-type", "application/json");
 
@@ -113,9 +109,7 @@ public class SignInActivity extends Activity {
                         //Construimos el objeto cliente en formato JSON
                         JSONObject dato = new JSONObject();
 
-                        //dato.put("Id", Integer.parseInt(txtId.getText().toString()));
                         dato.put("DNI", params[0]);
-                        //dato.put("ImgUsuario", params[1]);
                         dato.put("Nombre", params[1]);
                         dato.put("Apellidos", params[2]);
                         dato.put("Email", params[3]);

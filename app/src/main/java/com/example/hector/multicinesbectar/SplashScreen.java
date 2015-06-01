@@ -11,44 +11,33 @@ import android.widget.TextView;
  * Created by Hector on 19/05/2015.
  */
 public class SplashScreen extends Activity {
-    private DBController controller;
-    // Splash screen timer
-    private static int SPLASH_TIME_OUT = 2000;
+
+    private static int SPLASH_TIME_OUT = 2000;// Splash screen timer
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        controller = new DBController(this);
-       // controller.deleteAll();
         new Handler().postDelayed(new Runnable() {
-
-            /*
-             * Showing splash screen with a timer. This will be useful when you
-             * want to show case your app logo / company
-             */
-
             @Override
             public void run() {
-
                 // This method will be executed once the timer is over
                 // Start your app main activity
                 Intent i = new Intent(SplashScreen.this, MainActivity.class);
                 startActivity(i);
 
-                // close this activity
-                finish();
+                finish();// close this activity
             }
         }, SPLASH_TIME_OUT);
 
-        TextView title=(TextView)findViewById(R.id.titleBectar1);
+        TextView title = (TextView) findViewById(R.id.titleBectar1);
         Typeface font = Typeface.createFromAsset(
                 this.getAssets(),
                 "fonts/Roboto-BlackItalic.ttf");
-        title .setTypeface(font);
+        title.setTypeface(font);
 
-        TextView title2=(TextView)findViewById(R.id.titleBectar2);
+        TextView title2 = (TextView) findViewById(R.id.titleBectar2);
         Typeface font2 = Typeface.createFromAsset(
                 this.getAssets(),
                 "fonts/Roboto-BlackItalic.ttf");

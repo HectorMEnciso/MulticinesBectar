@@ -2,7 +2,6 @@ package com.example.hector.multicinesbectar;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -15,8 +14,6 @@ import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -31,41 +28,30 @@ public class EditUserLoginInfo  extends Activity {
     private TextView apellidos;
     private TextView DNI;
     private TextView Email;
-    //private TextView NickName;
-   /* private TextView Pass;
-    private TextView repeatPass;
-    private TextView creditCard;*/
     private Button updateUserLoginInfo;
     private static int NO_OPTIONS=0;
-   /* private String SHAHash;*/
     private boolean SePuedeModificar=true;
-  /*  private Hash h;*/
-  private Bundle b;
-    // Session Manager Class
-    private SessionManager session;
+    private Bundle b;
+    private SessionManager session;// Session Manager Class
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_user_login_info);
 
-        // Session Manager
-        session = new SessionManager(getApplicationContext());
+        session = new SessionManager(getApplicationContext());// Session Manager
 
         nombre = (TextView) findViewById(R.id.txtName);
         apellidos = (TextView) findViewById(R.id.txtSurname);
         DNI = (TextView) findViewById(R.id.txtDNI);
         Email = (TextView) findViewById(R.id.txtEmail);
         updateUserLoginInfo = (Button) findViewById(R.id.btnEditarUserInfo);
-        //NickName= (TextView) findViewById(R.id.txtNickName);
 
-
-        b = getIntent().getExtras();
+        b = getIntent().getExtras();//Recogermos el intent con la informacion asociada.
 
         nombre.setText(b.getString("Nombre"));
         apellidos.setText(b.getString("Apellidos"));
         DNI.setText(b.getString("DNI"));
         Email.setText(b.getString("Email"));
-        //NickName.setText(b.getString("NickName"));
 
         updateUserLoginInfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,22 +65,22 @@ public class EditUserLoginInfo  extends Activity {
             }
             });
     }
-
+//Tarea asincrona encargada modificar la informacion del usuario.
     private class TareaWSModificarUser extends AsyncTask<String,Integer,Boolean> {
 
         protected Boolean doInBackground(String... params) {
 
             boolean resul = true;
-            //le enviamos el nickname al web service
             HttpClient httpClient = new DefaultHttpClient();
-            //HttpPut put = new HttpPut("http://localhost:49461/Api/Usuarios/Usuarios");
             HttpPut put = new HttpPut("http://bectar.ddns.net/Api/Usuarios/Usuario");
             put.setHeader("content-type", "application/json");
 
             try {
-                //Construimos el objeto cliente en formato JSON
-                JSONObject dato = new JSONObject();
 
+                JSONObject dato = new JSONObject();//Construimos el objeto cliente en formato JSON
+                /*
+                * Datos a enviar al WS
+                * */
                 dato.put("Nombre", params[0]);
                 dato.put("Apellidos", params[1]);
                 dato.put("Email", params[2]);

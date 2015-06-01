@@ -22,7 +22,6 @@ import android.widget.SearchView;
 import android.widget.SimpleAdapter;
 import android.widget.TabHost;
 import android.widget.TextView;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -30,34 +29,28 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/*  Fragment para seccion perfil */ 
-public class HomeFragment extends Fragment implements SearchView.OnQueryTextListener  {
-    private DBController controller;
 
-    private SearchView mSearchView; //Declaracion global del SearchView sSearchView
-    private SearchView mSearchViewCines;
+public class HomeFragment extends Fragment implements SearchView.OnQueryTextListener  {
+
+    private DBController controller;
     private TabHost tabs;
     private int x;
     private TextView IDPelicula, IDCine;
+    private ArrayList<HashMap<String, String>> CinesList;
+    private ListView lstCines; //Declaracion GLobal del listView lstCoches.
+    private SimpleAdapter adaptadorCines;
+    private ArrayList<HashMap<String, String>> PeliculasList;
+    private ListView lstPeliculas; //Declaracion GLobal del listView lstCoches.
+    private SimpleAdapter adaptadorPeliculas;
+    private ArrayList<HashMap<String, String>> IrYaList;
+    private ListView lstIrYa; //Declaracion GLobal del listView lstCoches.
+    private SimpleAdapter adaptadorIrYa;
 
     public HomeFragment() {
     }
-
-    ArrayList<HashMap<String, String>> CinesList;
-     ListView lstCines; //Declaracion GLobal del listView lstCoches.
-    SimpleAdapter adaptadorCines;
-
-    ArrayList<HashMap<String, String>> PeliculasList;
-    private ListView lstPeliculas; //Declaracion GLobal del listView lstCoches.
-    SimpleAdapter adaptadorPeliculas;
-
-    ArrayList<HashMap<String, String>> IrYaList;
-    private ListView lstIrYa; //Declaracion GLobal del listView lstCoches.
-    SimpleAdapter adaptadorIrYa;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,13 +66,12 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        // mSearchView = (SearchView) getActivity().findViewById(R.id.searchView1);//Obtenemos la referencia al SearchView mSearchView
-        // mSearchViewCines= (SearchView) getActivity().findViewById(R.id.searchView2);
         lstCines = (ListView) getActivity().findViewById(R.id.LstCines);
         lstPeliculas = (ListView) getActivity().findViewById(R.id.LstPeliculas);
         lstIrYa = (ListView) getActivity().findViewById(R.id.LstIrYa);
 
         controller = new DBController(getActivity());
+
         ActualizarTabs();
 
         Resources res = getResources();
@@ -124,11 +116,13 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         adaptadorPeliculas = new SimpleAdapter(getActivity(), PeliculasList, R.layout.peliculas_layout, new String[]{"IdPelicula", "ImgPelicula", "Titulo", "Genero", "Duracion"}, new int[]{R.id.IDPelicula, R.id.ivContactImagePelicula, R.id.lblTituloPelicula, R.id.lblGenero, R.id.lblDuracion});
         lstPeliculas.setAdapter(adaptadorPeliculas);
         lstPeliculas.setTextFilterEnabled(true);
+
         IrYaList = controller.getIrYa();
 
         adaptadorIrYa = new SimpleAdapter(getActivity(), IrYaList, R.layout.irya_layout, new String[]{"IdPelicula", "ImgPelicula", "Titulo", "NombreCine", "Hora"}, new int[]{R.id.IDPeliculaIrYa, R.id.ivContactImagePeliculaIrYa, R.id.lblTituloPeliculaIrYa, R.id.lblCinePeliculaIrYa, R.id.lblHoraPeliculaIrYa});
         lstIrYa.setAdapter(adaptadorIrYa);
-//        setupSearchView();
+        lstIrYa.setTextFilterEnabled(true);
+
         // #######################################	VISTA DETALLE !!!!!!  #####################################################
 
         if (PeliculasList.size() != 0) {
@@ -190,16 +184,6 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         ActualizarTabs();
     }
 
-   /* private void setupSearchView() {
-        mSearchView.setIconifiedByDefault(true); //Define el estado del campo de busqueda.
-        mSearchView.setOnQueryTextListener(HomeFragment.this);//Define un escuchador para para las acciones dentro del searchView
-        mSearchView.setSubmitButtonEnabled(true);//Habilita el boton Submit cuando no esta vacia.
-        //mSearchView.setQueryHint("Introduzca matricula....");//Texto a mostrar.
-    }*/
-
-
-
-
     private void ActualizarTabs() {
         TareaWSListarCines tareaListarCines = new TareaWSListarCines();
         tareaListarCines.execute();
@@ -225,20 +209,16 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         return false;
     }
 
-
+    /*Tarea asincrona con la que nos descargamos la informacion de todos los cines y lo almacenamos en la SQLITE*/
     private class TareaWSListarCines extends AsyncTask<String, Integer, Boolean> {
 
         ArrayList<Cines> cines = new ArrayList<Cines>();
-
 
         protected Boolean doInBackground(String... params) {
 
             boolean resul = true;
 
             HttpClient httpClient = new DefaultHttpClient();
-
-            //HttpGet del = new HttpGet("http://10.0.2.2:49461/Api/Cines/Cine");
-            //HttpGet del = new HttpGet("http://localhost:49461/Api/Cines/Cine");
 
             HttpGet del = new HttpGet("http://bectar.ddns.net/Api/Cines/Cine");
 
@@ -290,11 +270,10 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         }
     }
 
-
+    /*Tarea asincrona con la que nos descargamos la informacion de todas las peliculas y lo almacenamos en la SQLITE*/
     private class TareaWSListarPeliculas extends AsyncTask<String, Integer, Boolean> {
 
         ArrayList<Peliculas> peliculas = new ArrayList<Peliculas>();
-
 
         protected Boolean doInBackground(String... params) {
 
@@ -302,9 +281,8 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
             HttpClient httpClient = new DefaultHttpClient();
 
-            //HttpGet del = new HttpGet("http://10.0.2.2:49461/Api/Peliculas/Pelicula");
-            // HttpGet del = new HttpGet("http://localhost:49461/Api/Cines/Cine");
             HttpGet del = new HttpGet("http://bectar.ddns.net/Api/Peliculas/Pelicula");
+
             del.setHeader("content-type", "application/json");
 
             try {
@@ -364,7 +342,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         }
     }
 
-
+    /*Tarea asincrona con la que nos descargamos la informacion de todas las proyecciones y lo almacenamos en la SQLITE*/
     private class TareaWSListarProyeciones extends AsyncTask<String, Integer, Boolean> {
 
         ArrayList<Proyecciones> proyeciones = new ArrayList<Proyecciones>();
@@ -376,9 +354,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
             HttpClient httpClient = new DefaultHttpClient();
 
-            //HttpGet del = new HttpGet("http://10.0.2.2:49461/Api/Proyecciones/Proyeccion");
             HttpGet del = new HttpGet("http://bectar.ddns.net/Api/Proyecciones/Proyeccion");
-            // HttpGet del = new HttpGet("http://localhost:49461/Api/Cines/Cine");
 
             del.setHeader("content-type", "application/json");
 
@@ -442,8 +418,6 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
                         queryValues.put("ButacasDisponibles", String.valueOf(proyeciones.get(i).getButacasDisponibles()));
                         queryValues.put("IdCompra", String.valueOf(proyeciones.get(i).getIdCompra()));
                         controller.insertProyeccion(queryValues);
-                        // Intent objIntent = new Intent(getActivity(), MainActivity.class);
-                        //startActivity(objIntent);
                     }
                 }
                 //DialogActualizar("Peliculas");
@@ -451,11 +425,10 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         }
     }
 
-
+    /*Tarea asincrona con la que nos descargamos la informacion de todass las salas y lo almacenamos en la SQLITE*/
     private class TareaWSListarSalas extends AsyncTask<String, Integer, Boolean> {
 
         ArrayList<Salas> salas = new ArrayList<Salas>();
-
 
         protected Boolean doInBackground(String... params) {
 
@@ -463,9 +436,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
             HttpClient httpClient = new DefaultHttpClient();
 
-            //HttpGet del = new HttpGet("http://10.0.2.2:49461/Api/Salas/Sala");
             HttpGet del = new HttpGet("http://bectar.ddns.net/Api/Salas/Sala");
-            // HttpGet del = new HttpGet("http://localhost:49461/Api/Salas/Sala");
 
             del.setHeader("content-type", "application/json");
 
@@ -505,8 +476,6 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
                         queryValues.put("NumeroFilas", String.valueOf(salas.get(i).getNumeroFilas()));
                         queryValues.put("NumeroButacas", String.valueOf(salas.get(i).getNumeroButacas()));
                         controller.insertSala(queryValues);
-                        // Intent objIntent = new Intent(getActivity(), MainActivity.class);
-                        //startActivity(objIntent);
                     }
                 }
             }

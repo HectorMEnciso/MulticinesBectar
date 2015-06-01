@@ -20,7 +20,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 
 
@@ -34,68 +33,60 @@ public class MainActivity extends Activity implements SearchView.OnQueryTextList
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     private NavigationAdapter NavAdapter;
-    // Session Manager Class
-    private SessionManager session;
+    private SessionManager session;// Session Manager Class
 
-    /*private DBController controller = new DBController(this);
-    ArrayList<HashMap<String, String>> CinesList;
-    private ListView lstCines; //Declaracion GLobal del listView lstCoches.
-    SimpleAdapter adaptadorCines;*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigationdrawer_activity);
 
-        // Session class instance
-        session = new SessionManager(getApplicationContext());
+
+        session = new SessionManager(getApplicationContext());    // Session class instance
 
         session.checkLogin();
 
-        //Drawer Layout
-        NavDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        //Lista
-        NavList = (ListView) findViewById(R.id.listaDrawer);
-        //Declaramos el header el cual sera el layout de header.xml
-        View header = getLayoutInflater().inflate(R.layout.header, null);
-        //Establecemos header
-        NavList.addHeaderView(header);
-        //Tomamos listado  de imgs desde drawable
-        NavIcons = getResources().obtainTypedArray(R.array.navigation_iconos);
-        //Tomamos listado  de titulos desde el string-array de los recursos @string/nav_options
-        titulos = getResources().getStringArray(R.array.nav_options);
-        //Listado de titulos de barra de navegacion
-        NavItms = new ArrayList<Item_objct>();
-        //Agregamos objetos Item_objct al array
+
+        NavDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);//Drawer Layout
+
+        NavList = (ListView) findViewById(R.id.listaDrawer);//Lista
+
+        View header = getLayoutInflater().inflate(R.layout.header, null);//Declaramos el header el cual sera el layout de header.xml
+
+        NavList.addHeaderView(header);//Establecemos header
+
+        NavIcons = getResources().obtainTypedArray(R.array.navigation_iconos);//Tomamos listado  de imgs desde drawable
+
+        titulos = getResources().getStringArray(R.array.nav_options);//Tomamos listado  de titulos desde el string-array de los recursos @string/nav_options
+
+        NavItms = new ArrayList<Item_objct>();//Listado de titulos de barra de navegacion
+
 
         if(!session.isLoggedIn()) {//si no esta logeado
-            NavItms.add(new Item_objct(titulos[0], NavIcons.getResourceId(0, -1)));
-            //Perfil
+
+           NavItms.add(new Item_objct(titulos[0], NavIcons.getResourceId(0, -1)));
+
            NavItms.add(new Item_objct(titulos[1], NavIcons.getResourceId(1, -1)));
-            //Eventos
-            /*NavItms.add(new Item_objct(titulos[2], NavIcons.getResourceId(2, -1)));*/
-            //Lugares
-            NavItms.add(new Item_objct(titulos[3], NavIcons.getResourceId(3, -1)));
-            //Etiquetas
-            //NavItms.add(new Item_objct(titulos[4], NavIcons.getResourceId(4, -1)));
+
+           NavItms.add(new Item_objct(titulos[3], NavIcons.getResourceId(3, -1)));
+
         }
         else{
+
             NavItms.add(new Item_objct(titulos[0], NavIcons.getResourceId(0, -1)));
-            //Perfil
+
             NavItms.add(new Item_objct(titulos[1], NavIcons.getResourceId(1, -1)));
-            //Eventos
+
             NavItms.add(new Item_objct(titulos[2], NavIcons.getResourceId(2, -1)));
-            //Lugares
+
             NavItms.add(new Item_objct(titulos[3], NavIcons.getResourceId(3, -1)));
-            //Etiquetas
+
             NavItms.add(new Item_objct(titulos[4], NavIcons.getResourceId(4, -1)));
         }
 
-
-        //Declaramos y seteamos nuestro adaptador al cual le pasamos el array con los titulos
-        NavAdapter= new NavigationAdapter(this,NavItms);
+        NavAdapter= new NavigationAdapter(this,NavItms);//Declaramos y seteamos nuestro adaptador al cual le pasamos el array con los titulos
         NavList.setAdapter(NavAdapter);
-        //Siempre vamos a mostrar el mismo titulo
-        mTitle = mDrawerTitle = getTitle();
+
+        mTitle = mDrawerTitle = getTitle();//Titulo a mostrar
 
         //Declaramos el mDrawerToggle y las imgs a utilizar
         mDrawerToggle = new ActionBarDrawerToggle(
@@ -106,30 +97,29 @@ public class MainActivity extends Activity implements SearchView.OnQueryTextList
                 R.string.hello_world  /* "close drawer" description */
         ) {
 
-            /** Called when a drawer has settled in a completely closed state. */
+            /** Llamado cuando el navigation drawer se cierra */
             public void onDrawerClosed(View view) {
                 Log.e("Cerrado completo", "!!");
             }
 
-            /** Called when a drawer has settled in a completely open state. */
+            /** Llamado cuando el navigation drawer se abre */
             public void onDrawerOpened(View drawerView) {
                 Log.e("Apertura completa", "!!");
             }
         };
 
-        // Establecemos que mDrawerToggle declarado anteriormente sea el DrawerListener
-        NavDrawerLayout.setDrawerListener(mDrawerToggle);
-        //Establecemos que el ActionBar muestre el Boton Home
-        getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //Establecemos la accion al clickear sobre cualquier item del menu.
-        //De la misma forma que hariamos en una app comun con un listview.
+        NavDrawerLayout.setDrawerListener(mDrawerToggle);//Establecemos que mDrawerToggle declarado anteriormente sea el DrawerListener
+
+        getActionBar().setDisplayHomeAsUpEnabled(true); //Establecemos que el ActionBar muestre el Boton Home
+
+        //Establecemos la accion al clickear sobre cualquier item del menu
         NavList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
                 if(!session.isLoggedIn()) {//si no esta logeado
                     if(position==0){
-                        //MostrarFragmentNoLogin(position + 2);
+                        MostrarFragmentNoLogin(position + 2);
                     }
                     else{
                         MostrarFragmentNoLogin(position);
@@ -146,7 +136,6 @@ public class MainActivity extends Activity implements SearchView.OnQueryTextList
                 }
             }
         });
-
         //Cuando la aplicacion cargue por defecto mostrar la opcion Home
         if(!session.isLoggedIn()) {//si no esta logeado
             MostrarFragmentNoLogin(1);
@@ -154,14 +143,9 @@ public class MainActivity extends Activity implements SearchView.OnQueryTextList
         else{
             MostrarFragment(1);
         }
-
-
-
     }
     private void MostrarFragmentNoLogin(int position) {
-        // update the navigationdrawer_activity content by replacing fragments
         Fragment fragment = null;
-
         switch (position) {
             case 1:
                 fragment = new HomeFragment();
@@ -184,13 +168,14 @@ public class MainActivity extends Activity implements SearchView.OnQueryTextList
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
 
-            // Actualizamos el contenido segun la opcion elegida
-            NavList.setItemChecked(position, true);
+
+            NavList.setItemChecked(position, true);// Actualizamos el contenido segun la opcion elegida
+
             NavList.setSelection(position);
-            //Cambiamos el titulo en donde decia "
-            setTitle(titulos[position-1]);
-            //Cerramos el menu deslizable
-            NavDrawerLayout.closeDrawer(NavList);
+
+            setTitle(titulos[position-1]);//Cambiamos el titulo en donde decia
+
+            NavDrawerLayout.closeDrawer(NavList);//Cerramos el menu deslizable
         } else {
             //Si el fragment es nulo mostramos un mensaje de error.
             Log.e("Error  ", "MostrarFragment"+position);
@@ -276,9 +261,6 @@ public class MainActivity extends Activity implements SearchView.OnQueryTextList
         }
 
         if (id == R.id.LogOut) {
-            // Clear the session data
-            // This will clear all session data and
-            // redirect user to LoginActivity
             session.logoutUser();
             return true;
         }
@@ -294,8 +276,6 @@ public class MainActivity extends Activity implements SearchView.OnQueryTextList
         else{
             inflater.inflate(R.menu.menu_main_login, menu);
         }
-
-
         // Associate searchable configuration with the SearchView
         SearchManager searchManager =
                 (SearchManager) getSystemService(Context.SEARCH_SERVICE);

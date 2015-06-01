@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -19,7 +18,7 @@ public class MapsCinesActivity extends Fragment {
     private MapView mMapView;
     private GoogleMap mMap;
     private Bundle mBundle;
-    MapHelper mapHelper;
+    private MapHelper mapHelper;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,28 +31,26 @@ public class MapsCinesActivity extends Fragment {
         mMapView.onCreate(mBundle);
         setUpMapIfNeeded(inflatedView);
         mapHelper = new MapHelper(mMap);
-        //Set the map type
-        mapHelper.setMapType(MapTypes.NORMAL);
 
-        //Set if you want your current location to be highlighted
-        mapHelper.setCurrentLocation(true);
-
-        //To enable the zoom controls (+/- buttons)
-        mapHelper.setZoomControlsEnabled(true);
-
-        //To enable gestures
-        mapHelper.setZoomGesturesEnabled(true);
-
-        //To enable compass
-        mapHelper.setCompassEnabled(true);
-
-        //Set to have a my location button which on clicked moves to your current location
-        mapHelper.setMyLocationButtonEnabled(true);
-
-        //To enable rotation in your map
-        mapHelper.setRotateGesturesEnabled(true);
+        mapHelper.setMapType(MapTypes.NORMAL);//define el tipo de mapa
 
 
+        mapHelper.setCurrentLocation(true);//Muestra mi posicion actual
+
+
+        mapHelper.setZoomControlsEnabled(true);//Habilita los botones zoom
+
+
+        mapHelper.setZoomGesturesEnabled(true);//Habilita gestos.
+
+
+        mapHelper.setCompassEnabled(true);//Habilita la brújula
+
+
+        mapHelper.setMyLocationButtonEnabled(true);//Nos lleva a nuestra posicion actual
+
+
+        mapHelper.setRotateGesturesEnabled(true);//Permite rotacion con gestos.
 
         return inflatedView;
     }
@@ -74,7 +71,9 @@ public class MapsCinesActivity extends Fragment {
     }
 
     private void setUpMap() {
-
+        /*
+        * Mis marcadores para los cines.
+        * */
         mMap.addMarker(new MarkerOptions().position(new LatLng(41.651, -0.88267717)).title("CINE PALAFOX").snippet("Multicine con estrenos y cine clásico"));
         mMap.addMarker(new MarkerOptions().position(new LatLng(41.6220213, -0.8803059)).title("CINESA \nPUERTO VENCECIA 3D").snippet("Cines Puerto Venecia"));
         mMap.addMarker(new MarkerOptions().position(new LatLng(41.640309, -0.909454)).title("CINES ARAGONIA").snippet("Aragonia"));
@@ -88,7 +87,6 @@ public class MapsCinesActivity extends Fragment {
                 .build();
         mMap.animateCamera(CameraUpdateFactory
                 .newCameraPosition(cameraPosition));
-        //k.setCurrentLocation(true);
     }
 
     @Override

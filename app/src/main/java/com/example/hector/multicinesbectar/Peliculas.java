@@ -14,6 +14,10 @@ public class Peliculas {
     private String Duracion;
     private String Anyo;
     private String Trailer;
+    private String Sinopsis;
+
+    public Peliculas() {
+    }
 
     public String getSinopsis() {
         return Sinopsis;
@@ -21,11 +25,6 @@ public class Peliculas {
 
     public void setSinopsis(String sinopsis) {
         Sinopsis = sinopsis;
-    }
-
-    private String Sinopsis;
-
-    public Peliculas() {
     }
 
     public int getIdPelicula() {
