@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -115,7 +114,8 @@ public class EditUserLoginInfo  extends Activity {
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     session.logoutUser();
-                                    Toast.makeText(getApplicationContext(), "Datos modificados correctamente", Toast.LENGTH_SHORT).show();
+                                    MyCustomToast t =  new MyCustomToast(getString(R.string.ModifyUserDataOk));
+                                    t.ShowToast(EditUserLoginInfo.this);
                                     Intent d = new Intent(getApplicationContext(),LogInActivity.class);
                                     d.putExtra("username", b.getString("NickName").toString());
                                     startActivity(d);
@@ -131,9 +131,6 @@ public class EditUserLoginInfo  extends Activity {
 
                     AlertDialog alert11 = builder1.create();
                     alert11.show();
-                }
-                else{
-                    Toast.makeText(getApplicationContext(),"Ya existe un usuario con ese nombre de usuario\nPor favor elija otro",Toast.LENGTH_SHORT).show();
                 }
             }
         }

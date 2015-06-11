@@ -146,13 +146,15 @@ public class SignInActivity extends Activity {
             if (result)
             {
                 if(SePuedeinsertar){
-                    Toast.makeText(getApplicationContext(),"Usuario registrado correctamente",Toast.LENGTH_SHORT).show();
+                    MyCustomToast t =  new MyCustomToast(getString(R.string.RegisterSuccess));
+                    t.ShowToast(SignInActivity.this);
                     Intent d = new Intent(getApplicationContext(),LogInActivity.class);
                     d.putExtra("username",NickName.getText().toString());
                     startActivity(d);
                 }
                 else{
-                    Toast.makeText(getApplicationContext(),"Ya existe un usuario con ese nombre de usuario\nPor favor elija otro",Toast.LENGTH_SHORT).show();
+                    MyCustomToast t =  new MyCustomToast(getString(R.string.UserAlreadyExists));
+                    t.ShowToast(SignInActivity.this);
                 }
             }
         }

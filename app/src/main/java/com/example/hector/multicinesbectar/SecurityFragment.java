@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -33,9 +32,9 @@ public class SecurityFragment extends Fragment {
     private EditText RepeatNewPass;
     private EditText CreditCard;
     private Button EditarInfo;
-    private boolean EqualPass=false;
-    private boolean correctPass=false;
-    private boolean EqualPass2=false;
+    private boolean NewPassEqualOldPass = false;
+    private boolean correctPass = false;
+    private boolean NewPassEqualRepeatNewPass = false;
     private Hash h;
     public SecurityFragment() {
     }
@@ -115,9 +114,10 @@ public class SecurityFragment extends Fragment {
                     if (UserPassHasheado.equals(usuario.getPass())) {
                             correctPass = true;
                                 if (OldPass.getText().toString().equals(NewPass.getText().toString())) {
-                                EqualPass = true;
-                                 } else if (NewPass.getText().toString().equals(RepeatNewPass.getText().toString())) {
-                                 EqualPass2 = true;
+                                    NewPassEqualOldPass = true;
+                                 }
+                                if (NewPass.getText().toString().equals(RepeatNewPass.getText().toString())) {
+                                     NewPassEqualRepeatNewPass = true;
                                 }
                     }
                  }
@@ -126,7 +126,7 @@ public class SecurityFragment extends Fragment {
               Log.e("ServicioRest", "Error!", ex);
               resul = false;
             }
-                    if(correctPass && !EqualPass && EqualPass2){
+                    if(correctPass && NewPassEqualOldPass==false && NewPassEqualRepeatNewPass){
 
                     HttpClient httpClient1 = new DefaultHttpClient();
                     HttpPut put = new HttpPut("http://bectar.ddns.net/Api/Usuarios/Usuario");
@@ -158,14 +158,27 @@ public class SecurityFragment extends Fragment {
         }
         protected void onPostExecute(Boolean result) {
             if (result)
-            {   if(correctPass){
-                session.logoutUser();
-                Toast.makeText(getActivity(), "Datos modificados correctamente", Toast.LENGTH_SHORT).show();
-                Intent d = new Intent(getActivity(),LogInActivity.class);
-                d.putExtra("username",(usuario.getUserName().toString()));
-                getActivity().startActivity(d);
-            }
+            {   if(correctPass && NewPassEqualOldPass==false && NewPassEqualRepeatNewPass){
+                    session.logoutUser();
+                    MyCustomToast t =  new MyCustomToast(getString(R.string.ModifyUserDataOk));
+                    t.ShowToast(getActivity());
+                    Intent d = new Intent(getActivity(),LogInActivity.class);
+                    d.putExtra("username",(usuario.getUserName().toString()));
+                    getActivity().startActivity(d);
+                }
+                else if(!correctPass){
+                MyCustomToast t =  new MyCustomToast(getString(R.string.PasswordIncorrect2));
+                t.ShowToast(getActivity());
+                }
+                else if(NewPassEqualOldPass){
+                MyCustomToast t =  new MyCustomToast(getString(R.string.OldPassEqualNewPass));
+                t.ShowToast(getActivity());
 
+                }
+                else if(NewPassEqualRepeatNewPass==false){
+                MyCustomToast t =  new MyCustomToast(getString(R.string.NewPassEqualRepeatNewPass));
+                t.ShowToast(getActivity());
+                }
             }
         }
     }

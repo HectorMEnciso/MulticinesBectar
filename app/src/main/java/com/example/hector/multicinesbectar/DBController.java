@@ -349,6 +349,28 @@ public class DBController extends SQLiteOpenHelper {
         return wordList;
     }
 
+
+    public ArrayList<HashMap<String, String>> getAllSalas() {
+        ArrayList<HashMap<String, String>> wordList;
+        wordList = new ArrayList<HashMap<String, String>>();
+        String selectQuery = "SELECT * FROM Salas";
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put("IdSala", cursor.getString(0));
+                map.put("NumeroSala", cursor.getString(1));
+                map.put("NumeroFilas", cursor.getString(2));
+                map.put("NumeroButacas", cursor.getString(3));
+                wordList.add(map);
+            } while (cursor.moveToNext());
+        }
+        return wordList;
+    }
+
+
+
     public void insertSala(HashMap<String, String> queryValues ) {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();

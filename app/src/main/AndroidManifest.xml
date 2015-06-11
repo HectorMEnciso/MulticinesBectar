@@ -106,6 +106,12 @@
             android:label="@string/title_DetailView" >
         </activity>
 
+        <activity
+            android:name=".MyCustomToast">
+        </activity>
+
+
+
     </application>
 
 </manifest>

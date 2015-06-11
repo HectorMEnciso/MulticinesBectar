@@ -17,7 +17,7 @@ public class SessionManager {
 	
 	// Context
 	Context _context;
-	
+
 	// Shared pref mode
 	int PRIVATE_MODE = 0;
 

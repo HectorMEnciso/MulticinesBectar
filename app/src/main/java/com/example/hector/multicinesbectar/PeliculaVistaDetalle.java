@@ -213,7 +213,8 @@ public class PeliculaVistaDetalle extends YouTubeBaseActivity implements
                     builder1.setPositiveButton("Si",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                   Toast.makeText(getApplicationContext(),"Compra realizada con éxito",Toast.LENGTH_SHORT).show();
+                                    MyCustomToast t =  new MyCustomToast(getString(R.string.BuySuccess));
+                                    t.ShowToast(PeliculaVistaDetalle.this);
                                 }
                             });
                     builder1.setNegativeButton("No",

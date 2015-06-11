@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpDelete;
@@ -197,7 +197,8 @@ public class ProfileFragment extends Fragment {
         protected void onPostExecute(Boolean result) {
             if (result) {
                 session.logoutUser();
-                Toast.makeText(getActivity(), "Usuario dado de baja correctamente", Toast.LENGTH_SHORT).show();
+                MyCustomToast t =  new MyCustomToast(getString(R.string.UserDelete));
+                t.ShowToast(getActivity());
                 Intent d = new Intent(getActivity(),MainActivity.class);
                 getActivity().startActivity(d);
             }
