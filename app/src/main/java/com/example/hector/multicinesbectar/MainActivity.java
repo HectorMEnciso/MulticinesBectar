@@ -280,6 +280,8 @@ public class MainActivity extends Activity implements SearchView.OnQueryTextList
             tareaListasProyeciones.execute();/*Tarea asincrona con la que nos descargamos la informacion de todos los cines y lo almacenamos en la SQLITE*/
 
             DialogActualizar("Peliculas");
+
+
             return true;
         }
 

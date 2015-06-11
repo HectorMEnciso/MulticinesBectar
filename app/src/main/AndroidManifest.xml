@@ -107,11 +107,12 @@
         </activity>
 
         <activity
-            android:name=".MyCustomToast">
+        android:name=".MyCustomToast">
+    </activity>
+
+        <activity
+            android:name=".HomeFragment">
         </activity>
-
-
-
     </application>
 
 </manifest>
