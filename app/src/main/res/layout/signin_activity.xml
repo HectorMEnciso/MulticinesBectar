@@ -154,10 +154,12 @@
                 android:singleLine="true"/>
             <Button
                 android:id="@+id/btnSignIn"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_below="@+id/txtCreditCard"
                 android:background="@drawable/estilos_botones"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="5dp"
                 android:text="Registrarse"
                 android:textStyle="bold"
                 android:layout_marginTop="10dp"

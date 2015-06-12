@@ -94,8 +94,10 @@
 
             <Button
                 android:id="@+id/btnLogin"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:background="@drawable/estilos_botones"
+                android:layout_gravity="center"
+                android:padding="5dp"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:layout_marginTop="10dip"
@@ -107,9 +109,9 @@
                 android:layout_marginTop="20dip"
                 android:background="@drawable/rounded_corner"
                 android:layout_marginBottom="40dip"
-                android:text="Eres nuevo en Bectar? Registre aquí"
+                android:text="Eres nuevo en Bectar? Registrese aquí"
                 android:gravity="center"
-                android:textSize="20dip"
+                android:textSize="19dip"
                 android:textColor="#B91414"/>
 
         </LinearLayout>

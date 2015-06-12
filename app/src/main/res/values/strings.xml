@@ -33,7 +33,7 @@
     <string name="ContrasenasRequerida">Por favor, introduzca una contraseña</string>
     <string name="ContrasenasNoCoinciden">Las contraseñas no coinciden</string>
     <string name="EditUserLoginInfo">Editar</string>
-    <string name="txtDialog"> Se van a editar sus datos,Para que se apliquen deberá volver a iniciar sesión, ¿Está seguro?</string>
+    <string name="txtDialog"> Se van a editar sus datos,para que se apliquen deberá volver a iniciar sesión, ¿Está seguro?</string>
     <string name="txtDialogBaja"> Se va a dar de baja, ¿Está seguro?</string>
     <string name="txtDialogSecurity"> Se van a modificar datos de gran importancia, ¿Está seguro?</string>
     <string name="SesionIniciada">Ha iniciado sesión</string>
