@@ -1,5 +1,6 @@
 package com.example.hector.multicinesbectar;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -18,6 +19,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hector.multicinesbectar.imageutils.ImageLoader;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
@@ -43,6 +45,7 @@ public class PeliculaVistaDetalleByCine extends YouTubeBaseActivity implements
     private Spinner compras;
     private String opnSpinner;
     private ImageView imageViewPelicula;
+    private ImageLoader imgLoader;
     private TextView TituloPeliculaDetalle;
     private TextView DirectorDetalle;
     private TextView InterpretesDetalle;
@@ -64,6 +67,7 @@ public class PeliculaVistaDetalleByCine extends YouTubeBaseActivity implements
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         session = new SessionManager(this);
+        imgLoader= new ImageLoader((Activity) context);
         context=this;
         session.checkLogin();
 
@@ -170,7 +174,7 @@ public class PeliculaVistaDetalleByCine extends YouTubeBaseActivity implements
             Trailer=PeliculasList.get(k).get("Trailer");
             Sinopsis=PeliculasList.get(k).get("Sinopsis");
         }
-        imageViewPelicula.setImageURI(imageUri);
+        imgLoader.DisplayImage(imageUri.toString(),imageViewPelicula);
         TituloPeliculaDetalle.setText(TituloPelicula);
         DirectorDetalle.setText("Director: " + Director);
         InterpretesDetalle.setText("Interpretes: " + Interpretes);

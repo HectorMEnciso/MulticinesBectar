@@ -7,8 +7,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 /**
@@ -18,7 +18,8 @@ public class PeliculasByCine extends Activity{
     private DBController controller;
     private ArrayList<HashMap<String, String>> PeliculasByCineList;
     private ListView lstPeliculasByCine;
-    private SimpleAdapter adaptadorPeliculasByCine;
+    //private SimpleAdapter adaptadorPeliculasByCine;
+    private PeliculasAdapter adaptadorPeliculas;
     private int x;
     private TextView IDPelicula;
     private TextView NombreCine;
@@ -36,9 +37,9 @@ public class PeliculasByCine extends Activity{
 
         PeliculasByCineList=controller.getAllPeliculasByCineId(IdCine);
 
-        adaptadorPeliculasByCine=new SimpleAdapter(this,PeliculasByCineList, R.layout.peliculas_layout, new String[] { "IdPelicula" ,"ImgPelicula","Titulo","Genero","Duracion","NombreCine"}, new int[] {R.id.IDPelicula,R.id.ivContactImagePelicula,R.id.lblTituloPelicula, R.id.lblGenero,R.id.lblDuracion,R.id.NombreCine});
+        adaptadorPeliculas=new PeliculasAdapter(this,PeliculasByCineList);
 
-        lstPeliculasByCine.setAdapter(adaptadorPeliculasByCine);
+        lstPeliculasByCine.setAdapter(adaptadorPeliculas);
 
         // #######################################	VISTA DETALLE !!!!!!  #####################################################
 
