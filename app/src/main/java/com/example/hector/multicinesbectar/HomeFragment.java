@@ -1,22 +1,15 @@
 package com.example.hector.multicinesbectar;
 
 import android.app.Fragment;
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.SearchView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -24,7 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class HomeFragment extends Fragment implements SearchView.OnQueryTextListener  {
+public class HomeFragment extends Fragment{
 
     private DBController controller;
     private TabHost tabs;
@@ -55,9 +48,11 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+
         lstCines = (ListView) getActivity().findViewById(R.id.LstCines);
         lstPeliculas = (ListView) getActivity().findViewById(R.id.LstPeliculas);
         lstIrYa = (ListView) getActivity().findViewById(R.id.LstIrYa);
+
 
         controller = new DBController(getActivity());
 
@@ -193,50 +188,5 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
 
         // ############################################################################################################################
-
-
-
-
-    }
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        return false;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        return false;
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_main, menu);
-        // Retrieves the system search manager service
-        final SearchManager searchManager =
-                (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-        MenuItem searchItem = menu.findItem(R.id.search);
-        // Retrieves the SearchView from the search menu item
-        final SearchView searchView = (SearchView) searchItem.getActionView();
-
-        // Assign searchable info to SearchView
-        searchView.setSearchableInfo(
-                searchManager.getSearchableInfo(getActivity().getComponentName()));
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                if (TextUtils.isEmpty(newText)) {
-                    lstCines.clearTextFilter();
-                } else {
-                    lstCines.setFilterText(newText.toString());
-                }
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-        });
     }
 }

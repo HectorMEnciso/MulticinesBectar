@@ -7,7 +7,7 @@
         android:actionViewClass="android.widget.SearchView" />
 
     <item android:id="@+id/update"
-        android:title="@string/search_title"
+        android:title="Actualizar"
         android:icon="@android:drawable/stat_notify_sync"
         android:showAsAction="ifRoom"/>
 

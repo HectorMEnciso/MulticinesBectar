@@ -2,19 +2,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.hector.multicinesbectar"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.0">
 
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="21" />
 
-    <permission
-        android:name="com.myapp.android.locationapi.maps.permission.MAPS_RECEIVE"
-        android:protectionLevel="signature" />
-
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
+    <permission
+        android:name="com.myapp.android.locationapi.maps.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
 
     <uses-permission android:name="com.myapp.android.locationapi.maps.permission.MAPS_RECEIVE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -25,21 +24,18 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-    <meta-data
-        android:name="com.google.android.maps.v2.API_KEY"
-        android:value="AIzaSyA8cy0-_Guf40XLFOXWgvDJTtH0pRPjfVg" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/MyCustomTheme" >
+        android:theme="@style/MyCustomTheme">
         <!-- Splash screen -->
         <activity
             android:name="com.example.hector.multicinesbectar.SplashScreen"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Black.NoTitleBar" >
+            android:theme="@android:style/Theme.Black.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -48,35 +44,36 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
-            <!--<intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:label="@string/app_name">
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".SearchResultsActivity" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+        </activity>
 
+        <activity
+            android:name=".LogInActivity"
+            android:label="Log in into Bectar"></activity>
+        <activity
+            android:name=".SignInActivity"
+            android:label="Sign in into Bectar"></activity>
+
+        <!-- Search results activity -->
+        <activity
+            android:name=".SearchResultsActivity"
+            android:parentActivityName=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
 
-        <activity
-            android:name=".LogInActivity"
-            android:label="Log in into Bectar" >
-        </activity>
-        <activity
-            android:name=".SignInActivity"
-            android:label="Sign in into Bectar" >
-        </activity>
-        <activity android:name=".SearchResultsActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-        </activity>
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
         <!-- Google API Key -->
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
@@ -84,35 +81,25 @@
 
         <activity
             android:name=".MapsCinesActivity"
-            android:label="@string/title_activity_maps" >
-        </activity>
+            android:label="@string/title_activity_maps"></activity>
         <activity
             android:name=".PeliculaVistaDetalle"
-            android:label="@string/title_DetailView" >
-        </activity>
+            android:label="@string/title_DetailView"></activity>
 
         <activity
             android:name=".PeliculasByCine"
-            android:label="@string/PeliculasByCine" >
-        </activity>
+            android:label="@string/PeliculasByCine"></activity>
 
         <activity
             android:name=".EditUserLoginInfo"
-            android:label="@string/EditUserLoginInfo" >
-        </activity>
+            android:label="@string/EditUserLoginInfo"></activity>
 
         <activity
             android:name=".PeliculaVistaDetalleByCine"
-            android:label="@string/title_DetailView" >
-        </activity>
+            android:label="@string/title_DetailView"></activity>
 
-        <activity
-        android:name=".MyCustomToast">
-    </activity>
+        <activity android:name=".MyCustomToast"></activity>
 
-        <activity
-            android:name=".HomeFragment">
-        </activity>
     </application>
 
 </manifest>
