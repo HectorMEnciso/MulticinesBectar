@@ -19,6 +19,10 @@ public class MyCustomToast {
         this.ToasText=ToasText;
     }
 
+    public MyCustomToast() {
+
+    }
+
     public void ShowToast(Activity context){
 
         LayoutInflater inflater = context.getLayoutInflater();

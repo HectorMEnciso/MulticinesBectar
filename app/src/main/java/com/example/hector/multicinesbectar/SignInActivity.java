@@ -33,10 +33,13 @@ public class SignInActivity extends Activity {
     private String SHAHash;
     private boolean SePuedeinsertar=true;
     private Hash h;
+    private Mail m;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signin_activity);
+
+        m = new Mail("hectorencisolezcano@gmail.com", "egjiirqirzfauyjy");
 
         h = new Hash();
 
@@ -64,6 +67,8 @@ public class SignInActivity extends Activity {
                                     NickName.getText().toString(),
                                     h.computeSHAHash(NickName.getText().toString(), Pass.getText().toString()),
                                     h.computeSHAHash(creditCard.getText().toString()));
+                            TareaSendEmail i = new TareaSendEmail();
+                            i.execute(email.getText().toString());
                         }
                         else{
                             Toast.makeText(getApplicationContext(),getString(R.string.ContrasenasNoCoinciden),Toast.LENGTH_SHORT).show();
@@ -75,6 +80,47 @@ public class SignInActivity extends Activity {
             }
         });
     }
+
+    private class TareaSendEmail extends AsyncTask<String, Integer, Boolean> {
+        String ok="";
+        @Override
+        protected Boolean doInBackground(String... params) {
+            boolean resul = true;
+
+            String[] toArr = {params[0]}; // This is an array, you can add more emails, just separate them with a coma
+            m.setTo(toArr); // load array to setTo function
+            m.setFrom("hectorencisolezcano@gmail.com"); // who is sending the email
+            m.setSubject("¡Bienvenido a Bectar!");
+            m.setBody("Desde el equipo directivo de Bectar espero esperamos que disfrute con nosotros, Gracias por registrarse :)");
+
+            try {
+                // m.addAttachment(getResources().getResourceName(R.drawable.logo_bectar).toString());  // path to file you want to attach
+                if(m.send())
+                    ok="Success";
+
+            } catch(Exception e) {
+                // some other problem
+                Toast.makeText(SignInActivity.this, "There was a problem sending the email.", Toast.LENGTH_LONG).show();
+            }
+
+
+            return resul;
+        }
+        protected void onPostExecute(Boolean result) {
+
+            if (result) {
+
+                if(ok.equals("Success")){
+                    Toast.makeText(SignInActivity.this, "Email was sent successfully.", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    Toast.makeText(SignInActivity.this, "Email was not sent.", Toast.LENGTH_LONG).show();
+                }
+
+            }
+        }
+    }
+
     private class TareaWSRegistrarUser extends AsyncTask<String,Integer,Boolean> {
 
         protected Boolean doInBackground(String... params) {

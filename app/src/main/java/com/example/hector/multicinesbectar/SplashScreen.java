@@ -27,6 +27,7 @@ public class SplashScreen extends Activity {
 
     private static int SPLASH_TIME_OUT = 3000;// Splash screen timer
     private DBController controller = new DBController(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +46,7 @@ public class SplashScreen extends Activity {
 
         TareaWSListarProyeciones tareaListasProyeciones = new TareaWSListarProyeciones();
         tareaListasProyeciones.execute();/*Tarea asincrona con la que nos descargamos la informacion de todos los cines y lo almacenamos en la SQLITE*/
+
 
 
         new Handler().postDelayed(new Runnable() {
@@ -72,6 +74,9 @@ public class SplashScreen extends Activity {
         title2.setTypeface(font2);
     }
 
+
+
+
     private class TareaWSListarCines extends AsyncTask<String, Integer, Boolean> {
 
         ArrayList<Cines> cines = new ArrayList<Cines>();
@@ -79,6 +84,7 @@ public class SplashScreen extends Activity {
         protected Boolean doInBackground(String... params) {
 
             boolean resul = true;
+
 
             HttpClient httpClient = new DefaultHttpClient();
 
