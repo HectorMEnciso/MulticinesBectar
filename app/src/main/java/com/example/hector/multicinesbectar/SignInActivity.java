@@ -39,7 +39,7 @@ public class SignInActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signin_activity);
 
-        m = new Mail("hectorencisolezcano@gmail.com", "egjiirqirzfauyjy");
+        m = new Mail("bectarmulticines@gmail.com", "Iz2zRcCh");
 
         h = new Hash();
 
@@ -82,21 +82,21 @@ public class SignInActivity extends Activity {
     }
 
     private class TareaSendEmail extends AsyncTask<String, Integer, Boolean> {
-        String ok="";
+
         @Override
         protected Boolean doInBackground(String... params) {
             boolean resul = true;
 
             String[] toArr = {params[0]}; // This is an array, you can add more emails, just separate them with a coma
             m.setTo(toArr); // load array to setTo function
-            m.setFrom("hectorencisolezcano@gmail.com"); // who is sending the email
+            m.setFrom("bectarmulticines@gmail.com"); // who is sending the email
             m.setSubject("¡Bienvenido a Bectar!");
-            m.setBody("Desde el equipo directivo de Bectar espero esperamos que disfrute con nosotros, Gracias por registrarse :)");
+            m.setBody("Desde el equipo directivo de Bectar esperamos que disfrute con nosotros, Gracias por registrarse :)");
 
             try {
                 // m.addAttachment(getResources().getResourceName(R.drawable.logo_bectar).toString());  // path to file you want to attach
-                if(m.send())
-                    ok="Success";
+                m.send();
+
 
             } catch(Exception e) {
                 // some other problem
@@ -105,19 +105,6 @@ public class SignInActivity extends Activity {
 
 
             return resul;
-        }
-        protected void onPostExecute(Boolean result) {
-
-            if (result) {
-
-                if(ok.equals("Success")){
-                    Toast.makeText(SignInActivity.this, "Email was sent successfully.", Toast.LENGTH_LONG).show();
-                }
-                else{
-                    Toast.makeText(SignInActivity.this, "Email was not sent.", Toast.LENGTH_LONG).show();
-                }
-
-            }
         }
     }
 
