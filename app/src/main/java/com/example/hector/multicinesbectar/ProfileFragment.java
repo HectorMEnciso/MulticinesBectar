@@ -35,8 +35,11 @@ public class ProfileFragment extends Fragment {
     private TextView EMAILUserLogin;
     private TextView USERNAMELogin;
     private TextView CreditCard;
+    private TextView Idioma;
     private Button EditarInfo,DarDeBaja;
+    private final String[] languages=new String[]{"English","Spanish"};
     private Usuarios usuario = null;
+    private String opnSpinner;
 
     public ProfileFragment() {
     }
@@ -74,6 +77,8 @@ public class ProfileFragment extends Fragment {
 
         usuario.setApellidos(user.get(SessionManager.KEY_Apellidos));
 
+        usuario.setLanguage(user.get(SessionManager.KEY_Language));
+
         NombreUserLogin = (TextView) getActivity().findViewById(R.id.NombreUserLogin);
         ApellidosUserLogin = (TextView) getActivity().findViewById(R.id.ApellidosUserLogin);
         DNIUserLogin = (TextView) getActivity().findViewById(R.id.DNIUserLogin);
@@ -81,6 +86,7 @@ public class ProfileFragment extends Fragment {
         USERNAMELogin = (TextView) getActivity().findViewById(R.id.USERNAMELogin);
         EditarInfo = (Button) getActivity().findViewById(R.id.btnEditarUserInfo);
         DarDeBaja=(Button) getActivity().findViewById(R.id.btnDarDeBaja);
+        Idioma = (TextView) getActivity().findViewById(R.id.Idioma);
 
 
         Typeface nombre = Typeface.createFromAsset(
@@ -108,6 +114,13 @@ public class ProfileFragment extends Fragment {
                 "fonts/RobotoCondensed-BoldItalic.ttf");
         USERNAMELogin.setTypeface(username);
 
+        Typeface idioma = Typeface.createFromAsset(
+                getActivity().getAssets(),
+                "fonts/RobotoCondensed-BoldItalic.ttf");
+        Idioma.setTypeface(idioma);
+
+
+
         USERNAMELogin.setText("Nombre de usuario: " + usuario.getUserName());
 
         EMAILUserLogin.setText("Email: " + usuario.getEmail());
@@ -117,6 +130,8 @@ public class ProfileFragment extends Fragment {
         ApellidosUserLogin.setText("Apellidos: " + usuario.getApellidos());
 
         DNIUserLogin.setText("DNI: " + usuario.getDNI());
+
+        Idioma.setText("Idioma: " + usuario.getLanguage());
 
 
         EditarInfo.setOnClickListener(new View.OnClickListener() {
@@ -128,6 +143,7 @@ public class ProfileFragment extends Fragment {
                 datos.putExtra("DNI", usuario.getDNI());
                 datos.putExtra("Email", usuario.getEmail());
                 datos.putExtra("NickName", usuario.getUserName());
+                datos.putExtra("Idioma", usuario.getLanguage());
                 getActivity().startActivity(datos);
             }
 

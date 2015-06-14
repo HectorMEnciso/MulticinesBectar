@@ -2,10 +2,13 @@ package com.example.hector.multicinesbectar;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +22,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
+import java.util.Locale;
+
 public class LogInActivity extends Activity {
 
     private EditText EditPassword;
@@ -30,12 +35,12 @@ public class LogInActivity extends Activity {
     private boolean sePuedeLogear = false;
     private Hash h;
     private SessionManager session;// Session Manager Class
-
+    private String idioma;
+    private Locale myLocale;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
-
 
 
         session = new SessionManager(getApplicationContext()); // Session Manager
@@ -127,7 +132,9 @@ public class LogInActivity extends Activity {
                     usuario.setNombre(respJSON.get("Nombre").toString());
                     usuario.setApellidos(respJSON.get("Apellidos").toString());
                     usuario.setT_Credito(respJSON.get("T_Credito").toString());
+                    usuario.setLanguage(respJSON.get("Idioma").toString());
 
+                    idioma=respJSON.get("Idioma").toString();
                     String UserPassHasheado;
 
                     UserPassHasheado=h.computeSHAHash(params[0].toString(),params[1].toString());
@@ -136,7 +143,7 @@ public class LogInActivity extends Activity {
                         sePuedeLogear=true;
                         //Creamos el login de la sesion
                         session.createLoginSession(usuario.getUserName(), usuario.getEmail(), usuario.getDNI(),
-                                usuario.getNombre(), usuario.getApellidos(), usuario.getPass(), usuario.getT_Credito());
+                                usuario.getNombre(), usuario.getApellidos(), usuario.getPass(), usuario.getT_Credito(),usuario.getLanguage());
                     }
                     else{
                         sePuedeLogear=false;
@@ -155,6 +162,13 @@ public class LogInActivity extends Activity {
             if(sePuedeLogear){
                 MyCustomToast t =  new MyCustomToast(getString(R.string.SesionIniciada));
                 t.ShowToast(LogInActivity.this);
+
+                if(idioma.equals("English")){
+                    setLocale("en");
+                }
+                else{
+                    setLocale("es");
+                }
                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(i);
                 finish();
@@ -164,5 +178,14 @@ public class LogInActivity extends Activity {
                 t.ShowToast(LogInActivity.this);
             }
         }
+    }
+    public void setLocale(String lang) {
+
+        myLocale = new Locale(lang);
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
     }
 }

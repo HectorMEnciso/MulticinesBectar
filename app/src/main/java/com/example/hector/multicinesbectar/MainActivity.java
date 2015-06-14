@@ -8,11 +8,13 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -33,6 +35,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 
 
 public class MainActivity extends Activity implements SearchView.OnQueryTextListener {
@@ -47,6 +50,7 @@ public class MainActivity extends Activity implements SearchView.OnQueryTextList
     private NavigationAdapter NavAdapter;
     private SessionManager session;// Session Manager Class
     private DBController controller = new DBController(this);
+    private Locale myLocale;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +61,12 @@ public class MainActivity extends Activity implements SearchView.OnQueryTextList
 
         session.checkLogin();
 
+        if(session.getUserDetails().get("Language").equals("English")){
+            setLocale("en");
+        }
+        else{
+            setLocale("es");
+        }
 
         NavDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);//Drawer Layout
 
@@ -156,7 +166,15 @@ public class MainActivity extends Activity implements SearchView.OnQueryTextList
             MostrarFragment(1);
         }
     }
+    public void setLocale(String lang) {
 
+        myLocale = new Locale(lang);
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
+    }
     private void MostrarFragmentNoLogin(int position) {
         Fragment fragment = null;
         switch (position) {
@@ -297,6 +315,8 @@ public class MainActivity extends Activity implements SearchView.OnQueryTextList
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 
     public void DialogActualizar(String tab) {
 

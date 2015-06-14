@@ -8,7 +8,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.apache.http.HttpResponse;
@@ -27,11 +30,15 @@ public class EditUserLoginInfo  extends Activity {
     private TextView apellidos;
     private TextView DNI;
     private TextView Email;
+    private Spinner spinner;
     private Button updateUserLoginInfo;
     private static int NO_OPTIONS=0;
     private boolean SePuedeModificar=true;
+    private final String[] languages=new String[]{"English","Spanish"};
     private Bundle b;
     private SessionManager session;// Session Manager Class
+    private String opnSpinner;
+    private int posLanguage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +51,12 @@ public class EditUserLoginInfo  extends Activity {
         DNI = (TextView) findViewById(R.id.txtDNI);
         Email = (TextView) findViewById(R.id.txtEmail);
         updateUserLoginInfo = (Button) findViewById(R.id.btnEditarUserInfo);
+        spinner = (Spinner) findViewById(R.id.selectLanguage);
+
+        ArrayAdapter<String> adap=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,languages);
+        adap.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adap);
+
 
         b = getIntent().getExtras();//Recogermos el intent con la informacion asociada.
 
@@ -51,6 +64,32 @@ public class EditUserLoginInfo  extends Activity {
         apellidos.setText(b.getString("Apellidos"));
         DNI.setText(b.getString("DNI"));
         Email.setText(b.getString("Email"));
+        opnSpinner=b.getString("Idioma");
+
+        switch (opnSpinner){
+            case "English":
+                posLanguage=0;
+                break;
+            case "Spanish":
+                posLanguage=1;
+                break;
+        }
+        spinner.setSelection(posLanguage);
+
+
+        spinner.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
+                    public void onItemSelected(AdapterView<?> parent,
+                                               android.view.View v, int position, long id) {
+
+                        opnSpinner = languages[position].toString();
+                    }
+
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+
 
         updateUserLoginInfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +99,7 @@ public class EditUserLoginInfo  extends Activity {
                         apellidos.getText().toString(),
                         Email.getText().toString(),
                         DNI.getText().toString(),
-                        b.getString("NickName").toString());
+                        b.getString("NickName").toString(),opnSpinner);
             }
             });
     }
@@ -85,6 +124,7 @@ public class EditUserLoginInfo  extends Activity {
                 dato.put("Email", params[2]);
                 dato.put("DNI", params[3]);
                 dato.put("UserName",params[4]);
+                dato.put("Idioma",params[5]);
 
                 StringEntity entity = new StringEntity(dato.toString());
                 put.setEntity(entity);

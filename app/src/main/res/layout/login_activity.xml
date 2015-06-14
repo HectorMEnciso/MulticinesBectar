@@ -104,9 +104,10 @@
                 android:text="Iniciar Sesión"/>
 
             <TextView android:id="@+id/link_to_register"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dip"
+                android:layout_gravity="center"
                 android:background="@drawable/rounded_corner"
                 android:layout_marginBottom="40dip"
                 android:text="Eres nuevo en Bectar? Registrese aquí"

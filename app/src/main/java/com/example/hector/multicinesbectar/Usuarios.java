@@ -13,7 +13,7 @@ public class Usuarios {
     public String UserName;
     public String Pass;
     public String T_Credito;
-
+    public String Language;
 
     public Usuarios() {
     }
@@ -90,4 +90,11 @@ public class Usuarios {
         T_Credito = t_Credito;
     }
 
+    public String getLanguage() {
+        return Language;
+    }
+
+    public void setLanguage(String language) {
+        Language = language;
+    }
 }

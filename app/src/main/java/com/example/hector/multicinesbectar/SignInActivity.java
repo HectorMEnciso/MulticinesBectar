@@ -6,7 +6,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,11 +31,13 @@ public class SignInActivity extends Activity {
     private TextView Pass;
     private TextView repeatPass;
     private TextView creditCard;
+    private Spinner spinner;
     private Button signIn;
     private static int NO_OPTIONS=0;
-    private String SHAHash;
+    private String SHAHash,opnSpinner;
     private boolean SePuedeinsertar=true;
     private Hash h;
+    private final String[] languages=new String[]{"English","Spanish"};
     private Mail m;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,30 +57,72 @@ public class SignInActivity extends Activity {
         repeatPass = (TextView) findViewById(R.id.txtRepeatPassword);
         creditCard = (TextView) findViewById(R.id.txtCreditCard);
         signIn = (Button) findViewById(R.id.btnSignIn);
+        spinner= (Spinner) findViewById(R.id.selectLanguage);
+
+        ArrayAdapter<String> adap=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,languages);
+        adap.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adap);
+
+        spinner.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
+                    public void onItemSelected(AdapterView<?> parent,
+                                               android.view.View v, int position, long id) {
+
+                        opnSpinner=languages[position].toString();
+                    }
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+
 
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!Pass.getText().toString().equals("") && !repeatPass.getText().toString().equals("")){
-                        if((Pass.getText().toString().equals(repeatPass.getText().toString()))){
+                if(nombre.getText().toString().trim().length()!=0 || email.getText().toString().trim().length()!=0 || apellidos.getText().toString().trim().length()!=0
+                        ||  dni.getText().toString().trim().length()!=0 || NickName.getText().toString().trim().length()!=0) {
+
+                    if (!Pass.getText().toString().equals("") && !repeatPass.getText().toString().equals("")) {
+
+
+                        if ((Pass.getText().toString().equals(repeatPass.getText().toString()))) {
+
                             TareaWSRegistrarUser tarea = new TareaWSRegistrarUser();
-                            tarea.execute(
-                                    dni.getText().toString(),
-                                    nombre.getText().toString(),
-                                    apellidos.getText().toString(),
-                                    email.getText().toString(),
-                                    NickName.getText().toString(),
-                                    h.computeSHAHash(NickName.getText().toString(), Pass.getText().toString()),
-                                    h.computeSHAHash(creditCard.getText().toString()));
+
+                            if (creditCard.getText().toString().trim().length() == 0) {//Controlamos que el usuario no rellene el campo tarjeta de credito
+                                tarea.execute(
+                                        dni.getText().toString(),
+                                        nombre.getText().toString(),
+                                        apellidos.getText().toString(),
+                                        email.getText().toString(),
+                                        NickName.getText().toString(),
+                                        h.computeSHAHash(NickName.getText().toString(), Pass.getText().toString()),
+                                        "",opnSpinner);
+                            } else {
+                                tarea.execute(
+                                        dni.getText().toString(),
+                                        nombre.getText().toString(),
+                                        apellidos.getText().toString(),
+                                        email.getText().toString(),
+                                        NickName.getText().toString(),
+                                        h.computeSHAHash(NickName.getText().toString(), Pass.getText().toString()),
+                                        h.computeSHAHash(creditCard.getText().toString()),opnSpinner);
+                            }
+
                             TareaSendEmail i = new TareaSendEmail();
                             i.execute(email.getText().toString());
+                        } else {
+                            MyCustomToast t =  new MyCustomToast(getString(R.string.ContrasenasNoCoinciden));
+                            t.ShowToast(SignInActivity.this);
                         }
-                        else{
-                            Toast.makeText(getApplicationContext(),getString(R.string.ContrasenasNoCoinciden),Toast.LENGTH_SHORT).show();
-                        }
+                    } else {
+                        MyCustomToast t =  new MyCustomToast(getString(R.string.ContrasenasRequerida));
+                        t.ShowToast(SignInActivity.this);
+                    }
                 }
                 else{
-                    Toast.makeText(getApplicationContext(),getString(R.string.ContrasenasRequerida),Toast.LENGTH_SHORT).show();
+                    MyCustomToast t =  new MyCustomToast(getString(R.string.CamposObligartorios));
+                    t.ShowToast(SignInActivity.this);
                 }
             }
         });
@@ -129,7 +176,6 @@ public class SignInActivity extends Activity {
                 else
                 {
                     SePuedeinsertar=false;
-                    JSONObject respJSON = new JSONObject(respStr);
                 }
 
                 if(SePuedeinsertar){
@@ -149,6 +195,7 @@ public class SignInActivity extends Activity {
                         dato.put("UserName", params[4]);
                         dato.put("Pass", params[5]);
                         dato.put("T_Credito", params[6]);
+                        dato.put("Idioma", params[7]);
 
                         StringEntity entity = new StringEntity(dato.toString());
                         post.setEntity(entity);

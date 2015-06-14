@@ -35,6 +35,8 @@ public class SessionManager {
 	public static final String KEY_Nombre = "Nombre";
 
 	public static final String KEY_Apellidos = "Apellidos";
+
+	public static final String KEY_Language= "Language";
 	
 	// Constructor
 	public SessionManager(Context context){
@@ -47,7 +49,7 @@ public class SessionManager {
 	 * Create login session
 	 * */
 	public void createLoginSession(String UserName, String Email,
-		 String DNI,String Nombre,String Apellidos,String Pass,String T_Credito){
+		 String DNI,String Nombre,String Apellidos,String Pass,String T_Credito,String Language){
 
 		editor.putBoolean(IS_LOGIN, true);//guardamos como que se ha logeado a true
 		
@@ -61,6 +63,8 @@ public class SessionManager {
 		editor.putString(KEY_DNI, DNI);
 
 		editor.putString(KEY_Apellidos, Apellidos);
+
+		editor.putString(KEY_Language, Language);
 
 		editor.commit();//aplicamos cambios
 	}	
@@ -107,6 +111,8 @@ public class SessionManager {
 		user.put(KEY_Apellidos, pref.getString(KEY_Apellidos, null));
 
 		user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
+
+		user.put(KEY_Language, pref.getString(KEY_Language, null));
 		
 		// return user
 		return user;//Devuevo los datos de usuario guardamos en las preferencias.

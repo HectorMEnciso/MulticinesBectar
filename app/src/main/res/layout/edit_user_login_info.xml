@@ -92,6 +92,17 @@
                 android:inputType="textEmailAddress"
                 android:singleLine="true"/>
 
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#372c24"
+                android:text="Idioma"/>
+
+            <Spinner
+                android:id="@+id/selectLanguage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
             <Button
                 android:id="@+id/btnEditarUserInfo"
                 android:layout_width="wrap_content"
