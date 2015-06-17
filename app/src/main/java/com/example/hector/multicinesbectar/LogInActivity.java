@@ -133,6 +133,7 @@ public class LogInActivity extends Activity {
                     usuario.setApellidos(respJSON.get("Apellidos").toString());
                     usuario.setT_Credito(respJSON.get("T_Credito").toString());
                     usuario.setLanguage(respJSON.get("Idioma").toString());
+                    usuario.setIdUsuario(Integer.parseInt((respJSON.get("IdUsuario").toString())));
 
                     idioma=respJSON.get("Idioma").toString();
                     String UserPassHasheado;
@@ -143,7 +144,7 @@ public class LogInActivity extends Activity {
                         sePuedeLogear=true;
                         //Creamos el login de la sesion
                         session.createLoginSession(usuario.getUserName(), usuario.getEmail(), usuario.getDNI(),
-                                usuario.getNombre(), usuario.getApellidos(), usuario.getPass(), usuario.getT_Credito(),usuario.getLanguage());
+                                usuario.getNombre(), usuario.getApellidos(), usuario.getPass(), usuario.getT_Credito(),usuario.getLanguage(),String.valueOf(usuario.getIdUsuario()));
                     }
                     else{
                         sePuedeLogear=false;
@@ -179,6 +180,7 @@ public class LogInActivity extends Activity {
             }
         }
     }
+
     public void setLocale(String lang) {
 
         myLocale = new Locale(lang);

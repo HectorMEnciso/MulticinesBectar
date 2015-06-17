@@ -29,6 +29,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:id="@+id/linearLayout"
             android:textStyle="italic">
 
             <TextView
@@ -55,9 +56,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sinopsis"
-                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Sinopsis"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -66,18 +67,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
                 android:textSize="18dp" />
 
             <TextView
                 android:id="@+id/Detalles"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
                 android:text="Detalles"
                 android:textSize="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
                 android:textStyle="bold" />
 
 
@@ -85,40 +86,40 @@
                 android:id="@+id/DirectorDetalle"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
                 android:textSize="18dp" />
 
             <TextView
                 android:id="@+id/InterpretesDetalle"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
                 android:textSize="18dp" />
 
             <TextView
                 android:id="@+id/Genero"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
                 android:textSize="18dp" />
 
             <TextView
                 android:id="@+id/Duracion"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
                 android:textSize="18dp" />
 
             <TextView
                 android:id="@+id/Anyo"
                 android:layout_width="fill_parent"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
                 android:textSize="18dp" />
 
 
@@ -126,9 +127,9 @@
                 android:id="@+id/Horarios"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Horarios"
-                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Horarios"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -137,40 +138,42 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/lblCinePelicula"
+                android:layout_marginTop="5dp"
                 android:layout_toRightOf="@+id/ivContactImagePelicula"
                 android:gravity="left"
                 android:textSize="19dp"
-                android:layout_marginTop="5dp"
                 android:textStyle="normal"
                 android:typeface="normal" />
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-                        <Spinner
-                            android:id="@+id/spncompras"
 
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                        <Button
-                            android:id="@+id/btnComprar"
-                            android:layout_width="wrap_content"
-                            android:background="@drawable/estilos_botones"
-                            android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:layout_gravity="center"
-                            android:padding="15dp"
-                            android:layout_marginTop="10dip"
-                            android:text="Comprar"/>
-                </LinearLayout>
+                <Spinner
+                    android:id="@+id/spncompras"
+
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:id="@+id/btnComprar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dip"
+                    android:background="@drawable/estilos_botones"
+                    android:padding="15dp"
+                    android:text="Comprar"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/Trailer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Trailer"
                 android:layout_marginBottom="10dp"
+                android:text="Trailer"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -179,6 +182,45 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp" />
+
+            <TextView
+                android:id="@+id/Valoraciones"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:visibility="invisible"
+                android:text="Valoraciones de otros usuarios"
+                android:textSize="18dp" />
+
+
+            <TextView
+                android:id="@+id/vUsuarios"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:textSize="18dp"/>
+
+
+            <Button
+                android:id="@+id/btnAnadirValoracion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dip"
+                android:background="@drawable/estilos_botones"
+                android:padding="15dp"
+                android:text="Añadir valoracion"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:layout_width="fill_parent"

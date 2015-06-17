@@ -65,6 +65,12 @@ public class DBController extends SQLiteOpenHelper {
         "Fecha TEXT,PrecioEntrada REAL, NumeroSala integer,NumeroButaca integer,FOREIGN KEY (IdCompra) references Compras (IdCompra))";
         database.execSQL(queryEntradas);
         Log.d(LOGCAT,"Entradas Created");
+
+        String queryValoraciones= "CREATE TABLE Valoraciones (IdValoracion integer primary key AUTOINCREMENT,IdUsuario integer,IdPelicula integer,UserName TEXT," +
+        "TextoValoracion TEXT,ValorRatingBar REAL,FOREIGN KEY (IdUsuario) references Usuarios (IdUsuario),FOREIGN KEY (IdPelicula) references Peliculas (IdPelicula))";
+        database.execSQL(queryValoraciones);
+        Log.d(LOGCAT,"Valoraciones Created");
+
     }
     @Override
     public void onUpgrade(SQLiteDatabase database, int version_old, int current_version) {
@@ -104,6 +110,42 @@ public class DBController extends SQLiteOpenHelper {
         onCreate(database);
     }
 
+    public boolean existeValoracion (int id){
+        boolean existe=false;
+        String selectQuery = "SELECT * FROM Valoraciones where IdValoracion='" + id+"'";
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()){
+            existe=true;
+        }
+        else {
+            existe = false;
+        }
+        return existe;
+    }
+
+
+    public ArrayList<HashMap<String, String>> getValoracionesByIdPelicula(String IdPelicula){
+        ArrayList<HashMap<String, String>> wordList;
+        wordList = new ArrayList<HashMap<String, String>>();
+        String selectQuery = "select IdValoracion,TextoValoracion,ValorRatingBar,Valoraciones.UserName from Valoraciones,Peliculas  where Valoraciones.IdPelicula=Peliculas.IdPelicula " +
+                "and Peliculas.IdPelicula='"+IdPelicula+"'";
+        SQLiteDatabase database = this.getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> map = new HashMap<String, String>();
+                map.put("IdValoracion", cursor.getString(0));
+                map.put("TextoValoracion", cursor.getString(1));
+                map.put("ValorRatingBar", cursor.getString(2));
+                map.put("UserName", cursor.getString(3));
+                wordList.add(map);
+            } while (cursor.moveToNext());
+        }
+        return wordList;
+    }
+
+
     public ArrayList<HashMap<String, String>> getAllCines() {
         ArrayList<HashMap<String, String>> wordList;
         wordList = new ArrayList<HashMap<String, String>>();
@@ -122,6 +164,22 @@ public class DBController extends SQLiteOpenHelper {
         }
         return wordList;
     }
+
+
+
+    public void insertValoracion(HashMap<String, String> queryValues ) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("IdValoracion", queryValues.get("IdValoracion"));
+        values.put("IdUsuario", queryValues.get("IdUsuario"));
+        values.put("IdPelicula", queryValues.get("IdPelicula"));
+        values.put("UserName", queryValues.get("UserName"));
+        values.put("TextoValoracion", queryValues.get("TextoValoracion"));
+        values.put("ValorRatingBar", queryValues.get("ValorRatingBar"));
+        database.insert("Valoraciones", null, values);
+        database.close();
+    }
+
 
     public void insertCine(HashMap<String, String> queryValues ) {
         SQLiteDatabase database = this.getWritableDatabase();

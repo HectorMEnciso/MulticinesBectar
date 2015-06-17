@@ -47,7 +47,8 @@ public class SplashScreen extends Activity {
         TareaWSListarProyeciones tareaListasProyeciones = new TareaWSListarProyeciones();
         tareaListasProyeciones.execute();/*Tarea asincrona con la que nos descargamos la informacion de todos los cines y lo almacenamos en la SQLITE*/
 
-
+        TareaWSListarValoraciones val = new TareaWSListarValoraciones();
+        val.execute();
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -75,6 +76,67 @@ public class SplashScreen extends Activity {
     }
 
 
+    private class TareaWSListarValoraciones extends AsyncTask<String, Integer, Boolean> {
+
+        ArrayList<Valoraciones> valoraciones = new ArrayList<Valoraciones>();
+
+        protected Boolean doInBackground(String... params) {
+
+            boolean resul = true;
+
+            HttpClient httpClient = new DefaultHttpClient();
+
+            HttpGet del = new HttpGet("http://bectar.ddns.net/Api/Valoraciones/Valoracion");
+
+            del.setHeader("content-type", "application/json");
+
+            try {
+                HttpResponse resp = httpClient.execute(del);
+                String respStr = EntityUtils.toString(resp.getEntity());
+
+                JSONArray respJSON = new JSONArray(respStr);
+
+                for (int i = 0; i < respJSON.length(); i++) {
+                    JSONObject obj = respJSON.getJSONObject(i);
+
+                    Valoraciones val = new Valoraciones();
+
+                    val.setIdValoracion((obj.getInt("IdValoracion")));
+                    val.setIdUsuario(obj.getInt("IdUsuario"));
+                    val.setIdPelicula(obj.getInt("IdPelicula"));
+                    val.setTextoValoracion(obj.getString("TextoValoracion"));
+                    val.setValorRatingBar(obj.getString("ValorRatingBar"));
+                    val.setUserName(obj.getString("UserName"));
+
+                    valoraciones.add(val);
+                }
+            } catch (Exception ex) {
+                Log.e("ServicioRest", "Error!", ex);
+                resul = false;
+            }
+
+            return resul;
+        }
+
+        protected void onPostExecute(Boolean result) {
+
+            if (result) {
+                for (int i = 0; i < valoraciones.size(); i++) {
+                    if (!controller.existeValoracion(valoraciones.get(i).getIdValoracion())) {
+                        HashMap<String, String> queryValues = new HashMap<String, String>();
+                        queryValues.put("IdValoracion", String.valueOf(valoraciones.get(i).getIdValoracion()));
+                        queryValues.put("IdUsuario", String.valueOf(valoraciones.get(i).getIdUsuario()));
+                        queryValues.put("IdPelicula", String.valueOf(valoraciones.get(i).getIdPelicula()));
+                        queryValues.put("UserName", valoraciones.get(i).getUserName());
+                        queryValues.put("TextoValoracion", String.valueOf(valoraciones.get(i).getTextoValoracion()));
+                        queryValues.put("ValorRatingBar", valoraciones.get(i).getValorRatingBar());
+                        controller.insertValoracion(queryValues);
+                    }
+                }
+
+            }
+        }
+    }
 
 
     private class TareaWSListarCines extends AsyncTask<String, Integer, Boolean> {
@@ -84,7 +146,6 @@ public class SplashScreen extends Activity {
         protected Boolean doInBackground(String... params) {
 
             boolean resul = true;
-
 
             HttpClient httpClient = new DefaultHttpClient();
 

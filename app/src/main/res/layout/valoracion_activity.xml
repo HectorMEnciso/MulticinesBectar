@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#B7CCF2">
+
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="fill_parent"
+        android:layout_height="70dip"
+        android:background="@drawable/carrete2"
+        android:orientation="vertical"
+        android:paddingBottom="5dip">
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/IDPeliculaDetalle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginTop="72dp"
+        android:layout_height="wrap_content"
+        android:text="Valore la pelicula"
+        android:id="@+id/textView" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_marginTop="85dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:numStars="5"
+        android:stepSize="0.5"
+        android:rating="0.0" />
+
+    <EditText
+        android:id="@+id/txtComentario"
+        android:layout_width="fill_parent"
+        android:layout_marginTop="140dp"
+        android:layout_height="wrap_content"
+        android:hint="Introduzca su comentario"/>
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtComentario"
+        android:background="@drawable/estilos_botones"
+        android:padding="15dp"
+        android:text="Enviar comentario"
+        android:textStyle="bold"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <LinearLayout
+        android:id="@+id/footer"
+        android:layout_width="fill_parent"
+        android:layout_height="70dip"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/carrete2"
+        android:orientation="vertical"
+        android:paddingTop="5dip"></LinearLayout>
+
+</RelativeLayout>

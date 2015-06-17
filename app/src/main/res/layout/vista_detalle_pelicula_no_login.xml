@@ -55,9 +55,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sinopsis"
-                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Sinopsis"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -66,18 +66,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
                 android:textSize="18dp" />
 
             <TextView
                 android:id="@+id/Detalles"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
                 android:text="Detalles"
                 android:textSize="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
                 android:textStyle="bold" />
 
 
@@ -85,40 +85,40 @@
                 android:id="@+id/DirectorDetalle"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
                 android:textSize="18dp" />
 
             <TextView
                 android:id="@+id/InterpretesDetalle"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
                 android:textSize="18dp" />
 
             <TextView
                 android:id="@+id/Genero"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
                 android:textSize="18dp" />
 
             <TextView
                 android:id="@+id/Duracion"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
                 android:textSize="18dp" />
 
             <TextView
                 android:id="@+id/Anyo"
                 android:layout_width="fill_parent"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
                 android:textSize="18dp" />
 
 
@@ -126,9 +126,9 @@
                 android:id="@+id/Horarios"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Horarios"
-                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Horarios"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -137,10 +137,10 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/lblCinePelicula"
+                android:layout_marginTop="5dp"
                 android:layout_toRightOf="@+id/ivContactImagePelicula"
                 android:gravity="left"
                 android:textSize="19dp"
-                android:layout_marginTop="5dp"
                 android:textStyle="normal"
                 android:typeface="normal" />
 
@@ -148,8 +148,8 @@
                 android:id="@+id/Trailer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Trailer"
                 android:layout_marginBottom="10dp"
+                android:text="Trailer"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 

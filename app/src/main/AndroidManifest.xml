@@ -100,6 +100,8 @@
 
         <activity android:name=".MyCustomToast"></activity>
 
+        <activity android:name=".Valoracion"></activity>
+
     </application>
 
 </manifest>

@@ -50,5 +50,5 @@
     <string name="UserAlreadyExists">Ya existe un usuario con ese nombre de usuario,por favor elija otro</string>
     <string name="DataUpdatedSuccessfully">Datos actualizados</string>
     <string name="CamposObligartorios">Todos los campos son obligatorios menos el de la tarjeta de crédito.</string>
-
+    <string name="ValoracionEnviada">Su valoracion ha sido enviada</string>
 </resources>

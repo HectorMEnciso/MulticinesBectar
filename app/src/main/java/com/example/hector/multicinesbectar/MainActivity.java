@@ -61,11 +61,12 @@ public class MainActivity extends Activity implements SearchView.OnQueryTextList
 
         session.checkLogin();
 
-        if(session.getUserDetails().get("Language").equals("English")){
-            setLocale("en");
-        }
-        else{
-            setLocale("es");
+        if (session.isLoggedIn()) {//si esta logeado.
+            if (session.getUserDetails().get("Language").equals("English")) {
+                setLocale("en");
+            } else {
+                setLocale("es");
+            }
         }
 
         NavDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);//Drawer Layout

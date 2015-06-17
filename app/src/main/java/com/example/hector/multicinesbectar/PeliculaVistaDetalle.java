@@ -18,8 +18,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.example.hector.multicinesbectar.imageutils.ImageLoader;
 
+import com.example.hector.multicinesbectar.imageutils.ImageLoader;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
@@ -52,12 +52,14 @@ public class PeliculaVistaDetalle extends YouTubeBaseActivity implements
     private TextView AnyoDetalle;
     private TextView lblHorario;
     private TextView txtSinopsis;
-    private Button btnComprar;
+    private TextView vUsu,Valoraciones;
+    private Button btnComprar,btnAnadirValoracion;
     private Context context;
     private Uri imageUri;
     private String TituloPelicula,Director,Interpretes,Genero,Duracion,Anyo,Trailer,Sinopsis;
     private DBController controller = new DBController(this);
-    private ArrayList<HashMap<String, String>> PeliculasList;
+    private ArrayList<HashMap<String, String>> PeliculasList,ValoracionesList;
+    private String id,valora;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,9 +85,15 @@ public class PeliculaVistaDetalle extends YouTubeBaseActivity implements
         youTubeView.initialize(Config.DEVELOPER_KEY, this);// Inicializa el reproducto de youtube a partir de la clave generada.
 
         Intent objIntent = getIntent();
-        String id = objIntent.getStringExtra("IdPelicula");
+        id = objIntent.getStringExtra("IdPelicula");
         PeliculasList = controller.getPeliculainfo(id);
         txtSinopsis= (TextView)findViewById(R.id.Sinopsis);
+
+        vUsu= (TextView)findViewById(R.id.vUsuarios);
+
+        Valoraciones= (TextView)findViewById(R.id.Valoraciones);
+
+        ValoracionesList=controller.getValoracionesByIdPelicula(id);
         /*
         * Cambiamos el tipo de la fuente a partir de la libreria roboto importada previamente.
         * */
@@ -107,6 +115,8 @@ public class PeliculaVistaDetalle extends YouTubeBaseActivity implements
 
         btnComprar=(Button)findViewById(R.id.btnComprar);
 
+        btnAnadirValoracion=(Button)findViewById(R.id.btnAnadirValoracion);
+
         imageViewPelicula= (ImageView)findViewById(R.id.imageViewPelicula);
 
         TituloPeliculaDetalle = (TextView)findViewById(R.id.TituloPeliculaDetalle);
@@ -115,8 +125,6 @@ public class PeliculaVistaDetalle extends YouTubeBaseActivity implements
                 this.getAssets(),
                 "fonts/RobotoCondensed-BoldItalic.ttf");
         TituloPeliculaDetalle.setTypeface(fontTitulo);
-
-
 
         DirectorDetalle = (TextView)findViewById(R.id.DirectorDetalle);
 
@@ -176,13 +184,27 @@ public class PeliculaVistaDetalle extends YouTubeBaseActivity implements
             Trailer=PeliculasList.get(k).get("Trailer");
             Sinopsis=PeliculasList.get(k).get("Sinopsis");
         }
-        imgLoader.DisplayImage(imageUri.toString(),imageViewPelicula);
+        if(ValoracionesList.size()>0){
+            Valoraciones.setVisibility(TextView.VISIBLE);
+            valora="";
+            for(int h=0; h < ValoracionesList.size();h++){
+                valora=valora+ValoracionesList.get(h).get("UserName")+": "+ ValoracionesList.get(h).get("TextoValoracion")+"  Val: "+ValoracionesList.get(h).get("ValorRatingBar")+"\n\n";
+            }
+
+
+        }
+
+
+
+        imgLoader.DisplayImage(imageUri.toString(), imageViewPelicula);
         TituloPeliculaDetalle.setText(TituloPelicula);
         DirectorDetalle.setText("Director: " + Director);
         InterpretesDetalle.setText("Interpretes: " + Interpretes);
         GeneroDetalle.setText("Genero: " + Genero);
         DuracionDetalle.setText("Duracion: " + Duracion);
         AnyoDetalle.setText("Año: " + Anyo);
+
+        vUsu.setText(valora);
 
         String[] sesiones = new String[]{};
 
@@ -212,12 +234,12 @@ public class PeliculaVistaDetalle extends YouTubeBaseActivity implements
                 @Override
                 public void onClick(View v) {
                     AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
-                    builder1.setMessage("Ha seleccionado: "+opnSpinner +", ¿Está seguro?");
+                    builder1.setMessage("Ha seleccionado: " + opnSpinner + ", ¿Está seguro?");
                     builder1.setCancelable(true);
                     builder1.setPositiveButton("Si",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    MyCustomToast t =  new MyCustomToast(getString(R.string.BuySuccess));
+                                    MyCustomToast t = new MyCustomToast(getString(R.string.BuySuccess));
                                     t.ShowToast(PeliculaVistaDetalle.this);
                                 }
                             });
@@ -233,8 +255,17 @@ public class PeliculaVistaDetalle extends YouTubeBaseActivity implements
                 }
             });
 
-        }
 
+            btnAnadirValoracion.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                  Intent i = new Intent(getApplicationContext(),Valoracion.class);
+                    i.putExtra("IdPelicula",id);
+                    startActivity(i);
+                }
+            });
+
+        }
 
 
         lblHorario.setText(horario);
@@ -261,7 +292,8 @@ public class PeliculaVistaDetalle extends YouTubeBaseActivity implements
             // loadVideo() will auto play video
             // Use cueVideo() method, if you don't want to play it automatically
             //player.loadVideo(Config.YOUTUBE_VIDEO_CODE);
-            player.loadVideo(Trailer);
+           // player.loadVideo(Trailer);
+            player.cueVideo(Trailer);
 
             // Hiding player controls
             player.setPlayerStyle(PlayerStyle.DEFAULT);
